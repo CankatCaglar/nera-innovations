@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nera Innovations
 
-## Getting Started
+Public site for the Nera product house. English only. Next.js on the front, Firebase when you want the admin panel to edit featured systems, map icons and partners.
 
-First, run the development server:
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The site works without Firebase. Seed content is already in the app.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Firebase admin
 
-## Learn More
+1. Create a Firebase project.
+2. Enable **Authentication → Email/Password** and add an admin user.
+3. Create a Firestore database and publish `firestore.rules`.
+4. Copy `.env.example` to `.env.local` and fill the web config.
+5. Sign in at `/admin` and click **Seed database**.
 
-To learn more about Next.js, take a look at the following resources:
+From the panel you can:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Feature up to 4 systems (those get homepage cards and detail pages)
+- Add or remove map icons with country + company name
+- Add or remove social-proof partners
+- Read form submissions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Forms
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Contact, Growth Review and resource requests are emailed to `info@nerasocial.com`. The first FormSubmit delivery asks you to confirm that inbox. When Firebase is connected, the same leads are stored for the admin panel.

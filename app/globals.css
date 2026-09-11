@@ -1,26 +1,129 @@
 @import "tailwindcss";
 
 :root {
+  --nera-kahve: #945d3c;
+  --nera-kahve-deep: #7a4b30;
+  --nera-gold: #dda06d;
+  --nera-white: #ffffff;
+  --nera-ink: #161311;
+  --nera-muted: #6a615a;
+  --nera-soft: #8d8379;
+  --nera-line: #ece4d8;
+  --nera-sand: #f6efe6;
+  --nera-cream: #fbf7f2;
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #161311;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-nera: var(--nera-kahve);
+  --color-nera-deep: var(--nera-kahve-deep);
+  --color-gold: var(--nera-gold);
+  --color-ink: var(--nera-ink);
+  --color-muted: var(--nera-muted);
+  --color-soft: var(--nera-soft);
+  --color-line: var(--nera-line);
+  --color-sand: var(--nera-sand);
+  --color-cream: var(--nera-cream);
+  --font-sans: var(--font-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), "Plus Jakarta Sans", sans-serif;
+  min-height: 100%;
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(221, 160, 109, 0.28);
+  color: var(--nera-ink);
+}
+
+.container-nera,
+.container-wide {
+  width: 100%;
+  max-width: none;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4.2vw, 72px);
+}
+
+.heading-display {
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--nera-kahve);
+}
+
+.card {
+  background: #fff;
+  border: 1px solid rgba(17, 17, 17, 0.05);
+  box-shadow: 0 18px 50px rgba(148, 93, 60, 0.08);
+}
+
+.dot-map {
+  background-color: transparent;
+  background-image: radial-gradient(circle, #dda06d 1.05px, transparent 1.15px);
+  background-size: 14px 14px;
+  mask-image: url("/images/world-mask.svg");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+.faq-item + .faq-item {
+  border-top: 1px solid var(--nera-line);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise {
+  animation: rise 0.7s ease both;
+}
+
+.rise-delay-1 {
+  animation-delay: 0.08s;
+}
+
+.rise-delay-2 {
+  animation-delay: 0.16s;
+}
+
+.rise-delay-3 {
+  animation-delay: 0.24s;
 }
