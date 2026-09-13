@@ -1,8 +1,8 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { getAdminDb, isFirebaseAdminConfigured } from "./firebase-admin";
-import { seedContent } from "./seed";
-import type { SiteContent } from "./types";
+import { seedContent, seedLocations, seedSystems } from "./seed";
+import type { MapLocation, SiteContent, System } from "./types";
 
 const FILE = path.join(process.cwd(), "data", "content.json");
 const CONTENT_DOC = "site/content";
@@ -11,10 +11,45 @@ function sortByOrder<T extends { order: number }>(items: T[]) {
   return [...items].sort((a, b) => a.order - b.order);
 }
 
+function mergeSeededLocations(locations: MapLocation[]) {
+  return locations.map((location) => {
+    const seeded =
+      seedLocations.find((item) => item.id === location.id) ??
+      seedLocations.find(
+        (item) =>
+          item.country === location.country &&
+          item.company === location.company,
+      );
+    if (!seeded) return location;
+    return { ...location, id: seeded.id, x: seeded.x, y: seeded.y };
+  });
+}
+
+function mergeSeededHomeFields(systems: System[]) {
+  return systems.map((system) => {
+    const seeded = seedSystems.find((item) => item.id === system.id);
+    if (!seeded) return system;
+
+    const next = { ...system };
+    if (seeded.tag && !system.tag) {
+      next.tag = seeded.tag;
+      next.tagline = seeded.tagline;
+      next.order = seeded.order;
+    }
+    if (system.id === "flowin" && seeded.image) {
+      next.image = seeded.image;
+    }
+    if (seeded.logo) {
+      next.logo = seeded.logo;
+    }
+    return next;
+  });
+}
+
 function normalizeContent(parsed: Partial<SiteContent> | undefined): SiteContent {
   return {
     systems: parsed?.systems?.length
-      ? sortByOrder(parsed.systems)
+      ? sortByOrder(mergeSeededHomeFields(parsed.systems))
       : seedContent.systems,
     projects: parsed?.projects?.length
       ? sortByOrder(parsed.projects)
@@ -23,7 +58,7 @@ function normalizeContent(parsed: Partial<SiteContent> | undefined): SiteContent
       ? sortByOrder(parsed.partners)
       : seedContent.partners,
     locations: parsed?.locations?.length
-      ? sortByOrder(parsed.locations)
+      ? sortByOrder(mergeSeededLocations(parsed.locations))
       : seedContent.locations,
   };
 }

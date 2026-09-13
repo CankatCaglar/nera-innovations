@@ -55,8 +55,8 @@ export function Trusted() {
   }
 
   return (
-    <section id="company" className="bg-[#fbf8f3]">
-      <div className="container-wide grid items-center gap-10 pt-20 pb-10 lg:grid-cols-[0.78fr_1.22fr]">
+    <section id="company" className="overflow-x-hidden bg-[#fbf8f3]">
+      <div className="container-wide grid items-center gap-10 pt-12 pb-8 lg:grid-cols-[0.78fr_1.22fr]">
         <div>
           <p className="eyebrow">About Nera</p>
           <h2 className="heading-display mt-3 text-4xl text-ink sm:text-5xl">
@@ -83,7 +83,7 @@ export function Trusted() {
           </div>
         </div>
 
-        <div className="relative">
+        <div className="relative min-w-0">
           <WorldMap
             locations={locations}
             editable={isAdmin && placing}
@@ -154,12 +154,12 @@ export function Trusted() {
         </div>
       </div>
 
-      <div className="container-wide pb-16">
-        <div className="rounded-[32px] bg-white px-6 py-8 shadow-[0_18px_50px_rgba(148,93,60,0.08)] sm:px-8 lg:px-10">
+      <div className="container-wide mt-6 pb-16">
+        <div className="overflow-hidden rounded-[32px] bg-white px-5 py-8 shadow-[0_18px_50px_rgba(148,93,60,0.08)] sm:px-8 lg:px-10">
           <div className="grid items-center gap-8 lg:grid-cols-[0.46fr_1.54fr]">
             <div>
               <p className="eyebrow">Our partners</p>
-              <h3 className="heading-display mt-3 text-3xl text-ink sm:text-4xl">
+              <h3 className="heading-display mt-3 text-[25px] text-ink sm:text-[28px] lg:whitespace-nowrap">
                 Stronger together.
               </h3>
               <p className="mt-4 max-w-xs text-sm leading-7 text-muted">

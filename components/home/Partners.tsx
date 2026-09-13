@@ -6,18 +6,22 @@ import { BrandIcon } from "@/components/ui/BrandIcon";
 export function PartnerRow() {
   const { partners } = useSiteContent();
 
+  const items = [...partners].sort((a, b) => a.order - b.order);
+
   return (
-    <div className="flex flex-wrap items-center gap-x-6 gap-y-6 lg:flex-nowrap lg:justify-between">
-      {partners.map((partner, index) => (
-        <div key={partner.id} className="flex items-center gap-6">
+    <div className="grid grid-cols-2 gap-x-4 gap-y-5 lg:flex lg:flex-nowrap lg:items-center lg:justify-between lg:gap-6">
+      {items.map((partner, index) => (
+        <div key={partner.id} className="flex min-w-0 items-center gap-2.5 lg:gap-6">
           {index > 0 ? (
             <span className="hidden h-8 w-px shrink-0 bg-line lg:block" />
           ) : null}
-          <div className="flex min-w-0 items-center gap-3">
-            <BrandIcon name={partner.name} className="h-7 w-7 shrink-0 text-ink" />
+          <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
+            <BrandIcon name={partner.name} className="h-6 w-6 shrink-0 text-ink sm:h-7 sm:w-7" />
             <div className="min-w-0">
-              <p className="text-sm font-semibold tracking-tight text-ink">{partner.name}</p>
-              <p className="text-xs text-soft">{partner.label}</p>
+              <p className="truncate text-sm font-semibold tracking-tight text-ink">
+                {partner.name}
+              </p>
+              <p className="truncate text-xs text-soft">{partner.label}</p>
             </div>
           </div>
         </div>
@@ -34,7 +38,7 @@ export function Partners() {
           <div className="grid items-center gap-8 lg:grid-cols-[0.55fr_1.45fr]">
             <div>
               <p className="eyebrow">Our partners</p>
-              <h2 className="heading-display mt-3 text-3xl text-ink sm:text-4xl">
+              <h2 className="heading-display mt-3 text-[25px] text-ink sm:text-[28px] lg:whitespace-nowrap">
                 Stronger together.
               </h2>
               <p className="mt-4 max-w-sm text-sm leading-7 text-muted">

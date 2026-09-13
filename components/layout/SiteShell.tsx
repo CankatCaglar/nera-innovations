@@ -7,7 +7,7 @@ import { WhatsAppButton } from "./WhatsAppButton";
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-full flex-col bg-background">
-      <div className="sticky top-0 z-50">
+      <div data-sticky-header className="sticky top-0 z-50">
         <AdminBar />
         <Header />
       </div>

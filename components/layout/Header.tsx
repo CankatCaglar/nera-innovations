@@ -6,11 +6,23 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { NAV } from "@/lib/constants";
+import { scrollToHash } from "@/lib/scroll";
 import { Button } from "@/components/ui/Button";
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  function handleNavClick(
+    event: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) {
+    setOpen(false);
+    if (pathname !== "/" || !href.startsWith("/#")) return;
+    if (!scrollToHash(href)) return;
+    event.preventDefault();
+    window.history.replaceState(null, "", href);
+  }
 
   return (
     <header className="border-b border-black/4 bg-white/90 backdrop-blur-xl">
@@ -49,6 +61,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={(event) => handleNavClick(event, item.href)}
                 className={`transition-colors hover:text-nera ${active ? "text-nera" : ""}`}
               >
                 {item.label}
@@ -85,7 +98,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                onClick={() => setOpen(false)}
+                onClick={(event) => handleNavClick(event, item.href)}
                 className="py-1"
               >
                 {item.label}

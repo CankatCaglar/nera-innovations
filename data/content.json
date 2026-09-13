@@ -128,16 +128,16 @@
       "id": "canada-altnok",
       "country": "Canada",
       "company": "Altnok",
-      "x": 16.666666666666664,
-      "y": 20.57142857142857,
+      "x": 18.333333333333332,
+      "y": 19.928571428571427,
       "order": 1
     },
     {
       "id": "usa-bimaks",
       "country": "USA",
       "company": "Bimaks",
-      "x": 27.77777777777778,
-      "y": 32.857142857142854,
+      "x": 25.666666666666668,
+      "y": 30.07142857142857,
       "order": 2
     },
     {
@@ -152,32 +152,32 @@
       "id": "estonia-tallinn",
       "country": "Estonia",
       "company": "Tallinn",
-      "x": 56.94444444444444,
-      "y": 18.142857142857142,
+      "x": 56.875,
+      "y": 17.542857142857144,
       "order": 4
     },
     {
       "id": "turkiye-nera",
-      "country": "T\u00fcrkiye",
+      "country": "Türkiye",
       "company": "Nera",
-      "x": 59.77777777777777,
-      "y": 32.142857142857146,
+      "x": 57.53888888888889,
+      "y": 32.55714285714286,
       "order": 5
     },
     {
       "id": "uae-uniba",
       "country": "UAE",
       "company": "UNIBA",
-      "x": 65.11111111111111,
-      "y": 42.57142857142856,
+      "x": 65.35277777777777,
+      "y": 42,
       "order": 6
     },
     {
-      "id": "pin-1789314053306",
+      "id": "japan-barart",
       "country": "Japan",
       "company": "Barart",
-      "x": 87.9823201440581,
-      "y": 32.46843540297309,
+      "x": 88.80277777777778,
+      "y": 34.51428571428571,
       "order": 7
     }
   ],
@@ -187,13 +187,14 @@
       "name": "Nera Social",
       "slug": "nera-social",
       "kind": "external",
-      "tagline": "Where brands grow, connect and convert.",
+      "tag": "Management",
+      "tagline": "Manages social media, content, and campaigns through an integrated marketing system.",
       "description": "The growth agency behind Nera. Strategy, creative and media execution that turns visibility into a sales opportunity.",
       "heroTitle": "A growth agency built around systems.",
       "heroSubtitle": "Nera Social plans, creates and runs the work that feeds every system in the Nera stack, from social and ads to CRM and sales tracking.",
       "appUrl": "https://nerasocial.com",
       "featured": true,
-      "order": 1,
+      "order": 3,
       "icon": "share",
       "image": "/images/systems/nera-social.png",
       "features": [
@@ -224,7 +225,8 @@
       "name": "Flowin",
       "slug": "flowin",
       "kind": "app",
-      "tagline": "Automate the path from interest to opportunity.",
+      "tag": "Automate",
+      "tagline": "Automates LinkedIn-focused lead processes to help turn prospects into sales opportunities.",
       "description": "Workflow automation that connects campaigns, CRM and follow-up so no lead is left waiting.",
       "heroTitle": "Automation that keeps growth moving.",
       "heroSubtitle": "Flowin connects the steps between a first click and a sales conversation, reminders, routing, follow-up and the quiet work in between.",
@@ -232,7 +234,8 @@
       "featured": true,
       "order": 2,
       "icon": "workflow",
-      "image": "/images/systems/flowin.png",
+      "logo": "/images/systems/icons/flowin.png",
+      "image": "/images/systems/flowin.jpg",
       "features": [
         {
           "title": "Flows that match how you sell",
@@ -265,14 +268,16 @@
       "name": "Score",
       "slug": "score",
       "kind": "app",
-      "tagline": "Marketing intelligence that makes the next decision obvious.",
+      "tag": "Analyze",
+      "tagline": "Analyzes your content across 30+ micro-criteria and shows why it underperforms, with actionable suggestions in seconds.",
       "description": "See what is working across channels, compare performance and decide where the next budget should go.",
       "heroTitle": "Know what is working before you spend more.",
       "heroSubtitle": "Score brings channel performance into one view so teams can stop guessing and start allocating attention and budget with evidence.",
       "appUrl": "https://score.nerainnovations.com",
       "featured": true,
-      "order": 3,
+      "order": 1,
       "icon": "chart",
+      "logo": "/images/systems/icons/score.png",
       "image": "/images/systems/score.png",
       "features": [
         {
@@ -302,7 +307,8 @@
       "name": "Repora",
       "slug": "repora",
       "kind": "app",
-      "tagline": "Reports that leadership can actually use.",
+      "tag": "Report",
+      "tagline": "Turns marketing and sales data into clear, actionable reports.",
       "description": "Clean, repeatable reporting across campaigns and systems, without rebuilding the same deck every Monday.",
       "heroTitle": "Reporting that stays out of the way.",
       "heroSubtitle": "Repora turns scattered campaign data into a consistent story: what moved, what stalled, and what deserves the next conversation.",
@@ -310,6 +316,7 @@
       "featured": true,
       "order": 4,
       "icon": "report",
+      "logo": "/images/systems/icons/repora.png",
       "image": "/images/systems/repora.png",
       "features": [
         {

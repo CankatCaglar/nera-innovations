@@ -38,11 +38,18 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Keeps section headings clear of the sticky header when jumping to anchors. */
+section[id] {
+  scroll-margin-top: 2rem;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), "Plus Jakarta Sans", sans-serif;
   min-height: 100%;
+  max-width: 100%;
+  overscroll-behavior-x: none;
   hyphens: none;
   -webkit-hyphens: none;
 }

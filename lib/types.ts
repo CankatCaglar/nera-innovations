@@ -15,6 +15,7 @@ export type System = {
   name: string;
   slug: string;
   kind: SystemKind;
+  tag?: string;
   tagline: string;
   description: string;
   heroTitle: string;
@@ -23,6 +24,7 @@ export type System = {
   featured: boolean;
   order: number;
   icon: string;
+  logo?: string;
   image?: string;
   features: SystemFeature[];
   faqs: SystemFaq[];

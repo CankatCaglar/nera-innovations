@@ -7,7 +7,9 @@ export const seedSystems: System[] = [
     name: "Nera Social",
     slug: "nera-social",
     kind: "external",
-    tagline: "Where brands grow, connect and convert.",
+    tag: "Management",
+    tagline:
+      "Manages social media, content, and campaigns through an integrated marketing system.",
     description:
       "The growth agency behind Nera. Strategy, creative and media execution that turns visibility into a sales opportunity.",
     heroTitle: "A growth agency built around systems.",
@@ -15,7 +17,7 @@ export const seedSystems: System[] = [
       "Nera Social plans, creates and runs the work that feeds every system in the Nera stack, from social and ads to CRM and sales tracking.",
     appUrl: "https://nerasocial.com",
     featured: true,
-    order: 1,
+    order: 3,
     icon: "share",
     image: "/images/systems/nera-social.png",
     features: [
@@ -49,7 +51,9 @@ export const seedSystems: System[] = [
     name: "Flowin",
     slug: "flowin",
     kind: "app",
-    tagline: "Automate the path from interest to opportunity.",
+    tag: "Automate",
+    tagline:
+      "Automates LinkedIn-focused lead processes to help turn prospects into sales opportunities.",
     description:
       "Workflow automation that connects campaigns, CRM and follow-up so no lead is left waiting.",
     heroTitle: "Automation that keeps growth moving.",
@@ -59,7 +63,8 @@ export const seedSystems: System[] = [
     featured: true,
     order: 2,
     icon: "workflow",
-    image: "/images/systems/flowin.png",
+    logo: "/images/systems/icons/flowin.png",
+    image: "/images/systems/flowin.jpg",
     features: [
       {
         title: "Flows that match how you sell",
@@ -96,7 +101,9 @@ export const seedSystems: System[] = [
     name: "Score",
     slug: "score",
     kind: "app",
-    tagline: "Marketing intelligence that makes the next decision obvious.",
+    tag: "Analyze",
+    tagline:
+      "Analyzes your content across 30+ micro-criteria and shows why it underperforms, with actionable suggestions in seconds.",
     description:
       "See what is working across channels, compare performance and decide where the next budget should go.",
     heroTitle: "Know what is working before you spend more.",
@@ -104,8 +111,9 @@ export const seedSystems: System[] = [
       "Score brings channel performance into one view so teams can stop guessing and start allocating attention and budget with evidence.",
     appUrl: "https://score.nerainnovations.com",
     featured: true,
-    order: 3,
+    order: 1,
     icon: "chart",
+    logo: "/images/systems/icons/score.png",
     image: "/images/systems/score.png",
     features: [
       {
@@ -138,7 +146,8 @@ export const seedSystems: System[] = [
     name: "Repora",
     slug: "repora",
     kind: "app",
-    tagline: "Reports that leadership can actually use.",
+    tag: "Report",
+    tagline: "Turns marketing and sales data into clear, actionable reports.",
     description:
       "Clean, repeatable reporting across campaigns and systems, without rebuilding the same deck every Monday.",
     heroTitle: "Reporting that stays out of the way.",
@@ -148,6 +157,7 @@ export const seedSystems: System[] = [
     featured: true,
     order: 4,
     icon: "report",
+    logo: "/images/systems/icons/repora.png",
     image: "/images/systems/repora.png",
     features: [
       {
@@ -434,13 +444,13 @@ function pin(
 }
 
 export const seedLocations: MapLocation[] = [
-  pin("canada-altnok", "Canada", "Altnok", -120.0, 55.2, 1),
-  pin("usa-bimaks", "USA", "Bimaks", -80.0, 38.0, 2),
+  pin("canada-altnok", "Canada", "Altnok", -114.0, 56.1, 1),
+  pin("usa-bimaks", "USA", "Bimaks", -87.6, 41.9, 2),
   pin("germany-siskon", "Germany", "SISKON", 10.45, 51.16, 3),
-  pin("estonia-tallinn", "Estonia", "Tallinn", 25.0, 58.6, 4),
-  pin("turkiye-nera", "Türkiye", "Nera", 35.2, 39.0, 5),
-  pin("uae-uniba", "UAE", "UNIBA", 54.4, 24.4, 6),
-  pin("japan-barart", "Japan", "Barart", 138.25, 36.2, 7),
+  pin("estonia-tallinn", "Estonia", "Tallinn", 24.75, 59.44, 4),
+  pin("turkiye-nera", "Türkiye", "Nera", 27.14, 38.42, 5),
+  pin("uae-uniba", "UAE", "UNIBA", 55.27, 25.2, 6),
+  pin("japan-barart", "Japan", "Barart", 139.69, 35.68, 7),
 ];
 
 export const seedContent: SiteContent = {

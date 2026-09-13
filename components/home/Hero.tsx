@@ -13,9 +13,8 @@ export function Hero() {
             Marketing Into <span className="text-gold">Sales</span>
           </h1>
           <p className="mt-6 max-w-[580px] text-base leading-8 text-muted sm:text-lg sm:leading-9">
-            At Nera, we connect social media, advertising, web, CRM, automation
-            flows, AI-powered tools, and sales tracking systems to build
-            measurable growth structures from visibility to sales opportunity.
+            Nera connects marketing, automation, AI tools, and sales tracking to
+            turn visibility into sales opportunities.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <Button href="#systems" arrow>
@@ -27,7 +26,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="relative h-[280px] min-h-0 sm:h-[340px] lg:h-full lg:py-2">
+        <div className="relative h-[280px] min-w-0 overflow-hidden sm:h-[340px] lg:h-full lg:py-2">
           <div className="relative h-full overflow-hidden rounded-[28px] lg:rounded-[32px]">
             <Image
               src="/images/hero-systems.jpg"
@@ -39,14 +38,12 @@ export function Hero() {
             />
           </div>
 
-          <aside className="absolute bottom-6 left-6 rounded-[24px] bg-white px-5 py-4 shadow-[0_18px_50px_rgba(148,93,60,0.14)]">
+          <aside className="absolute bottom-4 left-4 max-w-[calc(100%-2rem)] rounded-[24px] bg-white px-4 py-3.5 shadow-[0_18px_50px_rgba(148,93,60,0.14)] sm:bottom-6 sm:left-6 sm:px-5 sm:py-4">
             <div className="flex items-center gap-3">
-              <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-sand text-nera">
-                <Users className="h-5 w-5" strokeWidth={1.75} />
-              </span>
+              <Users className="h-5 w-5 shrink-0 text-nera" strokeWidth={1.75} />
               <div>
                 <p className="text-lg font-semibold tracking-tight text-ink">100+ Brands</p>
-                <p className="text-sm text-muted">Trusted worldwide</p>
+                <p className="text-sm text-muted">Choose Nera for growth systems</p>
               </div>
             </div>
           </aside>
