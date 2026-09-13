@@ -5,6 +5,7 @@ import {
   ArrowUpRight,
   BarChart3,
   Boxes,
+  Check,
   ChartNoAxesColumn,
   ClipboardList,
   FileText,
@@ -13,10 +14,13 @@ import {
   Layers,
   Mail,
   MapPin,
+  Minus,
+  Plus,
   Phone,
   Share2,
   Sparkles,
   Star,
+  Trash2,
   User,
   Users,
   Workflow,
@@ -43,6 +47,10 @@ const icons: Record<string, LucideIcon> = {
   pin: MapPin,
   phone: Phone,
   globe: Globe,
+  check: Check,
+  plus: Plus,
+  minus: Minus,
+  trash: Trash2,
 };
 
 export function Icon({

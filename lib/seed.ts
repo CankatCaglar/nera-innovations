@@ -1,4 +1,5 @@
 import type { MapLocation, Partner, Project, SiteContent, System } from "./types";
+import { COUNTRY_COORDS, projectLonLat } from "./map";
 
 export const seedSystems: System[] = [
   {
@@ -16,7 +17,7 @@ export const seedSystems: System[] = [
     featured: true,
     order: 1,
     icon: "share",
-    image: "/images/nera-social-phone.png",
+    image: "/images/systems/nera-social.png",
     features: [
       {
         title: "Strategy that starts with the sale",
@@ -58,6 +59,7 @@ export const seedSystems: System[] = [
     featured: true,
     order: 2,
     icon: "workflow",
+    image: "/images/systems/flowin.png",
     features: [
       {
         title: "Flows that match how you sell",
@@ -104,6 +106,7 @@ export const seedSystems: System[] = [
     featured: true,
     order: 3,
     icon: "chart",
+    image: "/images/systems/score.png",
     features: [
       {
         title: "One score for the whole picture",
@@ -145,6 +148,7 @@ export const seedSystems: System[] = [
     featured: true,
     order: 4,
     icon: "report",
+    image: "/images/systems/repora.png",
     features: [
       {
         title: "A report that does not need translation",
@@ -248,6 +252,7 @@ export const seedSystems: System[] = [
     featured: false,
     order: 7,
     icon: "users",
+    image: "/images/systems/nera-leads.png",
     features: [
       {
         title: "Intake that asks better questions",
@@ -417,14 +422,25 @@ export const seedPartners: Partner[] = [
   { id: "microsoft", name: "Microsoft", label: "for Startups", order: 6 },
 ];
 
+function pin(
+  id: string,
+  country: string,
+  company: string,
+  lon: number,
+  lat: number,
+  order: number,
+): MapLocation {
+  return { id, country, company, ...projectLonLat(lon, lat), order };
+}
+
 export const seedLocations: MapLocation[] = [
-  { id: "canada-altnok", country: "Canada", company: "Altnok", x: 18, y: 28, order: 1 },
-  { id: "usa-bimaks", country: "USA", company: "Bimaks", x: 20, y: 40, order: 2 },
-  { id: "germany-siskon", country: "Germany", company: "SISKON", x: 51, y: 26, order: 3 },
-  { id: "estonia-tallinn", country: "Estonia", company: "Tallinn", x: 56, y: 20, order: 4 },
-  { id: "turkiye-nera", country: "Türkiye", company: "Nera", x: 58, y: 38, order: 5 },
-  { id: "uae-uniba", country: "UAE", company: "UNIBA", x: 63, y: 48, order: 6 },
-  { id: "japan-barart", country: "Japan", company: "Barart", x: 88, y: 36, order: 7 },
+  pin("canada-altnok", "Canada", "Altnok", -120.0, 55.2, 1),
+  pin("usa-bimaks", "USA", "Bimaks", -80.0, 38.0, 2),
+  pin("germany-siskon", "Germany", "SISKON", 10.45, 51.16, 3),
+  pin("estonia-tallinn", "Estonia", "Tallinn", 25.0, 58.6, 4),
+  pin("turkiye-nera", "Türkiye", "Nera", 35.2, 39.0, 5),
+  pin("uae-uniba", "UAE", "UNIBA", 54.4, 24.4, 6),
+  pin("japan-barart", "Japan", "Barart", 138.25, 36.2, 7),
 ];
 
 export const seedContent: SiteContent = {
@@ -434,19 +450,8 @@ export const seedContent: SiteContent = {
   locations: seedLocations,
 };
 
-export const COUNTRY_PRESETS: { country: string; x: number; y: number }[] = [
-  { country: "Canada", x: 18, y: 28 },
-  { country: "USA", x: 20, y: 40 },
-  { country: "Mexico", x: 18, y: 52 },
-  { country: "Brazil", x: 36, y: 68 },
-  { country: "United Kingdom", x: 45, y: 26 },
-  { country: "Germany", x: 51, y: 26 },
-  { country: "France", x: 47, y: 32 },
-  { country: "Estonia", x: 56, y: 20 },
-  { country: "Türkiye", x: 58, y: 38 },
-  { country: "UAE", x: 63, y: 48 },
-  { country: "India", x: 70, y: 48 },
-  { country: "Japan", x: 88, y: 36 },
-  { country: "Australia", x: 86, y: 78 },
-  { country: "South Africa", x: 54, y: 78 },
-];
+export const COUNTRY_PRESETS: { country: string; x: number; y: number }[] =
+  Object.entries(COUNTRY_COORDS).map(([country, { lon, lat }]) => ({
+    country,
+    ...projectLonLat(lon, lat),
+  }));

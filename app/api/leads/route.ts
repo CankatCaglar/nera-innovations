@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { SITE } from "@/lib/constants";
+import { getAdminDb } from "@/lib/firebase-admin";
 
 type Payload = {
   type?: string;
@@ -36,6 +37,14 @@ export async function POST(request: Request) {
       : lead.type === "resource"
         ? `Nera Innovations: Resource request (${lead.systemSlug || "system"})`
         : `Nera Innovations: Contact${lead.subject ? `: ${lead.subject}` : ""}`;
+
+  const db = getAdminDb();
+  if (db) {
+    await db.collection("leads").add({
+      ...lead,
+      createdAt: new Date().toISOString(),
+    });
+  }
 
   try {
     await fetch(`https://formsubmit.co/ajax/${SITE.email}`, {

@@ -54,6 +54,26 @@ textarea {
   font: inherit;
 }
 
+a,
+button,
+label,
+select,
+summary,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="checkbox"],
+input[type="radio"] {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled,
+select:disabled {
+  cursor: not-allowed;
+}
+
 ::selection {
   background: rgba(221, 160, 109, 0.28);
   color: var(--nera-ink);
@@ -89,12 +109,16 @@ textarea {
 
 .dot-map {
   background-color: transparent;
-  background-image: radial-gradient(circle, #dda06d 1.05px, transparent 1.15px);
-  background-size: 14px 14px;
-  mask-image: url("/images/world-mask.svg");
-  mask-size: contain;
+  background-image: radial-gradient(circle, #dda06d 0.95px, transparent 1.05px);
+  background-size: 6px 6px;
+  mask-image: url("/images/world-land.svg");
+  mask-size: 100% 100%;
   mask-repeat: no-repeat;
   mask-position: center;
+  -webkit-mask-image: url("/images/world-land.svg");
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
 }
 
 .faq-item + .faq-item {

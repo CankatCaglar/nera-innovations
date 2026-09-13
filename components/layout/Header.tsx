@@ -13,9 +13,19 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-black/4 bg-white/90 backdrop-blur-xl">
+    <header className="border-b border-black/4 bg-white/90 backdrop-blur-xl">
       <div className="container-wide flex h-[84px] items-center justify-between gap-6 py-3">
-        <Link href="/" className="shrink-0 bg-transparent" aria-label="Nera Innovations home">
+        <Link
+          href="/"
+          className="shrink-0 bg-transparent"
+          aria-label="Nera Innovations home"
+          onClick={(event) => {
+            if (pathname !== "/") return;
+            event.preventDefault();
+            setOpen(false);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        >
           <Image
             src="/brand/logo-10.png"
             alt="Nera 10 Years"

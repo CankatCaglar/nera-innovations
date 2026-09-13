@@ -17,6 +17,7 @@ export default function GrowthReviewPage() {
           src="/images/hero-road.jpg"
           alt=""
           fill
+          sizes="100vw"
           className="object-cover"
           priority
         />

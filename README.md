@@ -1,6 +1,6 @@
 # Nera Innovations
 
-Public site for the Nera product house. English only. Next.js on the front, Firebase when you want the admin panel to edit featured systems, map icons and partners.
+Public site for the Nera product house. English only.
 
 ## Run locally
 
@@ -9,25 +9,22 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Admin sign-in is Firebase Auth (email/password) once `FIREBASE_API_KEY` is set. Until then, `/admin` can still use `ADMIN_EMAIL` / `ADMIN_PASSWORD`.
 
-The site works without Firebase. Seed content is already in the app.
+## Deploy env
 
-## Firebase admin
+Do not use `NEXT_PUBLIC_` keys. Set only:
 
-1. Create a Firebase project.
-2. Enable **Authentication → Email/Password** and add an admin user.
-3. Create a Firestore database and publish `firestore.rules`.
-4. Copy `.env.example` to `.env.local` and fill the web config.
-5. Sign in at `/admin` and click **Seed database**.
+- `ADMIN_EMAIL` (optional allowlist; must match the Firebase user)
+- `ADMIN_PASSWORD` (fallback only, before Firebase Auth is configured)
+- `ADMIN_SECRET`
+- `FIREBASE_API_KEY` (web app `apiKey`)
+- `FIREBASE_PROJECT_ID`
+- `FIREBASE_CLIENT_EMAIL`
+- `FIREBASE_PRIVATE_KEY` (one line, newlines as `\n`)
 
-From the panel you can:
-
-- Feature up to 4 systems (those get homepage cards and detail pages)
-- Add or remove map icons with country + company name
-- Add or remove social-proof partners
-- Read form submissions
+Enable Authentication → Email/Password and Cloud Firestore in the same project.
 
 ## Forms
 
-Contact, Growth Review and resource requests are emailed to `info@nerasocial.com`. The first FormSubmit delivery asks you to confirm that inbox. When Firebase is connected, the same leads are stored for the admin panel.
+Contact, Growth Review and resource requests are emailed to `info@nerasocial.com`. The first FormSubmit delivery asks you to confirm that inbox.

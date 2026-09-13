@@ -16,6 +16,8 @@ export const SITE = {
   socials: {
     linkedin: "https://www.linkedin.com/company/nerasocial",
     instagram: "https://www.instagram.com/nerasocial",
+    facebook: "https://www.facebook.com/nerasocial",
+    tiktok: "https://www.tiktok.com/@nerasocial",
     youtube: "https://www.youtube.com/@nerasocial",
     x: "https://x.com/nerasocial",
   },

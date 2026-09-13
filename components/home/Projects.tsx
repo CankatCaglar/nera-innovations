@@ -14,15 +14,15 @@ function ProjectCard({
   onOpen: (project: Project) => void;
 }) {
   return (
-    <article className="card flex flex-col overflow-hidden rounded-[28px]">
+    <article className="flex flex-col overflow-hidden rounded-[28px] bg-white shadow-[0_16px_40px_rgba(148,93,60,0.08)]">
       <div
         className="relative h-36"
-        style={{ background: `linear-gradient(160deg, ${project.accent}, #fff 80%)` }}
+        style={{ background: `linear-gradient(160deg, ${project.accent}, #fff 78%)` }}
       >
         <span className="absolute top-4 left-4 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white text-nera shadow-sm">
-          <Icon name="star" className="h-3.5 w-3.5" />
+          <Icon name="check" className="h-3.5 w-3.5" />
         </span>
-        <span className="absolute right-6 bottom-4 text-ink/20">
+        <span className="absolute right-6 bottom-4 text-ink/18">
           <Icon name={project.icon} className="h-14 w-14" />
         </span>
       </div>
@@ -47,7 +47,7 @@ function ProjectCard({
         <button
           type="button"
           onClick={() => onOpen(project)}
-          className="mt-5 inline-flex items-center justify-between text-sm font-semibold text-ink"
+          className="mt-5 inline-flex w-full items-center justify-between rounded-full border border-black/8 px-4 py-2.5 text-sm font-semibold text-ink"
         >
           Get details
           <Icon name="arrow" className="h-4 w-4" />
@@ -63,12 +63,8 @@ export function Projects() {
 
   return (
     <section id="projects" className="relative overflow-hidden bg-[#f7f3ee] py-20">
-      <div
-        className="pointer-events-none absolute inset-y-0 left-0 hidden w-[38%] bg-cover bg-center opacity-80 lg:block"
-        style={{ backgroundImage: "url(/images/lab-ribbon.jpg)" }}
-      />
-      <div className="container-wide relative grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
-        <div className="max-w-sm">
+      <div className="container-wide relative grid items-start gap-10 lg:grid-cols-[0.72fr_1.28fr]">
+        <div className="relative max-w-sm pt-4 lg:min-h-[560px]">
           <p className="eyebrow">Nera Lab</p>
           <h2 className="heading-display mt-3 text-4xl text-ink sm:text-5xl">
             Micro projects from the <span className="text-gold">Nera lab</span>.
@@ -77,11 +73,12 @@ export function Projects() {
             Smaller systems, campaign tools and automation experiments built
             around real growth needs.
           </p>
+          <span className="mt-8 block h-px w-16 bg-black/15" />
           <a
             href="/contact"
             className="mt-8 inline-flex items-center gap-3 text-sm font-medium leading-5 text-ink"
           >
-            <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-black/10">
+            <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-black/10 bg-white">
               <Icon name="arrow" className="h-4 w-4" />
             </span>
             <span>
@@ -90,6 +87,13 @@ export function Projects() {
               for detailed information
             </span>
           </a>
+          <p className="absolute bottom-0 left-0 hidden max-w-[8rem] text-[11px] leading-4 tracking-[0.18em] text-soft uppercase lg:block">
+            Ideas tested
+            <br />
+            systems
+            <br />
+            that work
+          </p>
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
@@ -105,7 +109,7 @@ export function Projects() {
           onClick={() => setActive(null)}
         >
           <div
-            className="card w-full max-w-lg rounded-[28px] p-7"
+            className="w-full max-w-lg rounded-[28px] bg-white p-7 shadow-[0_18px_50px_rgba(148,93,60,0.12)]"
             onClick={(event) => event.stopPropagation()}
           >
             <p className="text-[11px] font-semibold tracking-[0.16em] text-soft uppercase">

@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { Button } from "@/components/ui/Button";
-import { getDb } from "@/lib/firebase";
 import type { LeadType } from "@/lib/types";
 
 type Field = "fullName" | "email" | "phone" | "subject" | "message";
@@ -41,17 +39,6 @@ export function LeadForm({
     setStatus("sending");
     try {
       const payload = { type, systemSlug, ...values };
-      try {
-        const db = getDb();
-        if (db) {
-          await addDoc(collection(db, "leads"), {
-            ...payload,
-            createdAt: serverTimestamp(),
-          });
-        }
-      } catch {
-        // Email delivery still runs when Firestore is unavailable.
-      }
       const response = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
