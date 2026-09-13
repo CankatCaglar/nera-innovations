@@ -13,16 +13,32 @@ export async function POST(request: Request) {
   const password = body.password ?? "";
 
   if (firebaseApiKey()) {
-    const result = await signInWithFirebasePassword(email, password);
-    if (!result.ok) {
-      return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
+    try {
+      const result = await signInWithFirebasePassword(email, password);
+      if (!result.ok) {
+        console.warn("Firebase Auth sign-in failed:", result.error);
+      }
+      if (result.ok || credentialsMatch(email, password)) {
+        const response = NextResponse.json({ ok: true });
+        const cookie = adminCookieOptions();
+        response.cookies.set(cookie.name, makeAdminToken(), cookie);
+        return response;
+      }
+    } catch (error) {
+      console.warn("Firebase Auth sign-in error:", error);
+      if (credentialsMatch(email, password)) {
+        const response = NextResponse.json({ ok: true });
+        const cookie = adminCookieOptions();
+        response.cookies.set(cookie.name, makeAdminToken(), cookie);
+        return response;
+      }
     }
-  } else if (!credentialsMatch(email, password)) {
-    return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
+  } else if (credentialsMatch(email, password)) {
+    const response = NextResponse.json({ ok: true });
+    const cookie = adminCookieOptions();
+    response.cookies.set(cookie.name, makeAdminToken(), cookie);
+    return response;
   }
 
-  const response = NextResponse.json({ ok: true });
-  const cookie = adminCookieOptions();
-  response.cookies.set(cookie.name, makeAdminToken(), cookie);
-  return response;
+  return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
 }
