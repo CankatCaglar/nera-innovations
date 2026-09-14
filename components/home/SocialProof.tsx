@@ -5,39 +5,34 @@ import { Icon } from "@/lib/icons";
 
 const quotes = [
   {
-    brand: "SISKON",
+    brand: "Tatilciden",
     quote:
-      "Working with Nera started a more durable growth path for our brand. Their strategy, creative work and the way the team operates helped us lift digital visibility in a way we can actually measure.",
-    name: "Deniz Aksoy",
-    role: "Marketing Director",
+      "Working with Nera Marketing Technologies & Workshops was a genuinely great experience. Their solution-focused approach and professionalism made a real difference in our processes, and they stayed in partnership with us at every step.",
+    name: "Atakan Balta",
   },
   {
-    brand: "DTC",
+    brand: "Altınok Palet",
     quote:
-      "Getting the product in front of the right audience came down to content and campaigns that were built with intent. Nera ran the process end to end and left a clear mark on the brand.",
-    name: "Murat Yılmaz",
-    role: "Brand Manager",
+      "They produce strong work, and they do not only do what they are asked. They look for how we can make a difference. The team is young, communicative and open to feedback. They listen to what the client wants and still guide with a professional point of view. They put a lasting relationship ahead of a quick win, which makes it easy to enjoy the work and keep the quality high.",
+    name: "Deniz Altınok",
   },
   {
-    brand: "AI SaaS",
+    brand: "Bimaks",
     quote:
-      "We were scaling quickly, and Nera’s strategic support became a real advantage. Their content and performance work helped us show up with more weight in international markets.",
-    name: "Ece Demir",
-    role: "Growth Team",
+      "Nera Marketing is the professional partner I trust with my social media and web. I am very satisfied, and I recommend them.",
+    name: "Alper Tunga Dost",
   },
   {
-    brand: "Consumer AI",
+    brand: "Gorg",
     quote:
-      "Nera’s contribution to our US market plan was substantial. They did not stop at content; the campaigns created qualified engagement and a direct line into sales.",
-    name: "Ali Karaca",
-    role: "Marketing Lead",
+      "Marketing management is serious work and it has to be done by a team that knows the craft. At Nera you work with people who enjoy what they do, who are knowledgeable and who keep the process enjoyable. Their careful, creative solutions make the journey easier, they are extremely disciplined with time, and our brands feel in safe hands. Glad Nera is here.",
+    name: "Ömer Sürücü",
   },
   {
-    brand: "HR Technology",
+    brand: "Swatchloop",
     quote:
-      "We needed communication that could last, not a one-off burst. Nera made that need precise and then kept a steady, natural content rhythm in place.",
-    name: "Selin Oral",
-    role: "Growth Director",
+      "As Swatchloop, we really enjoy working with Ogün and the team on social media. They helped us reach our social media goals and much more. They are a responsive team that finds a solution to every problem, fast.",
+    name: "Gökberk Devrim",
   },
 ];
 
@@ -123,7 +118,6 @@ export function SocialProof() {
                 <p className="text-sm font-semibold tracking-tight text-ink">
                   {item.name}
                 </p>
-                <p className="mt-0.5 text-xs text-soft">{item.role}</p>
               </div>
             </article>
           ))}

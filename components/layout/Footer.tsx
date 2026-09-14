@@ -9,10 +9,8 @@ import { seedSystems } from "@/lib/seed";
 const socials = [
   { label: "LinkedIn", href: SITE.socials.linkedin },
   { label: "Instagram", href: SITE.socials.instagram },
-  { label: "TikTok", href: SITE.socials.tiktok },
   { label: "Facebook", href: SITE.socials.facebook },
   { label: "YouTube", href: SITE.socials.youtube },
-  { label: "X", href: SITE.socials.x },
 ];
 
 export function Footer() {

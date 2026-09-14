@@ -14,12 +14,10 @@ export const SITE = {
   ],
   legalName: "2017 Nera Reklam Pazarlama Yazılım Teknoloji Limited Şirketi",
   socials: {
-    linkedin: "https://www.linkedin.com/company/nerasocial",
-    instagram: "https://www.instagram.com/nerasocial",
-    facebook: "https://www.facebook.com/nerasocial",
-    tiktok: "https://www.tiktok.com/@nerasocial",
-    youtube: "https://www.youtube.com/@nerasocial",
-    x: "https://x.com/nerasocial",
+    linkedin: "https://www.linkedin.com/company/neramarketingagency/",
+    instagram: "https://www.instagram.com/neraagency/",
+    facebook: "https://www.facebook.com/nerasocial/",
+    youtube: "https://www.youtube.com/@neramarketingagency",
   },
   policies: {
     privacy: "https://www.nerasocial.com/en/privacy-policy",
