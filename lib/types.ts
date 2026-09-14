@@ -70,6 +70,7 @@ export type Lead = {
   fullName: string;
   email: string;
   phone?: string;
+  website?: string;
   subject?: string;
   message?: string;
   systemSlug?: string;

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { SiteShell } from "@/components/layout/SiteShell";
-import { LeadForm } from "@/components/forms/LeadForm";
+import { GrowthReviewForm } from "@/components/forms/GrowthReviewForm";
+import { Icon } from "@/lib/icons";
 
 export const metadata: Metadata = {
   title: "Get Growth Review",
@@ -9,46 +9,101 @@ export const metadata: Metadata = {
     "Request a Nera Growth Review. A clear read on how marketing turns into sales.",
 };
 
+const highlights = [
+  {
+    icon: "bars",
+    title: "Personalized Report",
+    body: "Tailored to your business",
+  },
+  {
+    icon: "spark",
+    title: "AI-Powered Insights",
+    body: "Data-driven recommendations",
+  },
+  {
+    icon: "clock",
+    title: "In just 3 minutes",
+    body: "No technical knowledge required",
+  },
+];
+
+const reasons = [
+  {
+    icon: "user",
+    title: "Tailored Insights",
+    body: "We analyze your industry and goals to provide relevant recommendations.",
+  },
+  {
+    icon: "form",
+    title: "More Accurate Analysis",
+    body: "Your inputs help us identify the right opportunities for your business.",
+  },
+  {
+    icon: "chat",
+    title: "A Meaningful Follow-up",
+    body: "We’ll reach out with insights and next steps that actually match your needs.",
+  },
+];
+
 export default function GrowthReviewPage() {
   return (
     <SiteShell>
-      <section className="relative overflow-hidden">
-        <Image
-          src="/images/hero-road.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1a120c]/80 via-[#1a120c]/55 to-transparent" />
-        <div className="container-wide relative grid items-center gap-12 py-20 lg:grid-cols-[1fr_0.9fr] lg:py-28">
-          <div className="max-w-xl text-white">
-            <p className="text-xs font-semibold tracking-[0.18em] text-white/70 uppercase">
-              Growth Review
-            </p>
-            <h1 className="heading-display mt-4 text-5xl sm:text-6xl">
-              A clearer read on how you grow.
+      <section className="bg-[#fbf8f3] py-16 lg:py-20">
+        <div className="container-wide grid items-start gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-14">
+          <div>
+            <p className="eyebrow">Nera Growth Review</p>
+            <h1 className="heading-display mt-4 max-w-xl text-5xl text-ink sm:text-6xl">
+              Discover Your Biggest Growth{" "}
+              <span className="text-gold">Opportunity</span>.
             </h1>
-            <p className="mt-6 text-base leading-8 text-white/80">
-              We look at how social, advertising, web, CRM, automation and sales
-              tracking work together, then tell you where the system is leaking
-              attention, time or revenue.
+            <p className="mt-6 max-w-lg text-base leading-8 text-muted">
+              Get a clear view of your marketing, sales and technology
+              infrastructure — and find out where your business can grow faster.
             </p>
+            <ul className="mt-10 space-y-5">
+              {highlights.map((item) => (
+                <li key={item.title} className="flex items-start gap-4">
+                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-nera">
+                    <Icon name={item.icon} className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-ink">{item.title}</p>
+                    <p className="mt-0.5 text-sm text-muted">{item.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-16 border-t border-line pt-10">
+              <p className="eyebrow">Why share these details?</p>
+              <h2 className="heading-display mt-3 max-w-md text-3xl text-ink sm:text-4xl">
+                It helps us understand your business better.
+              </h2>
+              <div className="mt-8 grid gap-6 sm:grid-cols-3">
+                {reasons.map((item) => (
+                  <div key={item.title}>
+                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-nera">
+                      <Icon name={item.icon} className="h-5 w-5" />
+                    </span>
+                    <p className="mt-4 text-sm font-semibold text-ink">{item.title}</p>
+                    <p className="mt-2 text-sm leading-6 text-muted">{item.body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-          <div className="rounded-[32px] bg-white p-7 shadow-[0_20px_60px_rgba(0,0,0,0.18)]">
-            <h2 className="text-2xl font-semibold tracking-tight">Request a review</h2>
-            <p className="mt-2 text-sm text-muted">
-              Leave your name, work email and number. We will follow up with the next step.
+
+          <div className="rounded-[32px] border border-black/5 bg-white p-6 shadow-[0_18px_50px_rgba(148,93,60,0.08)] sm:p-8">
+            <p className="eyebrow">Tell us about your business</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-ink">
+              Get Your Growth Review
+            </h2>
+            <p className="mt-3 text-sm leading-7 text-muted">
+              Fill in a few details, briefly share your current challenges, and
+              our team will get back to you with a personalized analysis.
             </p>
             <div className="mt-6">
-              <LeadForm
-                type="growth-review"
-                fields={["fullName", "email", "phone", "message"]}
-                submitLabel="Get Growth Review"
-                successTitle="Your review request is in."
-                successBody="The team will write to you at the work email you left."
-              />
+              <GrowthReviewForm />
             </div>
           </div>
         </div>

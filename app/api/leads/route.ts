@@ -7,6 +7,7 @@ type Payload = {
   fullName?: string;
   email?: string;
   phone?: string;
+  website?: string;
   subject?: string;
   message?: string;
   systemSlug?: string;
@@ -26,6 +27,7 @@ export async function POST(request: Request) {
     fullName,
     email,
     phone: body.phone?.trim() ?? "",
+    website: body.website?.trim() ?? "",
     subject: body.subject?.trim() ?? "",
     message: body.message?.trim() ?? "",
     systemSlug: body.systemSlug ?? "",
@@ -63,6 +65,7 @@ export async function POST(request: Request) {
           lead.systemSlug ? `System: ${lead.systemSlug}` : "",
           lead.subject ? `Subject: ${lead.subject}` : "",
           lead.phone ? `Phone: ${lead.phone}` : "",
+          lead.website ? `Website: ${lead.website}` : "",
           lead.message ? `Message: ${lead.message}` : "",
         ]
           .filter(Boolean)
