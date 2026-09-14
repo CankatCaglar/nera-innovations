@@ -203,8 +203,8 @@ function SystemCard({
                   fill
                   sizes="44px"
                   className={
-                    system.id === "repora"
-                      ? "object-contain p-1.5"
+                    system.id === "repora" || system.id === "nera-social"
+                      ? "object-contain p-1"
                       : "object-cover"
                   }
                 />

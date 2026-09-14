@@ -19,6 +19,7 @@ export const seedSystems: System[] = [
     featured: true,
     order: 3,
     icon: "share",
+    logo: "/images/systems/icons/nera-social.png",
     image: "/images/systems/nera-social.png",
     features: [
       {

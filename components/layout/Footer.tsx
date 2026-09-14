@@ -16,7 +16,9 @@ const socials = [
 ];
 
 export function Footer() {
-  const systems = [...seedSystems].sort((a, b) => a.order - b.order);
+  const systems = seedSystems
+    .filter((system) => system.featured)
+    .sort((a, b) => a.order - b.order);
 
   return (
     <footer className="border-t border-black/5 bg-white">
@@ -74,18 +76,6 @@ export function Footer() {
               <Link href="/company" className="hover:text-nera">
                 About us
               </Link>
-            </li>
-            <li>
-              <span className="cursor-default">Our ecosystem</span>
-            </li>
-            <li>
-              <span className="cursor-default">Careers</span>
-            </li>
-            <li>
-              <span className="cursor-default">News & Insights</span>
-            </li>
-            <li>
-              <span className="cursor-default">Partners</span>
             </li>
             <li>
               <Link href="/contact" className="hover:text-nera">
