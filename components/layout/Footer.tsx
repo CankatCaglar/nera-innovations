@@ -53,7 +53,7 @@ export function Footer() {
 
         <div className="grid gap-12 sm:grid-cols-3 sm:gap-24 lg:ml-auto lg:shrink-0 xl:gap-32">
         <div>
-          <p className="text-sm font-semibold text-ink">Systems</p>
+          <p className="text-sm font-semibold text-ink">Featured Systems</p>
           <ul className="mt-4 space-y-2.5 text-sm text-muted">
             {systems.map((system) => (
               <li key={system.id}>

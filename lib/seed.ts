@@ -68,34 +68,56 @@ export const seedSystems: System[] = [
     image: "/images/systems/flowin.jpg",
     features: [
       {
-        title: "Flows that match how you sell",
-        body: "Build automation around real handoffs: a form submission, a qualified lead, a missed call, a proposal that needs a nudge. Flowin keeps the next step from depending on memory.",
+        title: "Create your outreach flow in minutes",
+        body: "Design personalized LinkedIn and email sequences with a simple builder, more than ten actions, and the conditions a real sales process needs.",
+        points: [
+          "Easy drag-and-drop builder",
+          "Multi-step campaigns",
+          "Smart conditions",
+          "LinkedIn and email automation",
+        ],
       },
       {
-        title: "Less busywork, clearer ownership",
-        body: "Every flow has an owner and a result. Teams spend less time chasing updates and more time on conversations that can close.",
+        title: "Make every message feel personal",
+        body: "Use dynamic variables and AI-supported suggestions to write conversations that still sound like a person wrote them.",
+        points: [
+          "20+ prebuilt variables",
+          "AI icebreakers",
+          "Clean copy before sending",
+          "Custom lead fields",
+        ],
       },
     ],
     faqs: [
       {
-        question: "What can Flowin automate?",
+        question: "Is Flowin safe to use with LinkedIn?",
         answer:
-          "Lead routing, follow-up sequences, internal notifications, CRM updates and the repetitive steps that sit between marketing activity and a sales opportunity.",
+          "Yes. Flowin is built for measured outreach, with pacing and controls that keep activity inside a professional range instead of spraying the network.",
       },
       {
-        question: "Does Flowin replace our CRM?",
+        question: "How long does it take to see results?",
         answer:
-          "No. Flowin sits next to the tools you already use and makes the path between them reliable.",
+          "Most teams see a cleaner pipeline within the first two weeks once one live flow is running. The first useful signal is usually reply quality, not volume.",
       },
       {
-        question: "How do we start?",
+        question: "Can I use my own LinkedIn account?",
         answer:
-          "Open the application, map one high-value journey, for example inbound leads, and expand from there.",
+          "Yes. Flowin works with the account your team already uses, so outreach stays in your name and your relationships.",
+      },
+      {
+        question: "Do you provide onboarding?",
+        answer:
+          "Yes. We help you map the first journey, connect the account and launch one campaign you can actually measure.",
+      },
+      {
+        question: "Can I pause or stop campaigns anytime?",
+        answer:
+          "Yes. Every campaign can be paused or stopped immediately. Nothing continues in the background without you.",
       },
     ],
-    resourceTitle: "Flowin setup guide",
+    resourceTitle: "LinkedIn Growth Playbook",
     resourceDescription:
-      "A practical walkthrough for launching your first growth automation without adding operational noise.",
+      "Learn how B2B teams build a repeatable LinkedIn outreach system, with practical examples and campaign templates you can adapt.",
   },
   {
     id: "score",

@@ -55,30 +55,50 @@
       "image": "/images/systems/flowin.jpg",
       "features": [
         {
-          "title": "Flows that match how you sell",
-          "body": "Build automation around real handoffs: a form submission, a qualified lead, a missed call, a proposal that needs a nudge. Flowin keeps the next step from depending on memory."
+          "title": "Create your outreach flow in minutes",
+          "body": "Design personalized LinkedIn and email sequences with a simple builder, more than ten actions, and the conditions a real sales process needs.",
+          "points": [
+            "Easy drag-and-drop builder",
+            "Multi-step campaigns",
+            "Smart conditions",
+            "LinkedIn and email automation"
+          ]
         },
         {
-          "title": "Less busywork, clearer ownership",
-          "body": "Every flow has an owner and a result. Teams spend less time chasing updates and more time on conversations that can close."
+          "title": "Make every message feel personal",
+          "body": "Use dynamic variables and AI-supported suggestions to write conversations that still sound like a person wrote them.",
+          "points": [
+            "20+ prebuilt variables",
+            "AI icebreakers",
+            "Clean copy before sending",
+            "Custom lead fields"
+          ]
         }
       ],
       "faqs": [
         {
-          "question": "What can Flowin automate?",
-          "answer": "Lead routing, follow-up sequences, internal notifications, CRM updates and the repetitive steps that sit between marketing activity and a sales opportunity."
+          "question": "Is Flowin safe to use with LinkedIn?",
+          "answer": "Yes. Flowin is built for measured outreach, with pacing and controls that keep activity inside a professional range instead of spraying the network."
         },
         {
-          "question": "Does Flowin replace our CRM?",
-          "answer": "No. Flowin sits next to the tools you already use and makes the path between them reliable."
+          "question": "How long does it take to see results?",
+          "answer": "Most teams see a cleaner pipeline within the first two weeks once one live flow is running. The first useful signal is usually reply quality, not volume."
         },
         {
-          "question": "How do we start?",
-          "answer": "Open the application, map one high-value journey, for example inbound leads, and expand from there."
+          "question": "Can I use my own LinkedIn account?",
+          "answer": "Yes. Flowin works with the account your team already uses, so outreach stays in your name and your relationships."
+        },
+        {
+          "question": "Do you provide onboarding?",
+          "answer": "Yes. We help you map the first journey, connect the account and launch one campaign you can actually measure."
+        },
+        {
+          "question": "Can I pause or stop campaigns anytime?",
+          "answer": "Yes. Every campaign can be paused or stopped immediately. Nothing continues in the background without you."
         }
       ],
-      "resourceTitle": "Flowin setup guide",
-      "resourceDescription": "A practical walkthrough for launching your first growth automation without adding operational noise.",
+      "resourceTitle": "LinkedIn Growth Playbook",
+      "resourceDescription": "Learn how B2B teams build a repeatable LinkedIn outreach system, with practical examples and campaign templates you can adapt.",
       "tag": "Automate",
       "logo": "/images/systems/icons/flowin.png"
     },
@@ -95,7 +115,6 @@
       "featured": true,
       "order": 3,
       "icon": "share",
-      "logo": "/images/systems/icons/nera-social.png",
       "image": "/images/systems/nera-social.png",
       "features": [
         {
@@ -119,7 +138,8 @@
       ],
       "resourceTitle": "How Nera connects marketing to sales",
       "resourceDescription": "A short briefing on how we join social, ads, web, CRM and sales tracking into one growth structure.",
-      "tag": "Management"
+      "tag": "Management",
+      "logo": "/images/systems/icons/nera-social.png"
     },
     {
       "id": "repora",
@@ -448,60 +468,100 @@
   ],
   "locations": [
     {
-      "id": "canada-altnok",
-      "country": "Canada",
-      "company": "Altnok",
-      "x": 18.333333333333332,
-      "y": 19.92857142857143,
-      "order": 1
-    },
-    {
-      "id": "usa-bimaks",
+      "id": "pin-1789368258914",
       "country": "USA",
-      "company": "Bimaks",
-      "x": 25.66666666666667,
-      "y": 30.07142857142857,
-      "order": 2
-    },
-    {
-      "id": "germany-siskon",
-      "country": "Germany",
-      "company": "SISKON",
-      "x": 52.90277777777778,
-      "y": 23.45714285714286,
-      "order": 3
-    },
-    {
-      "id": "estonia-tallinn",
-      "country": "Estonia",
-      "company": "Tallinn",
-      "x": 56.875,
-      "y": 17.542857142857144,
+      "company": "Marmia",
+      "x": 27.339258717151193,
+      "y": 37.64609746434232,
       "order": 4
     },
     {
-      "id": "turkiye-nera",
-      "country": "Türkiye",
-      "company": "Nera",
-      "x": 57.538888888888884,
-      "y": 32.55714285714286,
+      "id": "pin-1789368277861",
+      "country": "UK",
+      "company": "Myko",
+      "x": 48.41642031064932,
+      "y": 21.322801109350237,
+      "order": 4
+    },
+    {
+      "id": "pin-1789368310064",
+      "country": "China",
+      "company": "Wesdar",
+      "x": 83.29850645661405,
+      "y": 28.929774167987322,
       "order": 5
     },
     {
-      "id": "uae-uniba",
-      "country": "UAE",
-      "company": "UNIBA",
-      "x": 65.35277777777779,
-      "y": 42,
+      "id": "pin-1789368331194",
+      "country": "Russia",
+      "company": "Akzo Nobel",
+      "x": 64.19347694203972,
+      "y": 15.30061410459588,
       "order": 6
     },
     {
-      "id": "japan-barart",
-      "country": "Japan",
-      "company": "Barart",
-      "x": 88.80277777777778,
-      "y": 34.51428571428571,
+      "id": "pin-1789368369337",
+      "country": "Kazakhstan",
+      "company": "Gates",
+      "x": 67.89122459002186,
+      "y": 28.612816957210775,
       "order": 7
+    },
+    {
+      "id": "pin-1789368163002",
+      "country": "Japan",
+      "company": "Yokogawa",
+      "x": 88.84512792858726,
+      "y": 29.40520998415214,
+      "order": 8
+    },
+    {
+      "id": "pin-1789368235560",
+      "country": "USA",
+      "company": "Marolivo",
+      "x": 17.848373087330398,
+      "y": 31.940867670364504,
+      "order": 8
+    },
+    {
+      "id": "pin-1789368440262",
+      "country": "Germany",
+      "company": "Epal",
+      "x": 54.94910782208441,
+      "y": 18.153229001584787,
+      "order": 8
+    },
+    {
+      "id": "pin-1789368471914",
+      "country": "Turkey",
+      "company": "Fenerbahçe",
+      "x": 58.89337197993202,
+      "y": 32.09934627575277,
+      "order": 9
+    },
+    {
+      "id": "pin-1789368486312",
+      "country": "BAE",
+      "company": "Al Qasr",
+      "x": 71.71223049293673,
+      "y": 52.06765055467512,
+      "order": 10
+    },
+    {
+      "id": "pin-1789368527249",
+      "country": "Greece",
+      "company": "Yer",
+      "x": 54.20955829248799,
+      "y": 24.809330427892235,
+      "order": 11
+    },
+    {
+      "id": "pin-1789368575984",
+      "country": "USA",
+      "company": "Linaz",
+      "x": 31.037006365133323,
+      "y": 19.73801505546751,
+      "order": 12
     }
   ]
 }

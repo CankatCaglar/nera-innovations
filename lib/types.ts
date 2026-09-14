@@ -3,6 +3,7 @@ export type SystemKind = "external" | "app" | "micro";
 export type SystemFeature = {
   title: string;
   body: string;
+  points?: string[];
 };
 
 export type SystemFaq = {

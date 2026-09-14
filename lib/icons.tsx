@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import {
   Activity,
+  ArrowDown,
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
@@ -44,6 +45,7 @@ const icons: Record<string, LucideIcon> = {
   bars: ChartNoAxesColumn,
   user: User,
   arrow: ArrowRight,
+  "arrow-down": ArrowDown,
   "arrow-left": ArrowLeft,
   external: ArrowUpRight,
   pin: MapPin,

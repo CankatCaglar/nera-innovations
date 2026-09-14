@@ -42,6 +42,16 @@ function mergeSeededHomeFields(systems: System[]) {
     if (seeded.logo) {
       next.logo = seeded.logo;
     }
+    if (seeded.features?.length) {
+      next.features = seeded.features;
+    }
+    if (seeded.faqs?.length) {
+      next.faqs = seeded.faqs;
+    }
+    if (seeded.resourceTitle) {
+      next.resourceTitle = seeded.resourceTitle;
+      next.resourceDescription = seeded.resourceDescription;
+    }
     return next;
   });
 }

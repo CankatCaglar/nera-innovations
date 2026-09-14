@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { SiteShell } from "@/components/layout/SiteShell";
-import { CompanySystems } from "@/components/company/CompanySystems";
+import { References } from "@/components/company/References";
+import { CompanyStats } from "@/components/company/CompanyStats";
 import { Partners } from "@/components/home/Partners";
 
 export const metadata: Metadata = {
@@ -10,17 +11,10 @@ export const metadata: Metadata = {
     "From a small flow to a lasting mark. Nera’s ten-year journey from a small team to a growth partner.",
 };
 
-const stats = [
-  { value: "10", label: "Years" },
-  { value: "100+", label: "Brands" },
-  { value: "10+", label: "Systems" },
-  { value: "2", label: "Hubs" },
-];
-
 export default function CompanyPage() {
   return (
     <SiteShell>
-      <section className="relative overflow-hidden">
+      <section className="relative flex min-h-[calc(100svh-84px)] items-center overflow-hidden">
         <Image
           src="/images/hero-systems.jpg"
           alt=""
@@ -30,10 +24,10 @@ export default function CompanyPage() {
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/20" />
-        <div className="container-wide relative py-24 lg:py-32">
+        <div className="container-wide relative py-16 lg:py-0">
           <p className="eyebrow">About Nera</p>
           <h1 className="heading-display mt-4 max-w-3xl text-5xl text-ink sm:text-6xl lg:text-7xl">
-            From a small flow to a lasting <span className="text-gold">mark</span>.
+            Ideas for a bigger <span className="text-gold">tomorrow</span>.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-muted">
             We are a growth partner that blends marketing, technology and data
@@ -41,12 +35,18 @@ export default function CompanyPage() {
           </p>
           <a
             href="#story"
-            className="mt-10 inline-flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white text-ink"
+            className="mt-10 inline-flex items-center gap-3"
             aria-label="Scroll to our story"
           >
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
-              <path d="M6 10l6 6 6-6" />
-            </svg>
+            <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white text-ink">
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <path d="M6 10l6 6 6-6" />
+              </svg>
+            </span>
+            <span>
+              <span className="block text-sm font-semibold text-ink">Our Story</span>
+              <span className="block text-xs text-muted">Scroll to explore</span>
+            </span>
           </a>
         </div>
       </section>
@@ -103,29 +103,11 @@ export default function CompanyPage() {
             />
           </div>
         </div>
-        <div className="container-wide mt-12 overflow-hidden rounded-[28px]">
-          <Image
-            src="/images/canyon-10-years.png"
-            alt="Nera 10 years"
-            width={1600}
-            height={280}
-            className="h-auto w-full object-cover"
-          />
-        </div>
       </section>
 
-      <section className="bg-cream py-14">
-        <div className="container-wide grid grid-cols-2 gap-6 md:grid-cols-4">
-          {stats.map((stat) => (
-            <div key={stat.label} className="rounded-[28px] bg-white px-6 py-8 text-center">
-              <p className="text-3xl font-semibold tracking-tight">{stat.value}</p>
-              <p className="mt-1 text-sm text-muted">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <CompanyStats />
 
-      <CompanySystems />
+      <References />
       <Partners />
     </SiteShell>
   );
