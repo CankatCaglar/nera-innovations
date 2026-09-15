@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SITE } from "@/lib/constants";
 import { Button } from "@/components/ui/Button";
 import { BrandIcon } from "@/components/ui/BrandIcon";
+import { AiSummary } from "./AiSummary";
 import { Icon } from "@/lib/icons";
 import { seedSystems } from "@/lib/seed";
 
@@ -49,7 +50,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="grid gap-12 sm:grid-cols-3 sm:gap-24 lg:ml-auto lg:shrink-0 xl:gap-32">
+        <div className="flex flex-col gap-12 sm:flex-row sm:items-start sm:gap-16 lg:ml-auto lg:shrink-0 lg:gap-20 xl:gap-30">
+        <div>
+          <AiSummary />
+        </div>
+
         <div>
           <p className="text-sm font-semibold text-ink">Featured Systems</p>
           <ul className="mt-4 space-y-2.5 text-sm text-muted">
