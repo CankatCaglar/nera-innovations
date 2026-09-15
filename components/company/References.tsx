@@ -1,8 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { brandReferences } from "@/lib/references";
 import { Icon } from "@/lib/icons";
+
+/* Each logo shape gets its own box so every tile reads at the same optical size. */
+const logoFit = {
+  crest: "h-[80%] w-[80%]",
+  stacked: "h-[78%] w-[80%]",
+  plate: "h-[64%] w-[68%]",
+  wide: "h-[54%] w-[86%]",
+} as const;
 
 export function References() {
   const scroller = useRef<HTMLDivElement>(null);
@@ -41,11 +50,13 @@ export function References() {
 
   return (
     <section className="bg-[#fbf8f3] py-20">
-      <div className="container-wide grid items-center gap-10 lg:grid-cols-[0.78fr_1.22fr]">
+      <div className="container-wide grid items-center gap-10 lg:grid-cols-[minmax(240px,0.34fr)_minmax(0,1fr)]">
         <div>
           <p className="eyebrow">Trusted by leading brands</p>
           <h2 className="heading-display mt-3 max-w-md text-4xl text-ink sm:text-5xl">
-            Brands we are proud to work <span className="text-gold">with</span>.
+            Brands we are proud to
+            <br />
+            work <span className="text-gold">with</span>.
           </h2>
           <p className="mt-5 max-w-md text-base leading-7 text-muted">
             Over the last 10 years we have built marketing, technology and
@@ -53,20 +64,27 @@ export function References() {
           </p>
         </div>
 
-        <div>
+        <div className="min-w-0 lg:justify-self-stretch">
           <div
             ref={scroller}
-            className="overflow-x-auto scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="overflow-x-auto scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] lg:overflow-visible [&::-webkit-scrollbar]:hidden"
           >
-            <div className="grid grid-flow-col grid-rows-2 auto-cols-[minmax(116px,140px)] gap-3 sm:auto-cols-[minmax(128px,148px)]">
+            <div className="ml-auto grid w-full grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-flow-col lg:grid-cols-6 lg:grid-rows-2">
               {brandReferences.map((brand) => (
                 <div
                   key={brand.id}
-                  className="flex aspect-square items-center justify-center rounded-[22px] bg-white px-3 text-center"
+                  className="relative flex aspect-square items-center justify-center rounded-[22px] bg-white text-center"
                 >
-                  <p className="text-[13px] font-semibold tracking-tight text-ink sm:text-sm">
-                    {brand.name}
-                  </p>
+                  <div className={`relative ${logoFit[brand.fit]}`}>
+                    <Image
+                      src={brand.logo}
+                      alt={brand.name}
+                      fill
+                      sizes="160px"
+                      unoptimized
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
               ))}
             </div>

@@ -22,26 +22,26 @@ const highlights = [
   },
   {
     icon: "clock",
-    title: "In just 3 minutes",
-    body: "No technical knowledge required",
+    title: "Clear Next Steps",
+    body: "Know exactly what to improve first",
   },
 ];
 
 const reasons = [
   {
     icon: "user",
-    title: "Tailored Insights",
-    body: "We analyze your industry and goals to provide relevant recommendations.",
+    title: "No Generic Sales Call",
+    body: "We use your answers to understand where you are today, so our follow-up is relevant from the first message.",
   },
   {
     icon: "form",
-    title: "More Accurate Analysis",
-    body: "Your inputs help us identify the right opportunities for your business.",
+    title: "Tailored Recommendations",
+    body: "Your details help us identify which sales, marketing, or conversion systems could actually fit your business.",
   },
   {
     icon: "chat",
-    title: "A Meaningful Follow-up",
-    body: "We’ll reach out with insights and next steps that actually match your needs.",
+    title: "A Clear Next Step",
+    body: "If there’s a strong fit, we’ll share practical ideas and next steps. If not, we’ll still point you in the right direction.",
   },
 ];
 
@@ -53,12 +53,13 @@ export default function GrowthReviewPage() {
           <div>
             <p className="eyebrow">Nera Growth Review</p>
             <h1 className="heading-display mt-4 max-w-xl text-5xl text-ink sm:text-6xl">
-              Discover Your Biggest Growth{" "}
-              <span className="text-gold">Opportunity</span>.
+              Find the Sales Opportunities Your Business Is{" "}
+              <span className="text-gold">Missing</span>.
             </h1>
             <p className="mt-6 max-w-lg text-base leading-8 text-muted">
-              Get a clear view of your marketing, sales and technology
-              infrastructure — and find out where your business can grow faster.
+              Get a clear view of your marketing, sales, and conversion systems
+              and discover where Nera can help you generate more qualified
+              leads, meetings, and sales.
             </p>
             <ul className="mt-10 space-y-5">
               {highlights.map((item) => (
@@ -77,7 +78,7 @@ export default function GrowthReviewPage() {
             <div className="mt-16 border-t border-line pt-10">
               <p className="eyebrow">Why share these details?</p>
               <h2 className="heading-display mt-3 max-w-md text-3xl text-ink sm:text-4xl">
-                It helps us understand your business better.
+                So we can understand your business before we contact you.
               </h2>
               <div className="mt-8 grid gap-6 sm:grid-cols-3">
                 {reasons.map((item) => (
