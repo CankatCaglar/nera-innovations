@@ -16,14 +16,14 @@ export default function CompanyPage() {
     <SiteShell>
       <section className="relative flex min-h-[calc(100svh-84px)] items-center overflow-hidden">
         <Image
-          src="/images/about-hero.jpg"
+          src="/images/about-hero.png"
           alt=""
           fill
           sizes="100vw"
-          className="object-cover object-right"
+          className="object-cover"
           priority
+          unoptimized
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/70 to-transparent" />
         <div className="container-wide relative py-16 lg:py-0">
           <p className="eyebrow">About Nera</p>
           <h1 className="heading-display mt-4 max-w-3xl text-5xl text-ink sm:text-6xl lg:text-7xl">
@@ -60,21 +60,19 @@ export default function CompanyPage() {
           <div className="flex flex-col justify-center">
             <p className="eyebrow">Our story</p>
             <h2 className="heading-display mt-4 text-[40px] text-ink sm:text-[48px] lg:text-[52px]">
-              A Small Team
+              10 years of experience,
               <br />
-              with a <span className="text-gold">Bigger Vision</span>.
+              partnering with <span className="text-gold">100+</span>
+              <br />
+              globally focused brands.
             </h2>
-            <div className="mt-7 max-w-[28rem] space-y-4 text-[15px] leading-8 text-muted">
+            <div className="mt-7 max-w-xl text-[15px] leading-8 text-muted">
               <p>
-                Nera was founded in 2017 with a simple belief:
-                that great brands deserve more than just visibility
-                they deserve sustainable growth.
-              </p>
-              <p>
-                What started as a small team with big ideas has
-                evolved into a multidisciplinary growth partner,
-                helping brands navigate change, unlock opportunities
-                and build a stronger tomorrow.
+                Celebrating our 10th year, we have supported the growth of more
+                than 100 brands through strategic social media and marketing
+                management. We continue our operations under Nera Reklam
+                Pazarlama Yazılım Teknoloji Limited Şirketi, with offices in
+                Kuzey İzmir Teknopark and Tallinn Technopol, Estonia.
               </p>
             </div>
           </div>

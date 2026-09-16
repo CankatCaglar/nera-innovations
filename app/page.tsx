@@ -7,7 +7,7 @@ import { SocialProof } from "@/components/home/SocialProof";
 
 export default function HomePage() {
   return (
-    <SiteShell>
+    <SiteShell showCtaButton={false}>
       <Hero />
       <Systems />
       <Trusted />
