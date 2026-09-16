@@ -27,7 +27,7 @@ export function CtaBanner({ showButton = true }: { showButton?: boolean }) {
 
           <div className="min-w-0">
             <Image
-              src="/images/cta-prospects.jpg"
+              src="/images/cta-prospects.webp"
               alt="Prospects moving through AI outreach to a booked sales meeting"
               width={1024}
               height={606}

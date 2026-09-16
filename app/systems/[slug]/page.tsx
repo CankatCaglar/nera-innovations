@@ -9,7 +9,7 @@ import { EditableText } from "@/components/admin/EditableText";
 import { ReplaceImage } from "@/components/admin/ReplaceImage";
 import { RestoreOriginal } from "@/components/admin/RestoreOriginal";
 import { useAdmin } from "@/components/admin/AdminProvider";
-import { getSystemBySlug, hasSystemDetailPage, useSiteContent } from "@/lib/content";
+import { getSystemBySlug, hasSystemDetailPage, systemDisplayImage, useSiteContent } from "@/lib/content";
 import { usePatchSystem } from "@/lib/use-patch-system";
 import {
   getSeededSystem,
@@ -268,18 +268,33 @@ function Hero({ system }: { system: System }) {
 
         <div className="relative">
           {system.image ? (
-            <div className="relative">
+            <div
+              className={
+                framed
+                  ? "relative overflow-hidden rounded-[36px] shadow-[0_28px_70px_rgba(148,93,60,0.16)] lg:translate-x-2"
+                  : system.slug === "flowin"
+                    ? "relative overflow-hidden rounded-[20px]"
+                    : "relative"
+              }
+            >
               <Image
-                src={system.image}
+                src={systemDisplayImage(system) ?? system.image ?? ""}
                 alt=""
-                width={980}
-                height={720}
+                width={system.slug === "flowin" ? 883 : 980}
+                height={system.slug === "flowin" ? 587 : 720}
                 sizes="(min-width: 1024px) 46vw, 90vw"
-                unoptimized
+                unoptimized={system.slug === "flowin"}
                 className={
                   framed
-                    ? "relative z-10 max-h-[min(560px,62svh)] w-full rounded-[36px] bg-white object-contain shadow-[0_28px_70px_rgba(148,93,60,0.16)] lg:translate-x-2"
-                    : "relative z-10 max-h-[min(600px,66svh)] w-full bg-transparent object-contain"
+                    ? "relative z-10 max-h-[min(560px,62svh)] w-full bg-white object-contain"
+                    : system.slug === "flowin"
+                      ? "relative z-10 block h-auto w-full rounded-[20px] object-contain"
+                      : "relative z-10 max-h-[min(600px,66svh)] w-full bg-transparent object-contain"
+                }
+                style={
+                  system.slug === "flowin"
+                    ? { width: "100%", height: "auto", aspectRatio: "auto", borderRadius: 20 }
+                    : undefined
                 }
                 priority
               />
@@ -339,7 +354,6 @@ function FeatureShot({
             width={1920}
             height={1080}
             sizes="(min-width: 1280px) 58vw, (min-width: 1024px) 54vw, 100vw"
-            unoptimized
             className="block h-auto w-full"
             style={{ width: "100%", height: "auto", aspectRatio: "auto" }}
           />

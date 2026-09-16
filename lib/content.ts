@@ -32,3 +32,10 @@ export function systemHref(system: System) {
   if (!hasSystemDetailPage(system)) return null;
   return `/systems/${system.slug}`;
 }
+
+export const FLOWIN_IMAGE = "/images/systems/flowin.webp";
+
+export function systemDisplayImage(system: System) {
+  if (system.id === "flowin" || system.slug === "flowin") return FLOWIN_IMAGE;
+  return system.image;
+}

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useAdmin } from "@/components/admin/AdminProvider";
-import { featuredSystems, hasSystemDetailPage, microSystems, systemHref, useSiteContent } from "@/lib/content";
+import { featuredSystems, hasSystemDetailPage, microSystems, systemDisplayImage, systemHref, useSiteContent } from "@/lib/content";
 import { Icon } from "@/lib/icons";
 import type { System } from "@/lib/types";
 
@@ -290,19 +290,28 @@ function SystemCard({
             </span>
           ) : null}
         </div>
-        {system.image ? (
-          <Image
-            src={system.image}
-            alt=""
-            width={800}
-            height={530}
-            sizes="(min-width: 1024px) 22vw, 80vw"
+        {system.image || system.id === "flowin" ? (
+          <div
             className={
-              system.id === "score" || system.id === "flowin"
-                ? "h-auto w-full object-contain"
-                : "h-auto w-full rounded-[22px]"
+              system.id === "score"
+                ? "relative min-w-0"
+                : "relative min-w-0 overflow-hidden rounded-[20px]"
             }
-          />
+          >
+            <Image
+              src={systemDisplayImage(system) ?? system.image ?? ""}
+              alt=""
+              width={883}
+              height={587}
+              sizes="(min-width: 1024px) 22vw, 80vw"
+              unoptimized={system.id === "flowin"}
+              className={
+                system.id === "score"
+                  ? "h-auto w-full object-contain"
+                  : "block h-auto w-full rounded-[20px] object-cover"
+              }
+            />
+          </div>
         ) : (
           <span className="inline-flex h-40 items-center justify-center rounded-[22px] bg-sand text-nera">
             <Icon name={system.icon} className="h-10 w-10" />

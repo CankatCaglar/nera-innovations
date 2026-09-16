@@ -81,7 +81,6 @@ export function References() {
                       alt={brand.name}
                       fill
                       sizes="160px"
-                      unoptimized
                       className="object-contain"
                     />
                   </div>

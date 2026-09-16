@@ -20,8 +20,8 @@ export const seedSystems: System[] = [
     hasDetailPage: true,
     order: 3,
     icon: "share",
-    logo: "/images/systems/icons/nera-social.png",
-    image: "/images/systems/nera-social.png",
+    logo: "/images/systems/icons/nera-social.webp",
+    image: "/images/systems/nera-social.webp",
     features: [
       {
         title: "Strategy that starts with the sale",
@@ -68,18 +68,18 @@ export const seedSystems: System[] = [
     hasDetailPage: true,
     order: 2,
     icon: "workflow",
-    logo: "/images/systems/icons/flowin.png",
-    image: "/images/systems/flowin.jpg",
+    logo: "/images/systems/icons/flowin.webp",
+    image: "/images/systems/flowin.webp",
     features: [
       {
         title: "Smart Outreach Flow Builder",
         body: "A visual automation flow that lets teams design LinkedIn outreach sequences with profile visits, connection requests, wait steps, conditional replies, InMail actions, and follow-up messages based on lead behavior.",
-        image: "/images/systems/flowin-overview.png",
+        image: "/images/systems/flowin-overview.webp",
       },
       {
         title: "Growth & Campaign Intelligence",
         body: "A performance dashboard that shows campaign activity, sent messages, new connections, response rates, key alerts, and trend insights so teams can quickly understand what drives pipeline growth.",
-        image: "/images/systems/flowin-flow-builder.png",
+        image: "/images/systems/flowin-flow-builder.webp",
       },
     ],
     faqs: [
@@ -133,14 +133,14 @@ export const seedSystems: System[] = [
     hasDetailPage: true,
     order: 1,
     icon: "chart",
-    logo: "/images/systems/icons/score.png",
-    image: "/images/systems/score.png",
+    logo: "/images/systems/icons/score.webp",
+    image: "/images/systems/score.webp",
     features: [
       {
         title: "Makes your content better.",
         body: "It analyzes your content against 30+ micro quality criteria, learns your brand, and delivers actionable recommendations to improve performance.",
         points: ["Every post becomes stronger than the one before."],
-        image: "/images/systems/score-improve.png",
+        image: "/images/systems/score-improve.webp",
       },
       {
         title: "Score AI learns how your brand communicates.",
@@ -151,7 +151,7 @@ export const seedSystems: System[] = [
           "Delivers more accurate recommendations through insights.",
           "Builds an evolving memory for your brand.",
         ],
-        image: "/images/systems/score-branddna.png",
+        image: "/images/systems/score-branddna.webp",
       },
     ],
     faqs: [
@@ -200,18 +200,18 @@ export const seedSystems: System[] = [
     hasDetailPage: true,
     order: 4,
     icon: "report",
-    logo: "/images/systems/icons/repora.png",
-    image: "/images/systems/repora.png",
+    logo: "/images/systems/icons/repora.webp",
+    image: "/images/systems/repora.webp",
     features: [
       {
         title: "Detailed Performance Analytics",
         body: "A detailed analytics screen that brings together views, follower growth, audience insights, demographics, and video performance for the selected platform.",
-        image: "/images/systems/repora-performance.png",
+        image: "/images/systems/repora-performance.webp",
       },
       {
         title: "AI Supported Social Media Optimizations",
         body: "A monthly overview dashboard summarizing key metrics, top-performing content, platform growth, report status, and Repora’s performance insights.",
-        image: "/images/systems/repora-home.png",
+        image: "/images/systems/repora-home.webp",
       },
     ],
     faqs: [
@@ -310,7 +310,7 @@ export const seedSystems: System[] = [
     hasDetailPage: false,
     order: 7,
     icon: "users",
-    image: "/images/systems/nera-leads.png",
+    image: "/images/systems/nera-leads.webp",
     features: [
       {
         title: "Intake that asks better questions",
@@ -410,7 +410,7 @@ export const seedProjects: Project[] = [
     tags: ["Lead Generation", "Qualification"],
     accent: "#E8D5C4",
     icon: "users",
-    image: "/images/projects/free-source-qualified-lead.jpg",
+    image: "/images/projects/free-source-qualified-lead.webp",
     order: 1,
   },
   {
@@ -424,7 +424,7 @@ export const seedProjects: Project[] = [
     tags: ["Giveaway Funnel", "Lead Conversion"],
     accent: "#E6D3C6",
     icon: "gift",
-    image: "/images/projects/giveaway-conversion.jpg",
+    image: "/images/projects/giveaway-conversion.webp",
     order: 2,
   },
   {
@@ -438,7 +438,7 @@ export const seedProjects: Project[] = [
     tags: ["Reputation", "Reviews"],
     accent: "#E8D5C4",
     icon: "star",
-    image: "/images/projects/google-review-boost.jpg",
+    image: "/images/projects/google-review-boost.webp",
     order: 3,
   },
   {
@@ -452,7 +452,7 @@ export const seedProjects: Project[] = [
     tags: ["Internal Comms", "Employee Engagement"],
     accent: "#C9A27A",
     icon: "mail",
-    image: "/images/projects/internal-comms-mailing.jpg",
+    image: "/images/projects/internal-comms-mailing.webp",
     order: 4,
   },
   {
@@ -466,7 +466,7 @@ export const seedProjects: Project[] = [
     tags: ["Milestone Campaigns", "Loyalty"],
     accent: "#D9D2E8",
     icon: "user",
-    image: "/images/projects/anniversary-communication.jpg",
+    image: "/images/projects/anniversary-communication.webp",
     order: 5,
   },
   {
@@ -480,7 +480,7 @@ export const seedProjects: Project[] = [
     tags: ["Smart Targeting", "Conversion"],
     accent: "#C5CDD6",
     icon: "spark",
-    image: "/images/projects/smart-popup.jpg",
+    image: "/images/projects/smart-popup.webp",
     order: 6,
   },
 ];

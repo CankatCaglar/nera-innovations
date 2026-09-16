@@ -62,12 +62,11 @@ export function Header() {
           }}
         >
           <Image
-            src="/brand/logo-10.png"
+            src="/brand/logo-10.webp"
             alt="Nera 10 Years"
             width={280}
             height={72}
             className="h-12 w-auto bg-transparent md:h-14"
-            unoptimized
             priority
           />
         </Link>

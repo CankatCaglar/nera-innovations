@@ -29,7 +29,7 @@ export function Hero() {
         <div className="relative z-0 h-[280px] min-w-0 overflow-hidden sm:h-[340px] lg:h-[min(640px,calc(100svh-140px))] lg:py-2">
           <div className="relative h-full overflow-hidden rounded-[28px] lg:rounded-[32px]">
             <Image
-              src="/images/hero-systems.jpg"
+              src="/images/hero-systems.webp"
               alt="A winding path from visibility to sales across social media, advertising, web, CRM, automation and AI tools"
               fill
               sizes="(min-width: 1024px) 52vw, 100vw"

@@ -13,7 +13,7 @@
       "featured": true,
       "order": 1,
       "icon": "chart",
-      "image": "/images/systems/score.png",
+      "image": "/images/systems/score.webp",
       "features": [
         {
           "title": "Makes your content better.",
@@ -21,7 +21,7 @@
           "points": [
             "Every post becomes stronger than the one before."
           ],
-          "image": "/images/systems/score-improve.png"
+          "image": "/images/systems/score-improve.webp"
         },
         {
           "title": "Score AI learns how your brand communicates.",
@@ -32,7 +32,7 @@
             "Delivers more accurate recommendations through insights.",
             "Builds an evolving memory for your brand."
           ],
-          "image": "/images/systems/score-branddna.png"
+          "image": "/images/systems/score-branddna.webp"
         }
       ],
       "faqs": [
@@ -56,7 +56,7 @@
       "resourceTitle": "Reading performance the Nera way",
       "resourceDescription": "A one-page method for turning channel numbers into a decision you can act on this week.",
       "tag": "Analyze",
-      "logo": "/images/systems/icons/score.png",
+      "logo": "/images/systems/icons/score.webp",
       "ctaLabel": "Try for Free",
       "hasDetailPage": true
     },
@@ -73,17 +73,17 @@
       "featured": true,
       "order": 2,
       "icon": "workflow",
-      "image": "/images/systems/flowin.jpg",
+      "image": "/images/systems/flowin.webp",
       "features": [
         {
           "title": "Smart Outreach Flow Builder",
           "body": "A visual automation flow that lets teams design LinkedIn outreach sequences with profile visits, connection requests, wait steps, conditional replies, InMail actions, and follow-up messages based on lead behavior.",
-          "image": "/images/systems/flowin-overview.png"
+          "image": "/images/systems/flowin-overview.webp"
         },
         {
           "title": "Growth & Campaign Intelligence",
           "body": "A performance dashboard that shows campaign activity, sent messages, new connections, response rates, key alerts, and trend insights so teams can quickly understand what drives pipeline growth.",
-          "image": "/images/systems/flowin-flow-builder.png",
+          "image": "/images/systems/flowin-flow-builder.webp",
           "points": []
         }
       ],
@@ -112,7 +112,7 @@
       "resourceTitle": "LinkedIn Growth Playbook",
       "resourceDescription": "Learn how B2B teams build a repeatable LinkedIn outreach system, with practical examples and campaign templates you can adapt.",
       "tag": "Automate",
-      "logo": "/images/systems/icons/flowin.png",
+      "logo": "/images/systems/icons/flowin.webp",
       "ctaLabel": "Request a Demo",
       "ctaHref": "/growth-review",
       "hasDetailPage": true
@@ -130,7 +130,7 @@
       "featured": true,
       "order": 3,
       "icon": "share",
-      "image": "/images/systems/nera-social.png",
+      "image": "/images/systems/nera-social.webp",
       "features": [
         {
           "title": "Strategy that starts with the sale",
@@ -154,7 +154,7 @@
       "resourceTitle": "How Nera connects marketing to sales",
       "resourceDescription": "A short briefing on how we join social, ads, web, CRM and sales tracking into one growth structure.",
       "tag": "Management",
-      "logo": "/images/systems/icons/nera-social.png",
+      "logo": "/images/systems/icons/nera-social.webp",
       "hasDetailPage": true
     },
     {
@@ -170,17 +170,17 @@
       "featured": true,
       "order": 4,
       "icon": "report",
-      "image": "/images/systems/repora.png",
+      "image": "/images/systems/repora.webp",
       "features": [
         {
           "title": "Detailed Performance Analytics",
           "body": "A detailed analytics screen that brings together views, follower growth, audience insights, demographics, and video performance for the selected platform.",
-          "image": "/images/systems/repora-performance.png"
+          "image": "/images/systems/repora-performance.webp"
         },
         {
           "title": "AI Supported Social Media Optimizations",
           "body": "A monthly overview dashboard summarizing key metrics, top-performing content, platform growth, report status, and Repora’s performance insights.",
-          "image": "/images/systems/repora-home.png"
+          "image": "/images/systems/repora-home.webp"
         }
       ],
       "faqs": [
@@ -196,7 +196,7 @@
       "resourceTitle": "The Repora reporting brief",
       "resourceDescription": "A compact template for the weekly questions every growth team should be able to answer.",
       "tag": "Report",
-      "logo": "/images/systems/icons/repora.png",
+      "logo": "/images/systems/icons/repora.webp",
       "ctaLabel": "Request a Demo",
       "ctaHref": "/growth-review",
       "hasDetailPage": true
@@ -280,7 +280,7 @@
       "featured": false,
       "order": 7,
       "icon": "users",
-      "image": "/images/systems/nera-leads.png",
+      "image": "/images/systems/nera-leads.webp",
       "features": [
         {
           "title": "Intake that asks better questions",
@@ -381,7 +381,7 @@
       ],
       "accent": "#E8D5C4",
       "icon": "users",
-      "image": "/images/projects/free-source-qualified-lead.jpg",
+      "image": "/images/projects/free-source-qualified-lead.webp",
       "order": 1
     },
     {
@@ -397,7 +397,7 @@
       "accent": "#E6D3C6",
       "icon": "gift",
       "order": 2,
-      "image": "/images/projects/giveaway-conversion.jpg"
+      "image": "/images/projects/giveaway-conversion.webp"
     },
     {
       "id": "google-review-boost",
@@ -411,7 +411,7 @@
       ],
       "accent": "#E8D5C4",
       "icon": "star",
-      "image": "/images/projects/google-review-boost.jpg",
+      "image": "/images/projects/google-review-boost.webp",
       "order": 3
     },
     {
@@ -426,7 +426,7 @@
       ],
       "accent": "#C9A27A",
       "icon": "mail",
-      "image": "/images/projects/internal-comms-mailing.jpg",
+      "image": "/images/projects/internal-comms-mailing.webp",
       "order": 4
     },
     {
@@ -442,7 +442,7 @@
       "accent": "#D9D2E8",
       "icon": "user",
       "order": 5,
-      "image": "/images/projects/anniversary-communication.jpg"
+      "image": "/images/projects/anniversary-communication.webp"
     },
     {
       "id": "smart-popup",
@@ -456,7 +456,7 @@
       ],
       "accent": "#C5CDD6",
       "icon": "spark",
-      "image": "/images/projects/smart-popup.jpg",
+      "image": "/images/projects/smart-popup.webp",
       "order": 6
     }
   ],

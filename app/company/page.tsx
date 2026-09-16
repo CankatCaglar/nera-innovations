@@ -17,13 +17,12 @@ export default function CompanyPage() {
     <SiteShell>
       <section className="relative flex min-h-[calc(100svh-84px)] items-center overflow-hidden bg-white">
         <Image
-          src="/images/about-hero.png"
+          src="/images/about-hero.webp"
           alt=""
           fill
           sizes="(max-width: 1023px) 0px, 100vw"
           className="hidden object-cover lg:block"
           priority
-          unoptimized
         />
         <div className="container-wide relative py-16 lg:py-0">
           <p className="eyebrow">About Nera</p>
@@ -80,7 +79,7 @@ export default function CompanyPage() {
 
           <div className="relative min-h-[340px] overflow-hidden rounded-[28px] lg:min-h-0">
             <Image
-              src="/images/hero-systems.jpg"
+              src="/images/hero-systems.webp"
               alt="A winding canyon path, the mark of patient, lasting growth"
               fill
               sizes="(min-width: 1024px) 420px, 100vw"

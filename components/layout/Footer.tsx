@@ -25,12 +25,11 @@ export function Footer() {
       <div className="container-wide flex flex-col gap-12 py-16 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-xs">
           <Image
-            src="/brand/logo-10.png"
+            src="/brand/logo-10.webp"
             alt="Nera 10 Years"
             width={240}
             height={64}
             className="h-12 w-auto bg-transparent"
-            unoptimized
           />
           <p className="mt-5 max-w-[220px] text-lg leading-7 font-medium text-ink/80">
             {SITE.footerSlogan}

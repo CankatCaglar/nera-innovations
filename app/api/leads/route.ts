@@ -66,8 +66,12 @@ async function notifyInbox(
 ) {
   const subject = emailSubject(lead);
   const message = emailBody(lead);
-  const origin = request.headers.get("origin") || SITE.url;
-  const referer = request.headers.get("referer") || `${SITE.url}/contact`;
+  const originHeader = request.headers.get("origin") || "";
+  const local = /localhost|127\.0\.0\.1/.test(originHeader);
+  const origin = local ? originHeader : SITE.url;
+  const referer = local
+    ? request.headers.get("referer") || `${origin}/contact`
+    : `${SITE.url}/contact`;
 
   const response = await fetch(`https://formsubmit.co/ajax/${SITE.email}`, {
     method: "POST",

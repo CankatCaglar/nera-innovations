@@ -30,8 +30,25 @@ function mergeSeededProjects(projects: Project[]) {
 
   return seedProjects.map((seeded) => {
     const existing = byId.get(seeded.id);
-    return existing ? { ...existing, ...seeded } : seeded;
+    return existing
+      ? { ...existing, ...seeded, image: toOptimizedAsset(existing.image ?? seeded.image) }
+      : seeded;
   });
+}
+
+function toOptimizedAsset(url?: string) {
+  if (!url) return url;
+  if (url.includes("/uploads/") || url.endsWith("favicon.png") || url.endsWith("apple-icon.png")) {
+    return url;
+  }
+  if (url.includes("score-brand-dna")) return "/images/systems/score-branddna.webp";
+  if (
+    url === "/images/systems/flowin-hero.webp" ||
+    url === "/images/systems/flowin.jpg"
+  ) {
+    return "/images/systems/flowin.webp";
+  }
+  return url.replace(/\.(png|jpe?g)$/i, ".webp");
 }
 
 function mergeSeededHomeFields(systems: System[]) {
@@ -63,11 +80,10 @@ function mergeSeededHomeFields(systems: System[]) {
     if (seeded.features?.length && !system.features?.length) {
       next.features = seeded.features;
     } else if (next.features?.length) {
-      next.features = next.features.map((feature) =>
-        feature.image === "/images/systems/score-brand-dna.jpg"
-          ? { ...feature, image: "/images/systems/score-branddna.png" }
-          : feature,
-      );
+      next.features = next.features.map((feature) => ({
+        ...feature,
+        image: toOptimizedAsset(feature.image),
+      }));
     }
     if (seeded.faqs?.length && !system.faqs?.length) {
       next.faqs = seeded.faqs;
@@ -82,6 +98,11 @@ function mergeSeededHomeFields(systems: System[]) {
     if (seeded.heroTitle && !system.heroTitle) {
       next.heroTitle = seeded.heroTitle;
       next.heroSubtitle = seeded.heroSubtitle;
+    }
+    next.image = toOptimizedAsset(next.image);
+    next.logo = toOptimizedAsset(next.logo);
+    if (next.id === "flowin" || next.slug === "flowin") {
+      next.image = "/images/systems/flowin.webp";
     }
     return next;
   });
