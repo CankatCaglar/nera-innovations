@@ -1,8 +1,8 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { getAdminDb, isFirebaseAdminConfigured } from "./firebase-admin";
-import { seedContent, seedLocations, seedSystems } from "./seed";
-import type { MapLocation, SiteContent, System } from "./types";
+import { seedContent, seedLocations, seedProjects, seedSystems } from "./seed";
+import type { MapLocation, Project, SiteContent, System } from "./types";
 
 const FILE = path.join(process.cwd(), "data", "content.json");
 const CONTENT_DOC = "site/content";
@@ -25,19 +25,32 @@ function mergeSeededLocations(locations: MapLocation[]) {
   });
 }
 
+function mergeSeededProjects(projects: Project[]) {
+  const byId = new Map(projects.map((project) => [project.id, project]));
+
+  return seedProjects.map((seeded) => {
+    const existing = byId.get(seeded.id);
+    return existing ? { ...existing, ...seeded } : seeded;
+  });
+}
+
 function mergeSeededHomeFields(systems: System[]) {
   return systems.map((system) => {
     const seeded = seedSystems.find((item) => item.id === system.id);
     if (!seeded) return system;
 
     const next = { ...system };
+    if (system.id === "score" || system.id === "flowin" || system.id === "repora") {
+      next.heroTitle = seeded.heroTitle;
+      next.heroSubtitle = seeded.heroSubtitle;
+      next.tagline = seeded.tagline;
+      next.description = seeded.description;
+      if (seeded.image) next.image = seeded.image;
+    }
     if (seeded.tag && !system.tag) {
       next.tag = seeded.tag;
       next.tagline = seeded.tagline;
       next.order = seeded.order;
-    }
-    if (system.id === "flowin" && seeded.image) {
-      next.image = seeded.image;
     }
     if (seeded.logo) {
       next.logo = seeded.logo;
@@ -62,7 +75,7 @@ function normalizeContent(parsed: Partial<SiteContent> | undefined): SiteContent
       ? sortByOrder(mergeSeededHomeFields(parsed.systems))
       : seedContent.systems,
     projects: parsed?.projects?.length
-      ? sortByOrder(parsed.projects)
+      ? sortByOrder(mergeSeededProjects(parsed.projects))
       : seedContent.projects,
     partners: parsed?.partners?.length
       ? sortByOrder(parsed.partners)

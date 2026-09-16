@@ -4,6 +4,7 @@ export type SystemFeature = {
   title: string;
   body: string;
   points?: string[];
+  image?: string;
 };
 
 export type SystemFaq = {
@@ -43,6 +44,7 @@ export type Project = {
   tags: string[];
   accent: string;
   icon: string;
+  image?: string;
   order: number;
 };
 

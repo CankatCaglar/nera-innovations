@@ -40,7 +40,7 @@ html {
 
 /* Keeps section headings clear of the sticky header when jumping to anchors. */
 section[id] {
-  scroll-margin-top: 2rem;
+  scroll-margin-top: 7.5rem;
 }
 
 body {

@@ -230,7 +230,11 @@ function SystemCard({
             width={800}
             height={530}
             sizes="(min-width: 1024px) 22vw, 80vw"
-            className="h-auto w-full rounded-[22px]"
+            className={
+              system.id === "score" || system.id === "flowin"
+                ? "h-auto w-full object-contain"
+                : "h-auto w-full rounded-[22px]"
+            }
           />
         ) : (
           <span className="inline-flex h-40 items-center justify-center rounded-[22px] bg-sand text-nera">

@@ -59,21 +59,36 @@ function goldTitle(title: string) {
   );
 }
 
+function HeroTitle({ title }: { title: string }) {
+  const marker = "Score AI";
+  const index = title.indexOf(marker);
+  if (index === -1) return goldTitle(title);
+  return (
+    <>
+      {title.slice(0, index)}
+      <span className="text-gold">{marker}</span>
+      {title.slice(index + marker.length)}
+    </>
+  );
+}
+
 function Hero({ system }: { system: System }) {
+  const framed = system.slug !== "score" && system.slug !== "flowin";
+
   return (
     <section className="flex min-h-[calc(100svh-84px)] items-center overflow-hidden bg-[#fbf8f3]">
       <div className="container-wide grid w-full items-center gap-12 py-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:py-0">
         <div>
           <p className="eyebrow">{system.name}</p>
           <h1 className="heading-display mt-4 max-w-xl text-5xl text-ink sm:text-6xl">
-            {goldTitle(system.heroTitle)}
+            <HeroTitle title={system.heroTitle} />
           </h1>
           <p className="mt-6 max-w-lg text-base leading-8 text-muted">
             {system.heroSubtitle}
           </p>
           <div className="mt-8">
             <Button href={system.appUrl} arrow external>
-              Try the application
+              {system.slug === "score" ? "Try for Free" : "Try the application"}
             </Button>
           </div>
         </div>
@@ -86,7 +101,12 @@ function Hero({ system }: { system: System }) {
               width={980}
               height={720}
               sizes="(min-width: 1024px) 46vw, 90vw"
-              className="relative z-10 max-h-[min(520px,56svh)] w-full rounded-[28px] bg-white object-contain shadow-[0_24px_60px_rgba(148,93,60,0.14)] lg:translate-x-4 lg:rotate-[-2deg]"
+              unoptimized={system.slug === "score" || system.slug === "flowin"}
+              className={
+                framed
+                  ? "relative z-10 max-h-[min(520px,56svh)] w-full rounded-[28px] bg-white object-contain shadow-[0_24px_60px_rgba(148,93,60,0.14)] lg:translate-x-4 lg:rotate-[-2deg]"
+                  : "relative z-10 max-h-[min(560px,62svh)] w-full bg-transparent object-contain"
+              }
               priority
             />
           ) : (
@@ -133,15 +153,30 @@ function Features({ system }: { system: System }) {
                   </ul>
                 ) : null}
               </div>
-              <div className="overflow-hidden rounded-[32px] border border-black/5 bg-[#fbf8f3] p-4 sm:p-6">
-                {system.image ? (
+              <div
+                className={
+                  feature.image || system.slug === "score" || system.slug === "flowin"
+                    ? "min-w-0 overflow-visible"
+                    : "overflow-hidden rounded-[32px] border border-black/5 bg-[#fbf8f3] p-4 sm:p-6"
+                }
+              >
+                {feature.image || system.image ? (
                   <Image
-                    src={system.image}
+                    src={feature.image ?? system.image ?? ""}
                     alt=""
-                    width={860}
-                    height={560}
-                    sizes="(min-width: 1024px) 40vw, 90vw"
-                    className="h-auto w-full rounded-[22px] bg-white"
+                    width={1600}
+                    height={900}
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    unoptimized={
+                      system.slug === "score" ||
+                      system.slug === "flowin" ||
+                      system.slug === "repora"
+                    }
+                    className={
+                      feature.image || system.slug === "score" || system.slug === "flowin"
+                        ? "h-auto w-full rounded-none bg-transparent object-contain"
+                        : "h-auto w-full rounded-[22px] bg-white"
+                    }
                   />
                 ) : (
                   <div className="flex min-h-[240px] items-center justify-center rounded-[22px] bg-white">
@@ -216,13 +251,16 @@ function ResourceBanner({ system }: { system: System }) {
             </p>
           </div>
 
-          <div className="mx-auto flex h-72 w-48 items-end justify-center rounded-md bg-gradient-to-br from-[#f3e7d8] via-white to-[#ead7c4] px-5 py-7 shadow-[0_22px_50px_rgba(148,93,60,0.16)] sm:h-80 sm:w-52">
+          <div className="mx-auto flex h-72 w-48 items-start rounded-md bg-gradient-to-br from-[#f3e7d8] via-white to-[#ead7c4] px-5 pt-8 pb-6 shadow-[0_22px_50px_rgba(148,93,60,0.16)] sm:h-80 sm:w-52">
             <div>
-              <p className="text-[10px] font-semibold tracking-[0.22em] text-soft uppercase">
+              <p className="text-xs font-medium tracking-[0.2em] text-soft uppercase">
                 {system.name}
               </p>
-              <p className="heading-display mt-4 text-2xl leading-7 text-ink">
+              <p className="heading-display mt-5 text-[1.7rem] leading-8 font-bold text-ink">
                 {system.resourceTitle}
+              </p>
+              <p className="mt-4 text-xl font-light tracking-tight text-nera">
+                2026
               </p>
             </div>
           </div>

@@ -1,30 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { useSiteContent } from "@/lib/content";
 import { Icon } from "@/lib/icons";
-import { Button } from "@/components/ui/Button";
 import type { Project } from "@/lib/types";
 
-function ProjectCard({
-  project,
-  onOpen,
-}: {
-  project: Project;
-  onOpen: (project: Project) => void;
-}) {
+function ProjectCard({ project }: { project: Project }) {
   return (
     <article className="flex flex-col overflow-hidden rounded-[28px] bg-white shadow-[0_16px_40px_rgba(148,93,60,0.08)]">
       <div
-        className="relative h-36"
-        style={{ background: `linear-gradient(160deg, ${project.accent}, #fff 78%)` }}
+        className="relative h-40"
+        style={
+          project.image
+            ? undefined
+            : { background: `linear-gradient(160deg, ${project.accent}, #fff 78%)` }
+        }
       >
-        <span className="absolute top-4 left-4 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white text-nera shadow-sm">
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt=""
+            fill
+            sizes="(min-width: 1280px) 20vw, (min-width: 640px) 40vw, 100vw"
+            className="object-cover"
+          />
+        ) : null}
+        <span className="absolute top-4 left-4 z-10 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white text-nera shadow-sm">
           <Icon name="check" className="h-3.5 w-3.5" />
         </span>
-        <span className="absolute right-6 bottom-4 text-ink/18">
-          <Icon name={project.icon} className="h-14 w-14" />
-        </span>
+        {project.image ? null : (
+          <span className="absolute right-6 bottom-4 text-ink/18">
+            <Icon name={project.icon} className="h-14 w-14" />
+          </span>
+        )}
       </div>
       <div className="flex flex-1 flex-col p-6">
         <p className="text-[11px] font-semibold tracking-[0.16em] text-soft uppercase">
@@ -34,24 +43,23 @@ function ProjectCard({
           {project.name}
         </h3>
         <p className="mt-2 flex-1 text-sm leading-6 text-muted">{project.description}</p>
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-4 flex flex-nowrap gap-1.5">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-sand px-2.5 py-1 text-[11px] font-medium text-muted"
+              className="shrink-0 whitespace-nowrap rounded-full bg-sand px-2 py-0.5 text-[10px] font-medium text-muted"
             >
               {tag}
             </span>
           ))}
         </div>
-        <button
-          type="button"
-          onClick={() => onOpen(project)}
+        <Link
+          href="/growth-review"
           className="mt-5 inline-flex w-full items-center justify-between rounded-full border border-black/8 px-4 py-2.5 text-sm font-semibold text-ink"
         >
           Get details
           <Icon name="arrow" className="h-4 w-4" />
-        </button>
+        </Link>
       </div>
     </article>
   );
@@ -59,7 +67,6 @@ function ProjectCard({
 
 export function Projects() {
   const { projects } = useSiteContent();
-  const [active, setActive] = useState<Project | null>(null);
 
   return (
     <section id="projects" className="relative overflow-hidden bg-[#f7f3ee] py-20">
@@ -98,43 +105,10 @@ export function Projects() {
 
         <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} onOpen={setActive} />
+            <ProjectCard key={project.id} project={project} />
           ))}
         </div>
       </div>
-
-      {active ? (
-        <div
-          className="fixed inset-0 z-50 flex items-end justify-center bg-ink/40 p-4 sm:items-center"
-          onClick={() => setActive(null)}
-        >
-          <div
-            className="w-full max-w-lg rounded-[28px] bg-white p-7 shadow-[0_18px_50px_rgba(148,93,60,0.12)]"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <p className="text-[11px] font-semibold tracking-[0.16em] text-soft uppercase">
-              {active.category}
-            </p>
-            <h3 className="mt-2 text-2xl font-semibold tracking-tight">{active.name}</h3>
-            <p className="mt-4 text-sm leading-7 text-muted">{active.details}</p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {active.tags.map((tag) => (
-                <span key={tag} className="rounded-full bg-sand px-2.5 py-1 text-[11px] font-medium">
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Button href="/contact" arrow>
-                Get in touch
-              </Button>
-              <Button variant="secondary" onClick={() => setActive(null)}>
-                Close
-              </Button>
-            </div>
-          </div>
-        </div>
-      ) : null}
     </section>
   );
 }

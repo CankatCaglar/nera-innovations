@@ -54,12 +54,12 @@ export const seedSystems: System[] = [
     kind: "app",
     tag: "Automate",
     tagline:
-      "Automates LinkedIn-focused lead processes to help turn prospects into sales opportunities.",
+      "Helps teams turn LinkedIn outreach into a scalable growth engine by automating profile visits, connection requests, personalized messages, and follow-ups while tracking every lead interaction in one place.",
     description:
-      "Workflow automation that connects campaigns, CRM and follow-up so no lead is left waiting.",
-    heroTitle: "Automation that keeps growth moving.",
+      "Helps teams turn LinkedIn outreach into a scalable growth engine by automating profile visits, connection requests, personalized messages, and follow-ups while tracking every lead interaction in one place.",
+    heroTitle: "Flowin LinkedIn Growth Automation",
     heroSubtitle:
-      "Flowin connects the steps between a first click and a sales conversation, reminders, routing, follow-up and the quiet work in between.",
+      "Flowin helps teams turn LinkedIn outreach into a scalable growth engine by automating profile visits, connection requests, personalized messages, and follow-ups while tracking every lead interaction in one place.",
     appUrl: "https://flowin.nerainnovations.com",
     featured: true,
     order: 2,
@@ -68,24 +68,14 @@ export const seedSystems: System[] = [
     image: "/images/systems/flowin.jpg",
     features: [
       {
-        title: "Create your outreach flow in minutes",
-        body: "Design personalized LinkedIn and email sequences with a simple builder, more than ten actions, and the conditions a real sales process needs.",
-        points: [
-          "Easy drag-and-drop builder",
-          "Multi-step campaigns",
-          "Smart conditions",
-          "LinkedIn and email automation",
-        ],
+        title: "Smart Outreach Flow Builder",
+        body: "A visual automation flow that lets teams design LinkedIn outreach sequences with profile visits, connection requests, wait steps, conditional replies, InMail actions, and follow-up messages based on lead behavior.",
+        image: "/images/systems/flowin-overview.png",
       },
       {
-        title: "Make every message feel personal",
-        body: "Use dynamic variables and AI-supported suggestions to write conversations that still sound like a person wrote them.",
-        points: [
-          "20+ prebuilt variables",
-          "AI icebreakers",
-          "Clean copy before sending",
-          "Custom lead fields",
-        ],
+        title: "Growth & Campaign Intelligence",
+        body: "A performance dashboard that shows campaign activity, sent messages, new connections, response rates, key alerts, and trend insights so teams can quickly understand what drives pipeline growth.",
+        image: "/images/systems/flowin-flow-builder.png",
       },
     ],
     faqs: [
@@ -129,9 +119,10 @@ export const seedSystems: System[] = [
       "Analyzes your content across 30+ micro-criteria and shows why it underperforms, with actionable suggestions in seconds.",
     description:
       "See what is working across channels, compare performance and decide where the next budget should go.",
-    heroTitle: "Know what is working before you spend more.",
+    heroTitle:
+      "Why isn't your content performing? Let Score AI tell you in seconds.",
     heroSubtitle:
-      "Score brings channel performance into one view so teams can stop guessing and start allocating attention and budget with evidence.",
+      "Score AI analyzes your content across 30+ micro-criteria, understands your brand, and automatically delivers actionable suggestions for better results.",
     appUrl: "https://score.nerainnovations.com",
     featured: true,
     order: 1,
@@ -140,24 +131,43 @@ export const seedSystems: System[] = [
     image: "/images/systems/score.png",
     features: [
       {
-        title: "One score for the whole picture",
-        body: "Social, ads and site activity stop living in separate exports. Score shows which efforts create attention, which ones create opportunity, and which ones only create noise.",
+        title: "Makes your content better.",
+        body: "It analyzes your content against 30+ micro quality criteria, learns your brand, and delivers actionable recommendations to improve performance.",
+        points: ["Every post becomes stronger than the one before."],
+        image: "/images/systems/score-improve.png",
       },
       {
-        title: "Decisions with a shorter distance",
-        body: "Instead of monthly reconstruction, you get a live read on performance, so creative, media and sales can react while the window is still open.",
+        title: "Score AI learns how your brand communicates.",
+        body: "It stores your tone, visual language, and winning content patterns over time.",
+        points: [
+          "Extracts your Brand DNA.",
+          "Learns from past content.",
+          "Delivers more accurate recommendations through insights.",
+          "Builds an evolving memory for your brand.",
+        ],
+        image: "/images/systems/score-brand-dna.jpg",
       },
     ],
     faqs: [
       {
-        question: "Which channels can Score read?",
+        question: "What exactly does Score AI do?",
         answer:
-          "Score is built for the channels Nera already runs with brands: social, advertising, web and the conversion points that sit after them.",
+          "Score AI analyzes your content with 30+ micro criteria, gives a 0-100 score, and provides actionable suggestions to improve performance. It learns your brand, derives insights from past data, and speeds up your content workflow.",
       },
       {
-        question: "Is Score only for large teams?",
+        question: "Is my content secure?",
         answer:
-          "No. It is most useful when a small team needs a clear weekly picture without hiring a full reporting function.",
+          "Yes. Your content is stored securely and is not shared with third parties.",
+      },
+      {
+        question: "Is Score AI free?",
+        answer:
+          "You can try the Starter plan free for 7 days, no credit card required. Upgrade to Pro when you need regular analysis.",
+      },
+      {
+        question: "Can I change my plan later?",
+        answer:
+          "Yes. You can upgrade or change your plan anytime as your analysis volume grows.",
       },
     ],
     resourceTitle: "Reading performance the Nera way",
@@ -170,12 +180,13 @@ export const seedSystems: System[] = [
     slug: "repora",
     kind: "app",
     tag: "Report",
-    tagline: "Turns marketing and sales data into clear, actionable reports.",
+    tagline:
+      "Helps brands track social media performance across platforms, measure content impact, and turn data into clear, actionable insights.",
     description:
-      "Clean, repeatable reporting across campaigns and systems, without rebuilding the same deck every Monday.",
-    heroTitle: "Reporting that stays out of the way.",
+      "Helps brands track social media performance across platforms, measure content impact, and turn data into clear, actionable insights.",
+    heroTitle: "Repora Social Media Performance Dashboard",
     heroSubtitle:
-      "Repora turns scattered campaign data into a consistent story: what moved, what stalled, and what deserves the next conversation.",
+      "Repora helps brands track social media performance across platforms, measure content impact, and turn data into clear, actionable insights.",
     appUrl: "https://repora.nerainnovations.com",
     featured: true,
     order: 4,
@@ -184,12 +195,14 @@ export const seedSystems: System[] = [
     image: "/images/systems/repora.png",
     features: [
       {
-        title: "A report that does not need translation",
-        body: "Repora is written for operators and for the people they report to. The same numbers, two altitudes, so weekly work and monthly decisions stay aligned.",
+        title: "Detailed Performance Analytics",
+        body: "A detailed analytics screen that brings together views, follower growth, audience insights, demographics, and video performance for the selected platform.",
+        image: "/images/systems/repora-performance.png",
       },
       {
-        title: "Less assembly, more judgment",
-        body: "When the report builds itself from the systems you already run, the team spends time on interpretation instead of screenshots.",
+        title: "AI Supported Social Media Optimizations",
+        body: "A monthly overview dashboard summarizing key metrics, top-performing content, platform growth, report status, and Repora’s performance insights.",
+        image: "/images/systems/repora-home.png",
       },
     ],
     faqs: [
@@ -373,75 +386,87 @@ export const seedSystems: System[] = [
 
 export const seedProjects: Project[] = [
   {
-    id: "review-boost",
-    name: "Review Boost",
-    category: "Google My Business",
-    description: "Automatically request and manage Google reviews.",
+    id: "free-source-qualified-lead",
+    name: "From Free Source to Qualified Lead",
+    category: "Lead Generation",
+    description:
+      "A lead generation project that transforms free data sources into structured, qualified sales opportunities.",
     details:
-      "A compact system for asking the right customers for a review at the right moment, then keeping Google Business Profile activity from going quiet. Built for local brands that already have demand and need proof in public.",
-    tags: ["Automation", "Google Business"],
+      "A lead generation project that transforms free data sources into structured, qualified sales opportunities.",
+    tags: ["Lead Generation", "Qualification"],
     accent: "#E8D5C4",
-    icon: "star",
+    icon: "users",
+    image: "/images/projects/free-source-qualified-lead.jpg",
     order: 1,
-  },
-  {
-    id: "mailing-project",
-    name: "Mailing Project",
-    category: "Email Marketing",
-    description: "Automatically personalized email campaigns.",
-    details:
-      "A mailing setup that treats email as a system, not a blast. Sequences follow behavior and timing so the message feels written for one person even when it is sent to many.",
-    tags: ["CRM", "Automation"],
-    accent: "#C9A27A",
-    icon: "mail",
-    order: 2,
   },
   {
     id: "giveaway-conversion",
     name: "From Giveaway to Conversion",
-    category: "Social Media",
-    description: "Turn audience engagement into real opportunities.",
+    category: "Giveaway Funnel",
+    description:
+      "A campaign flow that turns giveaway participants into qualified prospects through follow-up and segmentation.",
     details:
-      "Giveaways create attention. This project designs the path after the attention, qualification, follow-up and an offer that is allowed to be useful, not only viral.",
-    tags: ["Social", "Automation"],
+      "A campaign flow that turns giveaway participants into qualified prospects through follow-up and segmentation.",
+    tags: ["Giveaway Funnel", "Lead Conversion"],
     accent: "#E6D3C6",
     icon: "gift",
+    image: "/images/projects/giveaway-conversion.jpg",
+    order: 2,
+  },
+  {
+    id: "google-review-boost",
+    name: "Google Review Boost",
+    category: "Reputation",
+    description:
+      "A review generation project that encourages satisfied customers to leave high-quality Google reviews.",
+    details:
+      "A review generation project that encourages satisfied customers to leave high-quality Google reviews.",
+    tags: ["Reputation", "Reviews"],
+    accent: "#E8D5C4",
+    icon: "star",
+    image: "/images/projects/google-review-boost.jpg",
     order: 3,
   },
   {
-    id: "campaign-kit",
-    name: "Campaign Automation Kit",
-    category: "Campaign Tools",
-    description: "Plan, launch and optimize campaigns with ready workflows.",
+    id: "internal-comms-mailing",
+    name: "Internal Communication Mailing Project",
+    category: "Internal Comms",
+    description:
+      "A targeted mailing workflow designed to improve employee engagement and deliver internal updates with clarity.",
     details:
-      "A repeatable kit for launching campaigns without rebuilding the operating system each time: briefs, assets, tracking and the follow-through that usually gets dropped.",
-    tags: ["Automation", "Advertising"],
-    accent: "#B8B3A8",
-    icon: "blocks",
+      "A targeted mailing workflow designed to improve employee engagement and deliver internal updates with clarity.",
+    tags: ["Internal Comms", "Employee Engagement"],
+    accent: "#C9A27A",
+    icon: "mail",
+    image: "/images/projects/internal-comms-mailing.jpg",
     order: 4,
-  },
-  {
-    id: "local-growth",
-    name: "Local Growth Toolkit",
-    category: "Growth Tools",
-    description: "Find and engage local opportunities with data-driven tools.",
-    details:
-      "A practical stack for brands that win in a city or a region: local search, neighborhood-level messaging, and a short list of actions that actually move the store or the service.",
-    tags: ["Research", "Experiment"],
-    accent: "#C5CDD6",
-    icon: "bars",
-    order: 5,
   },
   {
     id: "anniversary",
     name: "Anniversary Communication",
-    category: "CRM Systems",
-    description: "Automate special-day communications for stronger customer relationships.",
+    category: "Milestone Campaigns",
+    description:
+      "A milestone-based communication system for celebrating customer or company anniversaries such as 10th, 20th, and 50th years.",
     details:
-      "Birthdays, renewals and milestones are easy to miss and expensive to ignore. This project turns those dates into a quiet, branded communication that keeps the relationship warm.",
-    tags: ["CRM", "Retention"],
+      "A milestone-based communication system for celebrating customer or company anniversaries such as 10th, 20th, and 50th years.",
+    tags: ["Milestone Campaigns", "Loyalty"],
     accent: "#D9D2E8",
     icon: "user",
+    image: "/images/projects/anniversary-communication.jpg",
+    order: 5,
+  },
+  {
+    id: "smart-popup",
+    name: "Smart Pop-up System",
+    category: "Smart Targeting",
+    description:
+      "An intelligent pop-up system that shows the right message to visitors based on timing, behavior, and intent.",
+    details:
+      "An intelligent pop-up system that shows the right message to visitors based on timing, behavior, and intent.",
+    tags: ["Smart Targeting", "Conversion"],
+    accent: "#C5CDD6",
+    icon: "spark",
+    image: "/images/projects/smart-popup.jpg",
     order: 6,
   },
 ];
