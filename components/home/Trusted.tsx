@@ -156,8 +156,8 @@ export function Trusted() {
       </div>
 
       <div className="container-wide mt-6 pb-16">
-        <div className="overflow-hidden rounded-[32px] bg-white px-5 py-8 shadow-[0_18px_50px_rgba(148,93,60,0.08)] sm:px-8 lg:px-10">
-          <div className="grid items-center gap-8 lg:grid-cols-[0.46fr_1.54fr]">
+        <div className="overflow-x-clip rounded-[32px] bg-white px-5 py-8 shadow-[0_18px_50px_rgba(148,93,60,0.08)] sm:px-8 lg:px-10">
+          <div className="grid min-w-0 items-center gap-8 lg:grid-cols-[0.46fr_minmax(0,1.54fr)]">
             <div>
               <p className="eyebrow">Our partners</p>
               <h3 className="heading-display mt-3 text-[25px] text-ink sm:text-[28px] lg:whitespace-nowrap">

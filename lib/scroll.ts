@@ -1,4 +1,5 @@
-const HEADING_GAP = 48;
+const HEADING_GAP = 0;
+const STORY_GAP = 120;
 
 export function stickyHeaderHeight() {
   return (
@@ -7,8 +8,9 @@ export function stickyHeaderHeight() {
   );
 }
 
-export function sectionScrollOffset() {
-  return stickyHeaderHeight() + HEADING_GAP;
+export function sectionScrollOffset(id?: string) {
+  const gap = id === "story" ? STORY_GAP : HEADING_GAP;
+  return stickyHeaderHeight() + gap;
 }
 
 export function syncHeaderOffset() {
@@ -26,10 +28,12 @@ export function scrollToHash(hash: string) {
 
   syncHeaderOffset();
 
-  const heading =
-    section.querySelector<HTMLElement>(".eyebrow, h1, h2, h3") ?? section;
-  const top =
-    window.scrollY + heading.getBoundingClientRect().top - sectionScrollOffset();
+  const offset = sectionScrollOffset(id);
+  const target =
+    id === "story"
+      ? (section.querySelector<HTMLElement>(".eyebrow, h1, h2, h3") ?? section)
+      : section;
+  const top = window.scrollY + target.getBoundingClientRect().top - offset;
 
   window.scrollTo({ top: Math.max(0, Math.round(top)), behavior: "smooth" });
   return true;

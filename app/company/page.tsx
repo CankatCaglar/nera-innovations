@@ -4,6 +4,7 @@ import { SiteShell } from "@/components/layout/SiteShell";
 import { References } from "@/components/company/References";
 import { CompanyStats } from "@/components/company/CompanyStats";
 import { Partners } from "@/components/home/Partners";
+import { HashLink } from "@/components/ui/HashLink";
 
 export const metadata: Metadata = {
   title: "Company",
@@ -14,13 +15,13 @@ export const metadata: Metadata = {
 export default function CompanyPage() {
   return (
     <SiteShell>
-      <section className="relative flex min-h-[calc(100svh-84px)] items-center overflow-hidden">
+      <section className="relative flex min-h-[calc(100svh-84px)] items-center overflow-hidden bg-white">
         <Image
           src="/images/about-hero.png"
           alt=""
           fill
-          sizes="100vw"
-          className="object-cover"
+          sizes="(max-width: 1023px) 0px, 100vw"
+          className="hidden object-cover lg:block"
           priority
           unoptimized
         />
@@ -37,7 +38,7 @@ export default function CompanyPage() {
             With our in-house digital sales tools, we create a custom growth
             setup for each company’s sales goals.
           </p>
-          <a
+          <HashLink
             href="#story"
             className="mt-10 inline-flex items-center gap-3"
             aria-label="Scroll to our story"
@@ -51,11 +52,11 @@ export default function CompanyPage() {
               <span className="block text-sm font-semibold text-ink">Our Story</span>
               <span className="block text-xs text-muted">Scroll to explore</span>
             </span>
-          </a>
+          </HashLink>
         </div>
       </section>
 
-      <section id="story" className="bg-cream py-16 lg:py-24">
+      <section id="story" className="bg-cream py-20 lg:py-28">
         <div className="container-wide grid items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(340px,420px)_minmax(240px,280px)] lg:items-stretch lg:gap-8">
           <div className="flex flex-col justify-center">
             <p className="eyebrow">Our story</p>
@@ -87,24 +88,28 @@ export default function CompanyPage() {
             />
           </div>
 
-          <aside className="flex flex-col rounded-[28px] bg-sand px-8 py-9 lg:px-9 lg:py-10">
-            <p className="text-[13px] font-semibold leading-[1.85] tracking-[0.22em] text-gold uppercase">
-              Different
-              <br />
-              expertises
-              <br />
-              a common
-              <br />
-              direction
+          <aside className="flex w-full flex-col rounded-[28px] bg-sand px-7 py-8 sm:px-8 sm:py-9 lg:px-9 lg:py-10">
+            <p className="text-[13px] font-semibold tracking-[0.14em] text-gold uppercase sm:text-[14px] sm:tracking-[0.2em]">
+              <span className="block leading-7 lg:hidden">
+                Different expertises
+                <br />
+                a common direction
+              </span>
+              <span className="hidden leading-[1.85] lg:block">
+                Different
+                <br />
+                expertises
+                <br />
+                a common
+                <br />
+                direction
+              </span>
             </p>
-            <span className="mt-8 block h-px w-12 bg-gold" />
-            <p className="mt-8 text-[15px] leading-8 text-muted">
-              Like a river shaping
-              the landscape layer by layer,
-              we believe in the power
-              of consistent effort,
-              collaboration and
-              long-term perspective.
+            <span className="mt-6 block h-px w-12 bg-gold lg:mt-8" />
+            <p className="mt-6 text-[15px] leading-8 text-muted lg:mt-8">
+              Like a river shaping the landscape layer by layer, we believe in
+              the power of consistent effort, collaboration and long-term
+              perspective.
             </p>
           </aside>
         </div>
