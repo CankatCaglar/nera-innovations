@@ -18,28 +18,28 @@ const quotes = [
     quote:
       "They produce strong work, and they do not only do what they are asked. They look for how we can make a difference. The team is young, communicative and open to feedback. They listen to what the client wants and still guide with a professional point of view. They put a lasting relationship ahead of a quick win, which makes it easy to enjoy the work and keep the quality high.",
     name: "Deniz Altınok",
-    url: SITE.googleReviews,
+    url: "https://share.google/zMxLfoUZGm8fGJFkd",
   },
   {
     brand: "Bimaks",
     quote:
       "Nera Marketing is the professional partner I trust with my social media and web. I am very satisfied, and I recommend them.",
     name: "Alper Tunga Dost",
-    url: SITE.googleReviews,
+    url: "https://share.google/NaHCQ2A5jJ566duNY",
   },
   {
     brand: "Gorg",
     quote:
       "Marketing management is serious work and it has to be done by a team that knows the craft. At Nera you work with people who enjoy what they do, who are knowledgeable and who keep the process enjoyable. Their careful, creative solutions make the journey easier, they are extremely disciplined with time, and our brands feel in safe hands. Glad Nera is here.",
     name: "Ömer Sürücü",
-    url: SITE.googleReviews,
+    url: "https://share.google/5SrfPEhi9HRu9661A",
   },
   {
     brand: "Swatchloop",
     quote:
       "As Swatchloop, we really enjoy working with Ogün and the team on social media. They helped us reach our social media goals and much more. They are a responsive team that finds a solution to every problem, fast.",
     name: "Gökberk Devrim",
-    url: SITE.googleReviews,
+    url: "https://share.google/kQJvlsruqJvMnheXB",
   },
 ];
 
@@ -108,7 +108,7 @@ export function SocialProof() {
 
         <div
           ref={scroller}
-          className="mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth py-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth py-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {quotes.map((item) => (
             <a
@@ -117,7 +117,7 @@ export function SocialProof() {
               target="_blank"
               rel="noreferrer"
               aria-label={`Read ${item.name}'s Google review`}
-              className="group relative flex min-h-[280px] w-[85%] shrink-0 snap-start flex-col rounded-[28px] border border-black/5 bg-white p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-nera/25 hover:shadow-[0_18px_40px_rgba(148,93,60,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nera/40 sm:w-[calc((100%-1.25rem)/2)] sm:p-7 lg:w-[calc((100%-2.5rem)/3)] xl:w-[calc((100%-3.75rem)/4)]"
+              className="group relative flex min-h-[280px] w-[85%] shrink-0 snap-start flex-col rounded-[28px] border border-black/5 bg-white p-6 transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nera/40 sm:w-[calc((100%-1.25rem)/2)] sm:p-7 lg:w-[calc((100%-2.5rem)/3)] xl:w-[calc((100%-3.75rem)/4)]"
             >
               <p className="text-sm font-semibold tracking-tight text-gold">
                 {item.brand}

@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState } from "react";
+import { use, useState, type ReactNode } from "react";
 import Image from "next/image";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { Button } from "@/components/ui/Button";
@@ -278,8 +278,8 @@ function Hero({ system }: { system: System }) {
                 unoptimized
                 className={
                   framed
-                    ? "relative z-10 max-h-[min(520px,56svh)] w-full rounded-[28px] bg-white object-contain shadow-[0_24px_60px_rgba(148,93,60,0.14)] lg:translate-x-4 lg:rotate-[-2deg]"
-                    : "relative z-10 max-h-[min(560px,62svh)] w-full bg-transparent object-contain"
+                    ? "relative z-10 max-h-[min(560px,62svh)] w-full rounded-[36px] bg-white object-contain shadow-[0_28px_70px_rgba(148,93,60,0.16)] lg:translate-x-2"
+                    : "relative z-10 max-h-[min(600px,66svh)] w-full bg-transparent object-contain"
                 }
                 priority
               />
@@ -290,7 +290,7 @@ function Hero({ system }: { system: System }) {
               />
             </div>
           ) : (
-            <div className="relative flex min-h-[280px] items-center justify-center rounded-[28px] bg-white shadow-[0_24px_60px_rgba(148,93,60,0.14)]">
+            <div className="relative flex min-h-[280px] items-center justify-center rounded-[36px] bg-white shadow-[0_28px_70px_rgba(148,93,60,0.16)]">
               <Icon name={system.icon} className="h-16 w-16 text-nera" />
               <ReplaceImage
                 enabled={isAdmin}
@@ -307,6 +307,50 @@ function Hero({ system }: { system: System }) {
         </div>
       </div>
     </section>
+  );
+}
+
+function FeatureShot({
+  src,
+  icon,
+  bleed,
+  children,
+}: {
+  src?: string;
+  icon: string;
+  bleed: "left" | "right";
+  children?: ReactNode;
+}) {
+  return (
+    <div
+      className={`relative min-w-0 ${
+        bleed === "left" ? "lg:-ml-4 xl:-ml-8" : "lg:-mr-4 xl:-mr-8"
+      }`}
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-10 -z-10 rounded-[56px] bg-[radial-gradient(ellipse_at_center,rgba(221,160,109,0.22),transparent_68%)]"
+      />
+      <div className="relative overflow-hidden rounded-[28px] bg-white shadow-[0_28px_72px_rgba(70,42,18,0.14)] ring-1 ring-black/5 sm:rounded-[36px] lg:rounded-[20px]">
+        {src ? (
+          <Image
+            src={src}
+            alt=""
+            width={1920}
+            height={1080}
+            sizes="(min-width: 1280px) 58vw, (min-width: 1024px) 54vw, 100vw"
+            unoptimized
+            className="block h-auto w-full"
+            style={{ width: "100%", height: "auto", aspectRatio: "auto" }}
+          />
+        ) : (
+          <div className="flex min-h-[280px] items-center justify-center bg-[#fbf8f3] sm:min-h-[340px]">
+            <Icon name={icon} className="h-14 w-14 text-nera/70" />
+          </div>
+        )}
+        {children}
+      </div>
+    </div>
   );
 }
 
@@ -376,8 +420,8 @@ function Features({ system }: { system: System }) {
   }
 
   return (
-    <section className="bg-white py-20">
-      <div className="container-wide space-y-20">
+    <section className="overflow-x-clip bg-white py-20">
+      <div className="container-wide space-y-24 lg:space-y-28">
         {system.features.map((feature, index) => {
           const reverse = index % 2 === 1;
           const original = seeded?.features[index];
@@ -385,8 +429,10 @@ function Features({ system }: { system: System }) {
           return (
             <div
               key={`${system.id}-feature-${index}`}
-              className={`relative grid items-center gap-10 lg:grid-cols-2 lg:gap-16 ${
-                reverse ? "lg:[&>*:first-child]:order-2" : ""
+              className={`relative grid items-center gap-10 lg:gap-12 xl:gap-16 ${
+                reverse
+                  ? "lg:grid-cols-[minmax(0,1.22fr)_minmax(0,0.78fr)] lg:[&>*:first-child]:order-2"
+                  : "lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]"
               }`}
             >
               {isAdmin ? (
@@ -492,32 +538,11 @@ function Features({ system }: { system: System }) {
                   </ul>
                 ) : null}
               </div>
-              <div
-                className={
-                  feature.image || system.slug === "score" || system.slug === "flowin"
-                    ? "relative min-w-0 overflow-visible"
-                    : "relative overflow-hidden rounded-[32px] border border-black/5 bg-[#fbf8f3] p-4 sm:p-6"
-                }
+              <FeatureShot
+                src={feature.image ?? system.image}
+                icon={system.icon}
+                bleed={reverse ? "left" : "right"}
               >
-                {feature.image || system.image ? (
-                  <Image
-                    src={feature.image ?? system.image ?? ""}
-                    alt=""
-                    width={1600}
-                    height={900}
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    unoptimized
-                    className={
-                      feature.image || system.slug === "score" || system.slug === "flowin"
-                        ? "h-auto w-full rounded-none bg-transparent object-contain"
-                        : "h-auto w-full rounded-[22px] bg-white"
-                    }
-                  />
-                ) : (
-                  <div className="flex min-h-[240px] items-center justify-center rounded-[22px] bg-white">
-                    <Icon name={system.icon} className="h-14 w-14 text-nera/70" />
-                  </div>
-                )}
                 <ReplaceImage
                   enabled={isAdmin}
                   slug={`${system.slug}-feature-${index}`}
@@ -530,7 +555,7 @@ function Features({ system }: { system: System }) {
                   label="Restore original image"
                   onRestore={() => void updateFeature(index, { image: original!.image })}
                 />
-              </div>
+              </FeatureShot>
             </div>
           );
         })}

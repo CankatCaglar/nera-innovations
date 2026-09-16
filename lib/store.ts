@@ -62,6 +62,12 @@ function mergeSeededHomeFields(systems: System[]) {
     }
     if (seeded.features?.length && !system.features?.length) {
       next.features = seeded.features;
+    } else if (next.features?.length) {
+      next.features = next.features.map((feature) =>
+        feature.image === "/images/systems/score-brand-dna.jpg"
+          ? { ...feature, image: "/images/systems/score-branddna.png" }
+          : feature,
+      );
     }
     if (seeded.faqs?.length && !system.faqs?.length) {
       next.faqs = seeded.faqs;

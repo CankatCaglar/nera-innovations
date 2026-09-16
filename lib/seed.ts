@@ -151,7 +151,7 @@ export const seedSystems: System[] = [
           "Delivers more accurate recommendations through insights.",
           "Builds an evolving memory for your brand.",
         ],
-        image: "/images/systems/score-brand-dna.jpg",
+        image: "/images/systems/score-branddna.png",
       },
     ],
     faqs: [
