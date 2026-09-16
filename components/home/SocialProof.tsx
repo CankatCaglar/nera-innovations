@@ -1,7 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { SITE } from "@/lib/constants";
 import { Icon } from "@/lib/icons";
+import { BrandIcon } from "@/components/ui/BrandIcon";
 
 const quotes = [
   {
@@ -9,30 +11,35 @@ const quotes = [
     quote:
       "Working with Nera Marketing Technologies & Workshops was a genuinely great experience. Their solution-focused approach and professionalism made a real difference in our processes, and they stayed in partnership with us at every step.",
     name: "Atakan Balta",
+    url: SITE.googleReviews,
   },
   {
     brand: "Altınok Palet",
     quote:
       "They produce strong work, and they do not only do what they are asked. They look for how we can make a difference. The team is young, communicative and open to feedback. They listen to what the client wants and still guide with a professional point of view. They put a lasting relationship ahead of a quick win, which makes it easy to enjoy the work and keep the quality high.",
     name: "Deniz Altınok",
+    url: SITE.googleReviews,
   },
   {
     brand: "Bimaks",
     quote:
       "Nera Marketing is the professional partner I trust with my social media and web. I am very satisfied, and I recommend them.",
     name: "Alper Tunga Dost",
+    url: SITE.googleReviews,
   },
   {
     brand: "Gorg",
     quote:
       "Marketing management is serious work and it has to be done by a team that knows the craft. At Nera you work with people who enjoy what they do, who are knowledgeable and who keep the process enjoyable. Their careful, creative solutions make the journey easier, they are extremely disciplined with time, and our brands feel in safe hands. Glad Nera is here.",
     name: "Ömer Sürücü",
+    url: SITE.googleReviews,
   },
   {
     brand: "Swatchloop",
     quote:
       "As Swatchloop, we really enjoy working with Ogün and the team on social media. They helped us reach our social media goals and much more. They are a responsive team that finds a solution to every problem, fast.",
     name: "Gökberk Devrim",
+    url: SITE.googleReviews,
   },
 ];
 
@@ -104,9 +111,13 @@ export function SocialProof() {
           className="mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth py-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {quotes.map((item) => (
-            <article
+            <a
               key={item.brand}
-              className="relative flex min-h-[280px] w-[85%] shrink-0 snap-start flex-col rounded-[28px] border border-black/5 bg-white p-6 sm:w-[calc((100%-1.25rem)/2)] sm:p-7 lg:w-[calc((100%-2.5rem)/3)] xl:w-[calc((100%-3.75rem)/4)]"
+              href={item.url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Read ${item.name}'s Google review`}
+              className="group relative flex min-h-[280px] w-[85%] shrink-0 snap-start flex-col rounded-[28px] border border-black/5 bg-white p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-nera/25 hover:shadow-[0_18px_40px_rgba(148,93,60,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nera/40 sm:w-[calc((100%-1.25rem)/2)] sm:p-7 lg:w-[calc((100%-2.5rem)/3)] xl:w-[calc((100%-3.75rem)/4)]"
             >
               <p className="text-sm font-semibold tracking-tight text-gold">
                 {item.brand}
@@ -114,12 +125,18 @@ export function SocialProof() {
               <p className="mt-4 flex-1 text-sm leading-7 text-muted">
                 {item.quote}
               </p>
-              <div className="mt-6 border-t border-line pt-5">
+              <div className="mt-6 flex items-end justify-between gap-3 border-t border-line pt-5">
                 <p className="text-sm font-semibold tracking-tight text-ink">
                   {item.name}
                 </p>
+                <span className="inline-flex h-5 items-center gap-1.5 text-[11px] font-medium text-soft transition-colors group-hover:text-nera">
+                  <BrandIcon name="Google" className="h-3.5 w-3.5" />
+                  <span className="max-w-0 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-200 group-hover:max-w-[5.5rem] group-hover:opacity-100">
+                    View review
+                  </span>
+                </span>
               </div>
-            </article>
+            </a>
           ))}
         </div>
 

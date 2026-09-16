@@ -22,7 +22,7 @@ export function AdminBar() {
   return (
     <div className="bg-ink text-white">
       <div className="container-wide flex h-10 items-center justify-between gap-4 text-xs font-medium">
-        <p>Admin mode. Visitors do not see these controls.</p>
+        <p>Admin mode. Visitors do not see these controls. Use the page icon on a system to turn its detail page on or off.</p>
         <div className="flex items-center gap-4">
           <Link
             href="/#systems"

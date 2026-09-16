@@ -23,7 +23,10 @@ export type System = {
   heroTitle: string;
   heroSubtitle: string;
   appUrl: string;
+  ctaLabel?: string;
+  ctaHref?: string;
   featured: boolean;
+  hasDetailPage?: boolean;
   order: number;
   icon: string;
   logo?: string;

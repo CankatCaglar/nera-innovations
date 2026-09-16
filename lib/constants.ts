@@ -6,7 +6,8 @@ export const SITE = {
   phoneHref: "+905441128625",
   whatsapp: "https://wa.me/905441128625",
   slogan: "Systems That Turn Marketing Into Sales",
-  footerSlogan: "Real Brands. Real Growth.",
+  footerSlogan: "Your AI Sales Team",
+  googleReviews: "https://share.google/bhug2vfEMMBck4YP3",
   socialUrl: "https://nerasocial.com",
   locations: [
     { city: "Izmir", country: "Turkey" },

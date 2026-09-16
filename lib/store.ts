@@ -45,7 +45,16 @@ function mergeSeededHomeFields(systems: System[]) {
       next.heroSubtitle = seeded.heroSubtitle;
       next.tagline = seeded.tagline;
       next.description = seeded.description;
+      next.appUrl = seeded.appUrl;
+      next.ctaLabel = seeded.ctaLabel;
+      next.ctaHref = seeded.ctaHref;
       if (seeded.image) next.image = seeded.image;
+    }
+    if (system.id === "nera-social") {
+      next.tagline = seeded.tagline;
+    }
+    if (typeof system.hasDetailPage !== "boolean") {
+      next.hasDetailPage = seeded.hasDetailPage ?? seeded.kind !== "micro";
     }
     if (seeded.tag && !system.tag) {
       next.tag = seeded.tag;

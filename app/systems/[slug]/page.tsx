@@ -5,7 +5,7 @@ import Image from "next/image";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { Button } from "@/components/ui/Button";
 import { LeadForm } from "@/components/forms/LeadForm";
-import { getSystemBySlug, useSiteContent } from "@/lib/content";
+import { getSystemBySlug, hasSystemDetailPage, useSiteContent } from "@/lib/content";
 import { Icon } from "@/lib/icons";
 import { Minus, Plus } from "lucide-react";
 import type { System } from "@/lib/types";
@@ -19,7 +19,7 @@ export default function SystemDetailPage({
   const { systems, ready } = useSiteContent();
   const system = getSystemBySlug(systems, slug);
 
-  if (ready && !system) {
+  if (ready && (!system || !hasSystemDetailPage(system))) {
     return (
       <SiteShell>
         <div className="container-wide py-24">
@@ -72,8 +72,18 @@ function HeroTitle({ title }: { title: string }) {
   );
 }
 
+function systemCta(system: System) {
+  const href = system.ctaHref ?? system.appUrl;
+  const external = href.startsWith("http");
+  const label =
+    system.ctaLabel ??
+    (system.slug === "score" ? "Try for Free" : "Try the application");
+  return { href, external, label };
+}
+
 function Hero({ system }: { system: System }) {
   const framed = system.slug !== "score" && system.slug !== "flowin";
+  const cta = systemCta(system);
 
   return (
     <section className="flex min-h-[calc(100svh-84px)] items-center overflow-hidden bg-[#fbf8f3]">
@@ -87,8 +97,8 @@ function Hero({ system }: { system: System }) {
             {system.heroSubtitle}
           </p>
           <div className="mt-8">
-            <Button href={system.appUrl} arrow external>
-              {system.slug === "score" ? "Try for Free" : "Try the application"}
+            <Button href={cta.href} arrow external={cta.external}>
+              {cta.label}
             </Button>
           </div>
         </div>

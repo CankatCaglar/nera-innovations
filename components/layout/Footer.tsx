@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { BrandIcon } from "@/components/ui/BrandIcon";
 import { AiSummary } from "./AiSummary";
 import { Icon } from "@/lib/icons";
+import { systemHref } from "@/lib/content";
 import { seedSystems } from "@/lib/seed";
 
 const socials = [
@@ -58,17 +59,27 @@ export function Footer() {
         <div>
           <p className="text-sm font-semibold text-ink">Featured Systems</p>
           <ul className="mt-4 space-y-2.5 text-sm text-muted">
-            {systems.map((system) => (
-              <li key={system.id}>
-                <Link
-                  href={system.kind === "external" ? system.appUrl : `/systems/${system.slug}`}
-                  className="hover:text-nera"
-                  target={system.kind === "external" ? "_blank" : undefined}
-                >
-                  {system.name}
-                </Link>
-              </li>
-            ))}
+            {systems.map((system) => {
+              const href = systemHref(system);
+              if (!href) {
+                return (
+                  <li key={system.id}>
+                    <span>{system.name}</span>
+                  </li>
+                );
+              }
+              return (
+                <li key={system.id}>
+                  <Link
+                    href={href}
+                    className="hover:text-nera"
+                    target={href.startsWith("http") ? "_blank" : undefined}
+                  >
+                    {system.name}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
 
@@ -123,7 +134,7 @@ export function Footer() {
 
       <div className="container-wide flex flex-col gap-4 border-t border-black/5 py-6 text-xs text-soft sm:flex-row sm:items-center sm:justify-between">
         <p>© {SITE.legalName}. All rights reserved.</p>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 sm:ml-auto sm:justify-end">
           <a href={SITE.policies.privacy} target="_blank" rel="noreferrer" className="hover:text-nera">
             Privacy Policy
           </a>
@@ -133,7 +144,6 @@ export function Footer() {
           <a href={SITE.policies.cookies} target="_blank" rel="noreferrer" className="hover:text-nera">
             Cookie Policy
           </a>
-          <span className="hidden sm:inline">Built for a brighter tomorrow.</span>
         </div>
       </div>
     </footer>

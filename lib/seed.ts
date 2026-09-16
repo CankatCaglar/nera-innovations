@@ -9,7 +9,7 @@ export const seedSystems: System[] = [
     kind: "external",
     tag: "Management",
     tagline:
-      "Manages social media, content, and campaigns through an integrated marketing system.",
+      "Nera Social manages social media, content, and campaigns through an integrated marketing system.",
     description:
       "The growth agency behind Nera. Strategy, creative and media execution that turns visibility into a sales opportunity.",
     heroTitle: "A growth agency built around systems.",
@@ -17,6 +17,7 @@ export const seedSystems: System[] = [
       "Nera Social plans, creates and runs the work that feeds every system in the Nera stack, from social and ads to CRM and sales tracking.",
     appUrl: "https://nerasocial.com",
     featured: true,
+    hasDetailPage: true,
     order: 3,
     icon: "share",
     logo: "/images/systems/icons/nera-social.png",
@@ -54,14 +55,17 @@ export const seedSystems: System[] = [
     kind: "app",
     tag: "Automate",
     tagline:
-      "Helps teams turn LinkedIn outreach into a scalable growth engine by automating profile visits, connection requests, personalized messages, and follow-ups while tracking every lead interaction in one place.",
+      "Flowin helps teams turn LinkedIn outreach into a scalable growth engine by automating profile visits, connection requests, personalized messages, and follow-ups while tracking every lead interaction in one place.",
     description:
       "Helps teams turn LinkedIn outreach into a scalable growth engine by automating profile visits, connection requests, personalized messages, and follow-ups while tracking every lead interaction in one place.",
     heroTitle: "Flowin LinkedIn Growth Automation",
     heroSubtitle:
       "Flowin helps teams turn LinkedIn outreach into a scalable growth engine by automating profile visits, connection requests, personalized messages, and follow-ups while tracking every lead interaction in one place.",
     appUrl: "https://flowin.nerainnovations.com",
+    ctaLabel: "Request a Demo",
+    ctaHref: "/growth-review",
     featured: true,
+    hasDetailPage: true,
     order: 2,
     icon: "workflow",
     logo: "/images/systems/icons/flowin.png",
@@ -116,15 +120,17 @@ export const seedSystems: System[] = [
     kind: "app",
     tag: "Analyze",
     tagline:
-      "Analyzes your content across 30+ micro-criteria and shows why it underperforms, with actionable suggestions in seconds.",
+      "Score analyzes your content across 30+ micro-criteria and shows why it underperforms, with actionable suggestions in seconds.",
     description:
       "See what is working across channels, compare performance and decide where the next budget should go.",
     heroTitle:
       "Why isn't your content performing? Let Score AI tell you in seconds.",
     heroSubtitle:
       "Score AI analyzes your content across 30+ micro-criteria, understands your brand, and automatically delivers actionable suggestions for better results.",
-    appUrl: "https://score.nerainnovations.com",
+    appUrl: "https://usescore.net",
+    ctaLabel: "Try for Free",
     featured: true,
+    hasDetailPage: true,
     order: 1,
     icon: "chart",
     logo: "/images/systems/icons/score.png",
@@ -181,14 +187,17 @@ export const seedSystems: System[] = [
     kind: "app",
     tag: "Report",
     tagline:
-      "Helps brands track social media performance across platforms, measure content impact, and turn data into clear, actionable insights.",
+      "Repora helps brands track social media performance across platforms, measure content impact, and turn data into clear, actionable insights.",
     description:
       "Helps brands track social media performance across platforms, measure content impact, and turn data into clear, actionable insights.",
     heroTitle: "Repora Social Media Performance Dashboard",
     heroSubtitle:
       "Repora helps brands track social media performance across platforms, measure content impact, and turn data into clear, actionable insights.",
     appUrl: "https://repora.nerainnovations.com",
+    ctaLabel: "Request a Demo",
+    ctaHref: "/growth-review",
     featured: true,
+    hasDetailPage: true,
     order: 4,
     icon: "report",
     logo: "/images/systems/icons/repora.png",
@@ -232,6 +241,7 @@ export const seedSystems: System[] = [
     heroSubtitle: "Nera Luma helps teams produce consistent visual output when the calendar moves faster than the studio.",
     appUrl: "https://luma.nerainnovations.com",
     featured: false,
+    hasDetailPage: false,
     order: 5,
     icon: "spark",
     features: [
@@ -264,6 +274,7 @@ export const seedSystems: System[] = [
     heroSubtitle: "Nera Pop Up turns high-intent visits into captured conversations, without covering the whole page in noise.",
     appUrl: "https://popup.nerainnovations.com",
     featured: false,
+    hasDetailPage: false,
     order: 6,
     icon: "layers",
     features: [
@@ -296,6 +307,7 @@ export const seedSystems: System[] = [
     heroSubtitle: "Nera Leads captures demand and the details that tell you whether it is worth a conversation.",
     appUrl: "https://leads.nerainnovations.com",
     featured: false,
+    hasDetailPage: false,
     order: 7,
     icon: "users",
     image: "/images/systems/nera-leads.png",
@@ -329,6 +341,7 @@ export const seedSystems: System[] = [
     heroSubtitle: "Nera Real Time shows what is moving now, visits, actions, spikes, so you can respond in the same window.",
     appUrl: "https://realtime.nerainnovations.com",
     featured: false,
+    hasDetailPage: false,
     order: 8,
     icon: "activity",
     features: [
@@ -361,6 +374,7 @@ export const seedSystems: System[] = [
     heroSubtitle: "Nera Forms gives teams a consistent, branded way to collect the information every system downstream depends on.",
     appUrl: "https://forms.nerainnovations.com",
     featured: false,
+    hasDetailPage: false,
     order: 9,
     icon: "form",
     features: [

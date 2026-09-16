@@ -2,15 +2,66 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useAdmin } from "@/components/admin/AdminProvider";
-import { featuredSystems, microSystems, useSiteContent } from "@/lib/content";
+import { featuredSystems, hasSystemDetailPage, microSystems, systemHref, useSiteContent } from "@/lib/content";
 import { Icon } from "@/lib/icons";
 import type { System } from "@/lib/types";
 
-function systemHref(system: System) {
-  if (system.kind === "external") return system.appUrl;
-  return `/systems/${system.slug}`;
+function SystemLink({
+  system,
+  className,
+  children,
+}: {
+  system: System;
+  className?: string;
+  children: ReactNode;
+}) {
+  const href = systemHref(system);
+  if (!href) {
+    return <div className={className}>{children}</div>;
+  }
+  const external = system.kind === "external" || href.startsWith("http");
+  return (
+    <Link
+      href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noreferrer" : undefined}
+      className={className}
+    >
+      {children}
+    </Link>
+  );
+}
+
+function DetailPageToggle({
+  system,
+  onToggle,
+  size = "sm",
+}: {
+  system: System;
+  onToggle: (system: System) => void;
+  size?: "sm" | "md";
+}) {
+  const enabled = hasSystemDetailPage(system);
+  const compact = size === "sm";
+  return (
+    <button
+      type="button"
+      aria-label={enabled ? `Turn off ${system.name} detail page` : `Turn on ${system.name} detail page`}
+      title={enabled ? "Detail page on" : "Detail page off"}
+      onClick={(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        onToggle(system);
+      }}
+      className={`inline-flex items-center justify-center rounded-full bg-white text-nera shadow-sm ${
+        compact ? "h-6 w-6" : "h-8 w-8"
+      } ${enabled ? "" : "opacity-40"}`}
+    >
+      <Icon name={enabled ? "page" : "page-off"} className={compact ? "h-3.5 w-3.5" : "h-4 w-4"} />
+    </button>
+  );
 }
 
 function MicroSystemsRail({
@@ -18,12 +69,14 @@ function MicroSystemsRail({
   isAdmin,
   featuredCount,
   onToggle,
+  onToggleDetailPage,
   onDelete,
 }: {
   systems: System[];
   isAdmin: boolean;
   featuredCount: number;
   onToggle: (system: System) => void;
+  onToggleDetailPage: (system: System) => void;
   onDelete: (system: System) => void;
 }) {
   const scroller = useRef<HTMLDivElement>(null);
@@ -94,7 +147,8 @@ function MicroSystemsRail({
         >
           {systems.map((system) => {
             const href = systemHref(system);
-            const external = system.kind === "external";
+            const pillClass =
+              "inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-black/6 bg-white px-4 py-2.5 text-sm font-medium text-ink shadow-sm transition-colors";
             return (
               <div
                 key={system.id}
@@ -110,26 +164,36 @@ function MicroSystemsRail({
                     >
                       <Icon name="trash" className="h-3.5 w-3.5" />
                     </button>
-                    <button
-                      type="button"
-                      aria-label="Add to home"
-                      disabled={featuredCount >= 4}
-                      onClick={() => onToggle(system)}
-                      className="absolute top-0 right-1 z-10 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white text-nera shadow-sm disabled:opacity-40"
-                    >
-                      <Icon name="plus" className="h-3.5 w-3.5" />
-                    </button>
+                    <div className="absolute top-0 right-1 z-10 flex gap-1">
+                      <DetailPageToggle system={system} onToggle={onToggleDetailPage} />
+                      <button
+                        type="button"
+                        aria-label="Add to home"
+                        disabled={featuredCount >= 4}
+                        onClick={() => onToggle(system)}
+                        className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white text-nera shadow-sm disabled:opacity-40"
+                      >
+                        <Icon name="plus" className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
                   </>
                 ) : null}
-                <Link
-                  href={href}
-                  target={external ? "_blank" : undefined}
-                  rel={external ? "noreferrer" : undefined}
-                  className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-black/6 bg-white px-4 py-2.5 text-sm font-medium text-ink shadow-sm transition-colors hover:border-nera/40 hover:text-nera"
-                >
-                  <Icon name={system.icon} className="h-4 w-4 text-nera" />
-                  {system.name}
-                </Link>
+                {href ? (
+                  <Link
+                    href={href}
+                    target={system.kind === "external" ? "_blank" : undefined}
+                    rel={system.kind === "external" ? "noreferrer" : undefined}
+                    className={`${pillClass} hover:border-nera/40 hover:text-nera`}
+                  >
+                    <Icon name={system.icon} className="h-4 w-4 text-nera" />
+                    {system.name}
+                  </Link>
+                ) : (
+                  <span className={`${pillClass} cursor-default`}>
+                    <Icon name={system.icon} className="h-4 w-4 text-nera" />
+                    {system.name}
+                  </span>
+                )}
               </div>
             );
           })}
@@ -173,25 +237,26 @@ function SystemCard({
   isAdmin,
   featuredCount,
   onToggle,
+  onToggleDetailPage,
   onDelete,
 }: {
   system: System;
   isAdmin: boolean;
   featuredCount: number;
   onToggle: (system: System) => void;
+  onToggleDetailPage: (system: System) => void;
   onDelete: (system: System) => void;
 }) {
   const href = systemHref(system);
-  const external = system.kind === "external";
   const canFeature = system.featured || featuredCount < 4;
 
   return (
     <article className="card group relative overflow-hidden rounded-[28px] p-6 sm:p-7">
-      <Link
-        href={href}
-        target={external ? "_blank" : undefined}
-        rel={external ? "noreferrer" : undefined}
-        className="grid gap-5 transition-transform hover:-translate-y-0.5 sm:grid-cols-[minmax(0,1.05fr)_minmax(180px,1fr)] sm:items-center"
+      <SystemLink
+        system={system}
+        className={`grid gap-5 sm:grid-cols-[minmax(0,1.05fr)_minmax(180px,1fr)] sm:items-center ${
+          href ? "transition-transform hover:-translate-y-0.5" : ""
+        }`}
       >
         <div className="flex min-w-0 flex-col">
           <div className="flex items-center gap-3">
@@ -218,10 +283,12 @@ function SystemCard({
             <p className="mt-5 text-sm font-medium text-gold">{system.tag}</p>
           ) : null}
           <p className="mt-2 flex-1 text-sm leading-6 text-muted">{system.tagline}</p>
-          <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink group-hover:border-nera group-hover:text-nera">
-            {external ? "Visit" : "View product"}
-            <Icon name="arrow" className="h-4 w-4" />
-          </span>
+          {href ? (
+            <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink group-hover:border-nera group-hover:text-nera">
+              {system.kind === "external" ? "Visit" : "View product"}
+              <Icon name="arrow" className="h-4 w-4" />
+            </span>
+          ) : null}
         </div>
         {system.image ? (
           <Image
@@ -241,9 +308,14 @@ function SystemCard({
             <Icon name={system.icon} className="h-10 w-10" />
           </span>
         )}
-      </Link>
+      </SystemLink>
       {isAdmin ? (
         <div className="absolute bottom-4 right-4 z-10 flex gap-2">
+          <DetailPageToggle
+            system={system}
+            onToggle={onToggleDetailPage}
+            size="md"
+          />
           <button
             type="button"
             aria-label={system.featured ? "Remove from home" : "Add to home"}
@@ -289,6 +361,18 @@ export function Systems() {
     });
   }
 
+  async function toggleDetailPage(system: System) {
+    const nextValue = !hasSystemDetailPage(system);
+    await saveContent({
+      projects,
+      partners,
+      locations,
+      systems: systems.map((item) =>
+        item.id === system.id ? { ...item, hasDetailPage: nextValue } : item,
+      ),
+    });
+  }
+
   async function deleteSystem(system: System) {
     await saveContent({
       projects,
@@ -318,6 +402,7 @@ export function Systems() {
       appUrl: "",
       tag: "",
       featured: false,
+      hasDetailPage: false,
       order: systems.length + 1,
       icon: "spark",
       logo: "",
@@ -358,6 +443,7 @@ export function Systems() {
               isAdmin={isAdmin}
               featuredCount={featured.length}
               onToggle={(item) => void toggleFeatured(item)}
+              onToggleDetailPage={(item) => void toggleDetailPage(item)}
               onDelete={setPendingDelete}
             />
           ))}
@@ -369,6 +455,7 @@ export function Systems() {
             isAdmin={isAdmin}
             featuredCount={featured.length}
             onToggle={(item) => void toggleFeatured(item)}
+            onToggleDetailPage={(item) => void toggleDetailPage(item)}
             onDelete={setPendingDelete}
           />
         ) : null}

@@ -49,45 +49,47 @@ export function Header() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-8 text-sm font-medium text-ink/80 lg:flex">
-          {NAV.map((item) => {
-            const active =
-              item.href === "/company"
-                ? pathname === "/company"
-                : item.href === "/contact"
-                  ? pathname === "/contact"
-                  : false;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={(event) => handleNavClick(event, item.href)}
-                className={`transition-colors hover:text-nera ${active ? "text-nera" : ""}`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
+        <div className="flex items-center gap-8 lg:gap-10">
+          <nav className="hidden items-center gap-8 text-sm font-medium text-ink/80 lg:flex">
+            {NAV.map((item) => {
+              const active =
+                item.href === "/company"
+                  ? pathname === "/company"
+                  : item.href === "/contact"
+                    ? pathname === "/contact"
+                    : false;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={(event) => handleNavClick(event, item.href)}
+                  className={`transition-colors hover:text-nera ${active ? "text-nera" : ""}`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
 
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:block">
-            <Button href="/growth-review" arrow>
-              Get Growth Review
-            </Button>
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:block">
+              <Button href="/growth-review" arrow>
+                Get Growth Review
+              </Button>
+            </div>
+            <button
+              type="button"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/8 lg:hidden"
+              aria-label="Open menu"
+              onClick={() => setOpen((value) => !value)}
+            >
+              {open ? (
+                <X className="h-5 w-5" strokeWidth={1.75} />
+              ) : (
+                <Menu className="h-5 w-5" strokeWidth={1.75} />
+              )}
+            </button>
           </div>
-          <button
-            type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/8 lg:hidden"
-            aria-label="Open menu"
-            onClick={() => setOpen((value) => !value)}
-          >
-            {open ? (
-              <X className="h-5 w-5" strokeWidth={1.75} />
-            ) : (
-              <Menu className="h-5 w-5" strokeWidth={1.75} />
-            )}
-          </button>
         </div>
       </div>
 
