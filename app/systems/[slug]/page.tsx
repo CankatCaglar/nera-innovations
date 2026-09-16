@@ -5,10 +5,22 @@ import Image from "next/image";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { Button } from "@/components/ui/Button";
 import { LeadForm } from "@/components/forms/LeadForm";
+import { EditableText } from "@/components/admin/EditableText";
+import { ReplaceImage } from "@/components/admin/ReplaceImage";
+import { RestoreOriginal } from "@/components/admin/RestoreOriginal";
+import { useAdmin } from "@/components/admin/AdminProvider";
 import { getSystemBySlug, hasSystemDetailPage, useSiteContent } from "@/lib/content";
+import { usePatchSystem } from "@/lib/use-patch-system";
+import {
+  getSeededSystem,
+  isDetailPageChanged,
+  isFeatureChanged,
+  isHeroChanged,
+  restoreDetailDefaults,
+} from "@/lib/system-defaults";
 import { Icon } from "@/lib/icons";
-import { Minus, Plus } from "lucide-react";
-import type { System } from "@/lib/types";
+import { Minus, Plus, RotateCcw, Trash2 } from "lucide-react";
+import type { System, SystemFeature } from "@/lib/types";
 
 export default function SystemDetailPage({
   params,
@@ -40,11 +52,89 @@ export default function SystemDetailPage({
 
   return (
     <SiteShell>
+      <PageRestoreBar system={system} />
       <Hero system={system} />
       <Features system={system} />
       <Faqs system={system} />
       <ResourceBanner system={system} />
     </SiteShell>
+  );
+}
+
+function PageRestoreBar({ system }: { system: System }) {
+  const { isAdmin } = useAdmin();
+  const patch = usePatchSystem(system.id);
+  const seeded = getSeededSystem(system.id);
+  const [confirm, setConfirm] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  if (!isAdmin || !seeded || !isDetailPageChanged(system, seeded)) return null;
+
+  async function restorePage() {
+    setSaving(true);
+    try {
+      await patch((current) => restoreDetailDefaults(current, seeded!));
+      setConfirm(false);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <>
+      <div className="border-b border-nera/15 bg-sand">
+        <div className="container-wide flex flex-wrap items-center justify-between gap-3 py-3">
+          <p className="text-sm text-muted">
+            This page is different from the original. You can restore the first version at any time.
+          </p>
+          <button
+            type="button"
+            onClick={() => setConfirm(true)}
+            className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-nera shadow-sm hover:bg-cream"
+          >
+            <RotateCcw className="h-3.5 w-3.5" strokeWidth={2} />
+            Restore original page
+          </button>
+        </div>
+      </div>
+      {confirm ? (
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center bg-ink/40 p-4 sm:items-center"
+          onClick={() => setConfirm(false)}
+        >
+          <div
+            className="w-full max-w-md rounded-[28px] bg-white p-7 shadow-[0_18px_50px_rgba(148,93,60,0.12)]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <p className="eyebrow">Restore original</p>
+            <h3 className="mt-3 text-2xl font-semibold tracking-tight">
+              Restore the first version?
+            </h3>
+            <p className="mt-3 text-sm leading-7 text-muted">
+              The intro, image and sections will go back to the original copy.
+              Your latest edits on this page will be replaced.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <button
+                type="button"
+                disabled={saving}
+                onClick={() => void restorePage()}
+                className="rounded-full bg-nera px-5 py-3 text-sm font-semibold text-white"
+              >
+                {saving ? "Restoring..." : "Yes, restore original"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setConfirm(false)}
+                className="rounded-full border border-black/8 bg-white px-5 py-3 text-sm font-semibold text-ink"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </>
   );
 }
 
@@ -59,7 +149,7 @@ function goldTitle(title: string) {
   );
 }
 
-function HeroTitle({ title }: { title: string }) {
+function HeroTitleDisplay({ title }: { title: string }) {
   const marker = "Score AI";
   const index = title.indexOf(marker);
   if (index === -1) return goldTitle(title);
@@ -82,6 +172,9 @@ function systemCta(system: System) {
 }
 
 function Hero({ system }: { system: System }) {
+  const { isAdmin } = useAdmin();
+  const patch = usePatchSystem(system.id);
+  const seeded = getSeededSystem(system.id);
   const framed = system.slug !== "score" && system.slug !== "flowin";
   const cta = systemCta(system);
 
@@ -89,41 +182,128 @@ function Hero({ system }: { system: System }) {
     <section className="flex min-h-[calc(100svh-84px)] items-center overflow-hidden bg-[#fbf8f3]">
       <div className="container-wide grid w-full items-center gap-12 py-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:py-0">
         <div>
-          <p className="eyebrow">{system.name}</p>
-          <h1 className="heading-display mt-4 max-w-xl text-5xl text-ink sm:text-6xl">
-            <HeroTitle title={system.heroTitle} />
-          </h1>
-          <p className="mt-6 max-w-lg text-base leading-8 text-muted">
-            {system.heroSubtitle}
+          {isAdmin && seeded && isHeroChanged(system, seeded) ? (
+            <div className="mb-4">
+              <RestoreOriginal
+                show
+                label="Restore original intro"
+                onRestore={() =>
+                  void patch({
+                    name: seeded.name,
+                    heroTitle: seeded.heroTitle,
+                    heroSubtitle: seeded.heroSubtitle,
+                    image: seeded.image,
+                    ctaLabel: seeded.ctaLabel,
+                  })
+                }
+              />
+            </div>
+          ) : null}
+          <p className="eyebrow">
+            <EditableText
+              enabled={isAdmin}
+              value={system.name}
+              placeholder="System name"
+              onSave={(name) => patch({ name })}
+            />
           </p>
+          <RestoreOriginal
+            show={Boolean(isAdmin && seeded && system.name !== seeded.name)}
+            onRestore={() => void patch({ name: seeded!.name })}
+          />
+          <h1 className="heading-display mt-4 max-w-xl text-5xl text-ink sm:text-6xl">
+            <EditableText
+              enabled={isAdmin}
+              value={system.heroTitle}
+              placeholder="Hero title"
+              className="heading-display text-5xl text-ink sm:text-6xl"
+              renderDisplay={(title) => <HeroTitleDisplay title={title} />}
+              onSave={(heroTitle) => patch({ heroTitle })}
+            />
+          </h1>
+          <RestoreOriginal
+            show={Boolean(isAdmin && seeded && system.heroTitle !== seeded.heroTitle)}
+            onRestore={() => void patch({ heroTitle: seeded!.heroTitle })}
+          />
+          <p className="mt-6 max-w-lg text-base leading-8 text-muted">
+            <EditableText
+              enabled={isAdmin}
+              multiline
+              value={system.heroSubtitle}
+              placeholder="Hero description"
+              onSave={(heroSubtitle) => patch({ heroSubtitle })}
+            />
+          </p>
+          <RestoreOriginal
+            show={Boolean(isAdmin && seeded && system.heroSubtitle !== seeded.heroSubtitle)}
+            onRestore={() => void patch({ heroSubtitle: seeded!.heroSubtitle })}
+          />
           <div className="mt-8">
-            <Button href={cta.href} arrow external={cta.external}>
-              {cta.label}
-            </Button>
+            {isAdmin ? (
+              <div className="flex flex-wrap items-center gap-3">
+                <Button href={cta.href} arrow external={cta.external}>
+                  {cta.label}
+                </Button>
+                <div className="min-w-40 max-w-56">
+                  <EditableText
+                    enabled
+                    value={cta.label}
+                    placeholder="Button label"
+                    displayClassName="text-xs font-medium text-soft"
+                    onSave={(ctaLabel) => patch({ ctaLabel })}
+                  />
+                  <RestoreOriginal
+                    show={Boolean(seeded && (system.ctaLabel ?? "") !== (seeded.ctaLabel ?? ""))}
+                    onRestore={() => void patch({ ctaLabel: seeded!.ctaLabel })}
+                  />
+                </div>
+              </div>
+            ) : (
+              <Button href={cta.href} arrow external={cta.external}>
+                {cta.label}
+              </Button>
+            )}
           </div>
         </div>
 
         <div className="relative">
           {system.image ? (
-            <Image
-              src={system.image}
-              alt=""
-              width={980}
-              height={720}
-              sizes="(min-width: 1024px) 46vw, 90vw"
-              unoptimized={system.slug === "score" || system.slug === "flowin"}
-              className={
-                framed
-                  ? "relative z-10 max-h-[min(520px,56svh)] w-full rounded-[28px] bg-white object-contain shadow-[0_24px_60px_rgba(148,93,60,0.14)] lg:translate-x-4 lg:rotate-[-2deg]"
-                  : "relative z-10 max-h-[min(560px,62svh)] w-full bg-transparent object-contain"
-              }
-              priority
-            />
+            <div className="relative">
+              <Image
+                src={system.image}
+                alt=""
+                width={980}
+                height={720}
+                sizes="(min-width: 1024px) 46vw, 90vw"
+                unoptimized
+                className={
+                  framed
+                    ? "relative z-10 max-h-[min(520px,56svh)] w-full rounded-[28px] bg-white object-contain shadow-[0_24px_60px_rgba(148,93,60,0.14)] lg:translate-x-4 lg:rotate-[-2deg]"
+                    : "relative z-10 max-h-[min(560px,62svh)] w-full bg-transparent object-contain"
+                }
+                priority
+              />
+              <ReplaceImage
+                enabled={isAdmin}
+                slug={system.slug}
+                onUploaded={(image) => patch({ image })}
+              />
+            </div>
           ) : (
-            <div className="flex min-h-[280px] items-center justify-center rounded-[28px] bg-white shadow-[0_24px_60px_rgba(148,93,60,0.14)]">
+            <div className="relative flex min-h-[280px] items-center justify-center rounded-[28px] bg-white shadow-[0_24px_60px_rgba(148,93,60,0.14)]">
               <Icon name={system.icon} className="h-16 w-16 text-nera" />
+              <ReplaceImage
+                enabled={isAdmin}
+                slug={system.slug}
+                onUploaded={(image) => patch({ image })}
+              />
             </div>
           )}
+          <RestoreOriginal
+            show={Boolean(isAdmin && seeded && (system.image ?? "") !== (seeded.image ?? ""))}
+            label="Restore original image"
+            onRestore={() => void patch({ image: seeded!.image })}
+          />
         </div>
       </div>
     </section>
@@ -131,43 +311,192 @@ function Hero({ system }: { system: System }) {
 }
 
 function Features({ system }: { system: System }) {
+  const { isAdmin } = useAdmin();
+  const patch = usePatchSystem(system.id);
+  const seeded = getSeededSystem(system.id);
+
+  async function updateFeature(index: number, next: Partial<SystemFeature>) {
+    await patch((current) => ({
+      ...current,
+      features: current.features.map((feature, featureIndex) =>
+        featureIndex === index ? { ...feature, ...next } : feature,
+      ),
+    }));
+  }
+
+  async function updatePoint(index: number, pointIndex: number, value: string) {
+    await patch((current) => ({
+      ...current,
+      features: current.features.map((feature, featureIndex) => {
+        if (featureIndex !== index) return feature;
+        const points = [...(feature.points ?? [])];
+        points[pointIndex] = value;
+        return { ...feature, points };
+      }),
+    }));
+  }
+
+  async function addPoint(index: number) {
+    await patch((current) => ({
+      ...current,
+      features: current.features.map((feature, featureIndex) =>
+        featureIndex === index
+          ? { ...feature, points: [...(feature.points ?? []), "New point"] }
+          : feature,
+      ),
+    }));
+  }
+
+  async function removePoint(index: number, pointIndex: number) {
+    await patch((current) => ({
+      ...current,
+      features: current.features.map((feature, featureIndex) =>
+        featureIndex === index
+          ? { ...feature, points: (feature.points ?? []).filter((_, i) => i !== pointIndex) }
+          : feature,
+      ),
+    }));
+  }
+
+  async function addFeature() {
+    await patch((current) => ({
+      ...current,
+      features: [
+        ...current.features,
+        { title: "New section title", body: "Describe this part of the product." },
+      ],
+    }));
+  }
+
+  async function removeFeature(index: number) {
+    await patch((current) => ({
+      ...current,
+      features: current.features.filter((_, featureIndex) => featureIndex !== index),
+    }));
+  }
+
   return (
     <section className="bg-white py-20">
       <div className="container-wide space-y-20">
         {system.features.map((feature, index) => {
           const reverse = index % 2 === 1;
+          const original = seeded?.features[index];
+          const changed = isAdmin && isFeatureChanged(feature, original);
           return (
             <div
-              key={feature.title}
-              className={`grid items-center gap-10 lg:grid-cols-2 lg:gap-16 ${
+              key={`${system.id}-feature-${index}`}
+              className={`relative grid items-center gap-10 lg:grid-cols-2 lg:gap-16 ${
                 reverse ? "lg:[&>*:first-child]:order-2" : ""
               }`}
             >
+              {isAdmin ? (
+                <div className="absolute -top-3 right-0 z-10 flex gap-2">
+                  {original && changed ? (
+                    <button
+                      type="button"
+                      aria-label="Restore original section"
+                      title="Restore original section"
+                      onClick={() => void updateFeature(index, original)}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-black/8 bg-white text-nera shadow-sm"
+                    >
+                      <RotateCcw className="h-3.5 w-3.5" strokeWidth={1.75} />
+                    </button>
+                  ) : null}
+                  <button
+                    type="button"
+                    aria-label="Remove section"
+                    onClick={() => void removeFeature(index)}
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-black/8 bg-white text-nera shadow-sm"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" strokeWidth={1.75} />
+                  </button>
+                </div>
+              ) : null}
               <div>
                 <h2 className="heading-display max-w-lg text-4xl text-ink sm:text-5xl">
-                  {goldTitle(feature.title)}
+                  <EditableText
+                    enabled={isAdmin}
+                    value={feature.title}
+                    placeholder="Section title"
+                    className="heading-display text-4xl text-ink sm:text-5xl"
+                    renderDisplay={(title) => goldTitle(title)}
+                    onSave={(title) => updateFeature(index, { title })}
+                  />
                 </h2>
+                <RestoreOriginal
+                  show={Boolean(isAdmin && original && feature.title !== original.title)}
+                  onRestore={() => void updateFeature(index, { title: original!.title })}
+                />
                 <p className="mt-5 max-w-md text-base leading-8 text-muted">
-                  {feature.body}
+                  <EditableText
+                    enabled={isAdmin}
+                    multiline
+                    value={feature.body}
+                    placeholder="Section description"
+                    onSave={(body) => updateFeature(index, { body })}
+                  />
                 </p>
-                {feature.points?.length ? (
+                <RestoreOriginal
+                  show={Boolean(isAdmin && original && feature.body !== original.body)}
+                  onRestore={() => void updateFeature(index, { body: original!.body })}
+                />
+                {feature.points?.length || isAdmin ? (
                   <ul className="mt-6 space-y-3">
-                    {feature.points.map((point) => (
-                      <li key={point} className="flex items-start gap-3 text-sm text-ink">
+                    {(feature.points ?? []).map((point, pointIndex) => (
+                      <li key={`${index}-${pointIndex}`} className="flex items-start gap-3 text-sm text-ink">
                         <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-sand text-nera">
                           <Icon name="check" className="h-3 w-3" />
                         </span>
-                        {point}
+                        <div className="min-w-0 flex-1">
+                          <EditableText
+                            enabled={isAdmin}
+                            value={point}
+                            placeholder="Bullet point"
+                            displayClassName="text-sm text-ink"
+                            onSave={(value) => updatePoint(index, pointIndex, value)}
+                          />
+                          <RestoreOriginal
+                            show={Boolean(
+                              isAdmin &&
+                                original?.points?.[pointIndex] !== undefined &&
+                                point !== original.points[pointIndex],
+                            )}
+                            onRestore={() =>
+                              void updatePoint(index, pointIndex, original!.points![pointIndex])
+                            }
+                          />
+                        </div>
+                        {isAdmin ? (
+                          <button
+                            type="button"
+                            aria-label="Remove point"
+                            onClick={() => void removePoint(index, pointIndex)}
+                            className="mt-0.5 text-soft hover:text-nera"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" strokeWidth={1.75} />
+                          </button>
+                        ) : null}
                       </li>
                     ))}
+                    {isAdmin ? (
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => void addPoint(index)}
+                          className="text-xs font-semibold text-nera hover:text-nera-deep"
+                        >
+                          + Add point
+                        </button>
+                      </li>
+                    ) : null}
                   </ul>
                 ) : null}
               </div>
               <div
                 className={
                   feature.image || system.slug === "score" || system.slug === "flowin"
-                    ? "min-w-0 overflow-visible"
-                    : "overflow-hidden rounded-[32px] border border-black/5 bg-[#fbf8f3] p-4 sm:p-6"
+                    ? "relative min-w-0 overflow-visible"
+                    : "relative overflow-hidden rounded-[32px] border border-black/5 bg-[#fbf8f3] p-4 sm:p-6"
                 }
               >
                 {feature.image || system.image ? (
@@ -177,11 +506,7 @@ function Features({ system }: { system: System }) {
                     width={1600}
                     height={900}
                     sizes="(min-width: 1024px) 50vw, 100vw"
-                    unoptimized={
-                      system.slug === "score" ||
-                      system.slug === "flowin" ||
-                      system.slug === "repora"
-                    }
+                    unoptimized
                     className={
                       feature.image || system.slug === "score" || system.slug === "flowin"
                         ? "h-auto w-full rounded-none bg-transparent object-contain"
@@ -193,10 +518,31 @@ function Features({ system }: { system: System }) {
                     <Icon name={system.icon} className="h-14 w-14 text-nera/70" />
                   </div>
                 )}
+                <ReplaceImage
+                  enabled={isAdmin}
+                  slug={`${system.slug}-feature-${index}`}
+                  onUploaded={(image) => updateFeature(index, { image })}
+                />
+                <RestoreOriginal
+                  show={Boolean(
+                    isAdmin && original && (feature.image ?? "") !== (original.image ?? ""),
+                  )}
+                  label="Restore original image"
+                  onRestore={() => void updateFeature(index, { image: original!.image })}
+                />
               </div>
             </div>
           );
         })}
+        {isAdmin ? (
+          <button
+            type="button"
+            onClick={() => void addFeature()}
+            className="rounded-full border border-dashed border-nera/40 px-5 py-3 text-sm font-semibold text-nera hover:bg-sand"
+          >
+            + Add section
+          </button>
+        ) : null}
       </div>
     </section>
   );

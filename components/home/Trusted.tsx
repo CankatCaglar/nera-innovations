@@ -55,7 +55,7 @@ export function Trusted() {
   }
 
   return (
-    <section id="company" className="overflow-x-hidden bg-[#fbf8f3]">
+    <section id="company" className="overflow-x-clip bg-[#fbf8f3]">
       <div className="container-wide grid items-center gap-10 pt-12 pb-8 lg:grid-cols-[0.78fr_1.22fr]">
         <div>
           <p className="eyebrow">About Nera</p>
@@ -91,25 +91,25 @@ export function Trusted() {
             onPlace={setDraft}
           />
           {isAdmin ? (
-            <>
-              <button
-                type="button"
-                onClick={() => {
-                  setPlacing((value) => !value);
-                  setDraft(null);
-                }}
-                className="absolute right-2 bottom-2 rounded-full bg-white/90 px-3 py-1.5 text-[11px] font-semibold tracking-wide text-nera shadow-sm"
-              >
-                {placing ? "Cancel" : "+ Add pin"}
-              </button>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              {locations.map((pin) => (
+                <button
+                  key={pin.id}
+                  type="button"
+                  onClick={() => void removePin(pin.id)}
+                  className="rounded-full bg-white px-3 py-1.5 text-xs text-muted shadow-sm"
+                >
+                  {pin.company} ×
+                </button>
+              ))}
               {placing && !draft ? (
-                <p className="absolute right-2 bottom-11 rounded-full bg-white/90 px-3 py-1 text-[11px] text-muted">
+                <p className="rounded-full bg-white px-3 py-1.5 text-[11px] text-muted shadow-sm">
                   Click any point on the map
                 </p>
               ) : null}
               {draft ? (
                 <form
-                  className="mt-3 flex flex-wrap gap-2"
+                  className="flex min-w-0 flex-wrap items-center gap-2"
                   onSubmit={(event) => {
                     event.preventDefault();
                     void addPin();
@@ -117,39 +117,40 @@ export function Trusted() {
                 >
                   <input
                     required
+                    autoFocus
                     value={country}
                     onChange={(event) => setCountry(event.target.value)}
                     placeholder="Country"
-                    className="rounded-2xl border border-black/8 bg-white px-3 py-2 text-sm"
+                    className="w-28 rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs"
                   />
                   <input
                     required
                     value={company}
                     onChange={(event) => setCompany(event.target.value)}
                     placeholder="Company"
-                    className="rounded-2xl border border-black/8 bg-white px-3 py-2 text-sm"
+                    className="w-32 rounded-full border border-black/8 bg-white px-3 py-1.5 text-xs"
                   />
                   <button
                     type="submit"
-                    className="rounded-full bg-nera px-4 py-2 text-sm font-semibold text-white"
+                    className="rounded-full bg-nera px-3 py-1.5 text-[11px] font-semibold text-white"
                   >
                     Save pin
                   </button>
                 </form>
               ) : null}
-              <div className="mt-3 flex flex-wrap gap-2">
-                {locations.map((pin) => (
-                  <button
-                    key={pin.id}
-                    type="button"
-                    onClick={() => void removePin(pin.id)}
-                    className="rounded-full bg-white px-3 py-1 text-xs text-muted"
-                  >
-                    {pin.company} ×
-                  </button>
-                ))}
-              </div>
-            </>
+              <button
+                type="button"
+                onClick={() => {
+                  setPlacing((value) => !value);
+                  setDraft(null);
+                  setCountry("");
+                  setCompany("");
+                }}
+                className="rounded-full bg-white px-3 py-1.5 text-[11px] font-semibold tracking-wide text-nera shadow-sm"
+              >
+                {placing ? "Cancel" : "+ Add pin"}
+              </button>
+            </div>
           ) : null}
         </div>
       </div>

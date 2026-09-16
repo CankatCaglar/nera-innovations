@@ -1,11 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 
 export default function AdminLoginPage() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -18,6 +16,7 @@ export default function AdminLoginPage() {
     try {
       const response = await fetch("/api/admin/login", {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
@@ -25,8 +24,7 @@ export default function AdminLoginPage() {
         setError("Could not sign in. Check the email and password.");
         return;
       }
-      router.push("/");
-      router.refresh();
+      window.location.assign("/");
     } catch {
       setError("Could not sign in.");
     } finally {
@@ -60,7 +58,7 @@ export default function AdminLoginPage() {
         />
         {error ? <p className="mt-3 text-sm text-red-600">{error}</p> : null}
         <div className="mt-5">
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full" disabled={pending}>
             {pending ? "Signing in..." : "Sign in"}
           </Button>
         </div>

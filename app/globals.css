@@ -36,11 +36,11 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-offset, 8.25rem);
 }
 
-/* Keeps section headings clear of the sticky header when jumping to anchors. */
 section[id] {
-  scroll-margin-top: 7.5rem;
+  scroll-margin-top: var(--header-offset, 8.25rem);
 }
 
 body {

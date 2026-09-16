@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight } from "lucide-react";
+import { scrollToHash } from "@/lib/scroll";
 
 type Variant = "primary" | "secondary" | "ghost" | "dark";
 
@@ -17,14 +20,19 @@ type Common = {
   children: ReactNode;
   className?: string;
   variant?: Variant;
-  arrow?: boolean;
+  arrow?: boolean | "down";
   external?: boolean;
 };
 
 type ButtonProps = Common &
   (
-    | { href: string; onClick?: never; type?: never }
-    | { href?: undefined; onClick?: () => void; type?: "button" | "submit" }
+    | { href: string; onClick?: never; type?: never; disabled?: never }
+    | {
+        href?: undefined;
+        onClick?: () => void;
+        type?: "button" | "submit";
+        disabled?: boolean;
+      }
   );
 
 export function Button({
@@ -32,17 +40,22 @@ export function Button({
   href,
   onClick,
   type = "button",
+  disabled = false,
   className = "",
   variant = "primary",
   arrow = false,
   external = false,
 }: ButtonProps) {
   const lightText = variant === "primary" || variant === "dark";
-  const classes = `inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-colors ${variants[variant]} ${
+  const classes = `relative z-10 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-colors disabled:pointer-events-none disabled:opacity-70 ${variants[variant]} ${
     lightText ? "!text-[#FFFFFF] [&]:text-[#FFFFFF] [&_*]:text-[#FFFFFF] [&_svg]:stroke-[#FFFFFF]" : ""
   } ${className}`;
 
-  const Arrow = external ? ArrowUpRight : ArrowRight;
+  const Arrow = external
+    ? ArrowUpRight
+    : arrow === "down"
+      ? ArrowDown
+      : ArrowRight;
   const content = (
     <>
       <span>{children}</span>
@@ -59,7 +72,17 @@ export function Button({
         className={classes}
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noreferrer" : undefined}
-        scroll={isHash ? true : undefined}
+        scroll={isHash ? false : undefined}
+        onClick={
+          isHash
+            ? (event) => {
+                event.preventDefault();
+                if (!scrollToHash(href)) return;
+                const next = href.startsWith("/#") ? href : `/${href}`;
+                window.history.replaceState(null, "", next);
+              }
+            : undefined
+        }
       >
         {content}
       </Link>
@@ -67,7 +90,7 @@ export function Button({
   }
 
   return (
-    <button type={type} onClick={onClick} className={classes}>
+    <button type={type} onClick={onClick} disabled={disabled} className={classes}>
       {content}
     </button>
   );

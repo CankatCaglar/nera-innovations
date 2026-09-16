@@ -1,232 +1,4 @@
 {
-  "projects": [
-    {
-      "id": "free-source-qualified-lead",
-      "name": "From Free Source to Qualified Lead",
-      "category": "Lead Generation",
-      "description": "A lead generation project that transforms free data sources into structured, qualified sales opportunities.",
-      "details": "A lead generation project that transforms free data sources into structured, qualified sales opportunities.",
-      "tags": [
-        "Lead Generation",
-        "Qualification"
-      ],
-      "accent": "#E8D5C4",
-      "icon": "users",
-      "image": "/images/projects/free-source-qualified-lead.jpg",
-      "order": 1
-    },
-    {
-      "id": "giveaway-conversion",
-      "name": "From Giveaway to Conversion",
-      "category": "Giveaway Funnel",
-      "description": "A campaign flow that turns giveaway participants into qualified prospects through follow-up and segmentation.",
-      "details": "A campaign flow that turns giveaway participants into qualified prospects through follow-up and segmentation.",
-      "tags": [
-        "Giveaway Funnel",
-        "Lead Conversion"
-      ],
-      "accent": "#E6D3C6",
-      "icon": "gift",
-      "order": 2,
-      "image": "/images/projects/giveaway-conversion.jpg"
-    },
-    {
-      "id": "google-review-boost",
-      "name": "Google Review Boost",
-      "category": "Reputation",
-      "description": "A review generation project that encourages satisfied customers to leave high-quality Google reviews.",
-      "details": "A review generation project that encourages satisfied customers to leave high-quality Google reviews.",
-      "tags": [
-        "Reputation",
-        "Reviews"
-      ],
-      "accent": "#E8D5C4",
-      "icon": "star",
-      "image": "/images/projects/google-review-boost.jpg",
-      "order": 3
-    },
-    {
-      "id": "internal-comms-mailing",
-      "name": "Internal Communication Mailing Project",
-      "category": "Internal Comms",
-      "description": "A targeted mailing workflow designed to improve employee engagement and deliver internal updates with clarity.",
-      "details": "A targeted mailing workflow designed to improve employee engagement and deliver internal updates with clarity.",
-      "tags": [
-        "Internal Comms",
-        "Employee Engagement"
-      ],
-      "accent": "#C9A27A",
-      "icon": "mail",
-      "image": "/images/projects/internal-comms-mailing.jpg",
-      "order": 4
-    },
-    {
-      "id": "anniversary",
-      "name": "Anniversary Communication",
-      "category": "Milestone Campaigns",
-      "description": "A milestone-based communication system for celebrating customer or company anniversaries such as 10th, 20th, and 50th years.",
-      "details": "A milestone-based communication system for celebrating customer or company anniversaries such as 10th, 20th, and 50th years.",
-      "tags": [
-        "Milestone Campaigns",
-        "Loyalty"
-      ],
-      "accent": "#D9D2E8",
-      "icon": "user",
-      "order": 5,
-      "image": "/images/projects/anniversary-communication.jpg"
-    },
-    {
-      "id": "smart-popup",
-      "name": "Smart Pop-up System",
-      "category": "Smart Targeting",
-      "description": "An intelligent pop-up system that shows the right message to visitors based on timing, behavior, and intent.",
-      "details": "An intelligent pop-up system that shows the right message to visitors based on timing, behavior, and intent.",
-      "tags": [
-        "Smart Targeting",
-        "Conversion"
-      ],
-      "accent": "#C5CDD6",
-      "icon": "spark",
-      "image": "/images/projects/smart-popup.jpg",
-      "order": 6
-    }
-  ],
-  "partners": [
-    {
-      "id": "linkedin",
-      "name": "LinkedIn",
-      "label": "Marketing Partner",
-      "order": 1
-    },
-    {
-      "id": "tiktok",
-      "name": "TikTok",
-      "label": "Marketing Partner",
-      "order": 2
-    },
-    {
-      "id": "google",
-      "name": "Google",
-      "label": "Partner",
-      "order": 3
-    },
-    {
-      "id": "meta",
-      "name": "Meta",
-      "label": "Business Partner",
-      "order": 4
-    },
-    {
-      "id": "openai",
-      "name": "OpenAI",
-      "label": "Partner",
-      "order": 5
-    },
-    {
-      "id": "microsoft",
-      "name": "Microsoft",
-      "label": "for Startups",
-      "order": 6
-    }
-  ],
-  "locations": [
-    {
-      "id": "pin-1789368258914",
-      "country": "USA",
-      "company": "Marmia",
-      "x": 27.339258717151193,
-      "y": 37.64609746434232,
-      "order": 4
-    },
-    {
-      "id": "pin-1789368277861",
-      "country": "UK",
-      "company": "Myko",
-      "x": 48.41642031064932,
-      "y": 21.322801109350237,
-      "order": 4
-    },
-    {
-      "id": "pin-1789368310064",
-      "country": "China",
-      "company": "Wesdar",
-      "x": 83.29850645661405,
-      "y": 28.929774167987322,
-      "order": 5
-    },
-    {
-      "id": "pin-1789368331194",
-      "country": "Russia",
-      "company": "Akzo Nobel",
-      "x": 64.19347694203972,
-      "y": 15.30061410459588,
-      "order": 6
-    },
-    {
-      "id": "pin-1789368369337",
-      "country": "Kazakhstan",
-      "company": "Gates",
-      "x": 67.89122459002186,
-      "y": 28.612816957210775,
-      "order": 7
-    },
-    {
-      "id": "pin-1789368163002",
-      "country": "Japan",
-      "company": "Yokogawa",
-      "x": 88.84512792858726,
-      "y": 29.40520998415214,
-      "order": 8
-    },
-    {
-      "id": "pin-1789368235560",
-      "country": "USA",
-      "company": "Marolivo",
-      "x": 17.848373087330398,
-      "y": 31.940867670364504,
-      "order": 8
-    },
-    {
-      "id": "pin-1789368440262",
-      "country": "Germany",
-      "company": "Epal",
-      "x": 54.94910782208441,
-      "y": 18.153229001584787,
-      "order": 8
-    },
-    {
-      "id": "pin-1789368471914",
-      "country": "Turkey",
-      "company": "Fenerbahçe",
-      "x": 58.89337197993202,
-      "y": 32.09934627575277,
-      "order": 9
-    },
-    {
-      "id": "pin-1789368486312",
-      "country": "BAE",
-      "company": "Al Qasr",
-      "x": 71.71223049293673,
-      "y": 52.06765055467512,
-      "order": 10
-    },
-    {
-      "id": "pin-1789368527249",
-      "country": "Greece",
-      "company": "Yer",
-      "x": 54.20955829248799,
-      "y": 24.809330427892235,
-      "order": 11
-    },
-    {
-      "id": "pin-1789368575984",
-      "country": "USA",
-      "company": "Linaz",
-      "x": 31.037006365133323,
-      "y": 19.73801505546751,
-      "order": 12
-    }
-  ],
   "systems": [
     {
       "id": "score",
@@ -311,7 +83,8 @@
         {
           "title": "Growth & Campaign Intelligence",
           "body": "A performance dashboard that shows campaign activity, sent messages, new connections, response rates, key alerts, and trend insights so teams can quickly understand what drives pipeline growth.",
-          "image": "/images/systems/flowin-flow-builder.png"
+          "image": "/images/systems/flowin-flow-builder.png",
+          "points": []
         }
       ],
       "faqs": [
@@ -593,6 +366,234 @@
       "resourceTitle": "Form design notes",
       "resourceDescription": "How we keep intake short enough to finish and complete enough to use.",
       "hasDetailPage": false
+    }
+  ],
+  "projects": [
+    {
+      "id": "free-source-qualified-lead",
+      "name": "From Free Source to Qualified Lead",
+      "category": "Lead Generation",
+      "description": "A lead generation project that transforms free data sources into structured, qualified sales opportunities.",
+      "details": "A lead generation project that transforms free data sources into structured, qualified sales opportunities.",
+      "tags": [
+        "Lead Generation",
+        "Qualification"
+      ],
+      "accent": "#E8D5C4",
+      "icon": "users",
+      "image": "/images/projects/free-source-qualified-lead.jpg",
+      "order": 1
+    },
+    {
+      "id": "giveaway-conversion",
+      "name": "From Giveaway to Conversion",
+      "category": "Giveaway Funnel",
+      "description": "A campaign flow that turns giveaway participants into qualified prospects through follow-up and segmentation.",
+      "details": "A campaign flow that turns giveaway participants into qualified prospects through follow-up and segmentation.",
+      "tags": [
+        "Giveaway Funnel",
+        "Lead Conversion"
+      ],
+      "accent": "#E6D3C6",
+      "icon": "gift",
+      "order": 2,
+      "image": "/images/projects/giveaway-conversion.jpg"
+    },
+    {
+      "id": "google-review-boost",
+      "name": "Google Review Boost",
+      "category": "Reputation",
+      "description": "A review generation project that encourages satisfied customers to leave high-quality Google reviews.",
+      "details": "A review generation project that encourages satisfied customers to leave high-quality Google reviews.",
+      "tags": [
+        "Reputation",
+        "Reviews"
+      ],
+      "accent": "#E8D5C4",
+      "icon": "star",
+      "image": "/images/projects/google-review-boost.jpg",
+      "order": 3
+    },
+    {
+      "id": "internal-comms-mailing",
+      "name": "Internal Communication Mailing Project",
+      "category": "Internal Comms",
+      "description": "A targeted mailing workflow designed to improve employee engagement and deliver internal updates with clarity.",
+      "details": "A targeted mailing workflow designed to improve employee engagement and deliver internal updates with clarity.",
+      "tags": [
+        "Internal Comms",
+        "Employee Engagement"
+      ],
+      "accent": "#C9A27A",
+      "icon": "mail",
+      "image": "/images/projects/internal-comms-mailing.jpg",
+      "order": 4
+    },
+    {
+      "id": "anniversary",
+      "name": "Anniversary Communication",
+      "category": "Milestone Campaigns",
+      "description": "A milestone-based communication system for celebrating customer or company anniversaries such as 10th, 20th, and 50th years.",
+      "details": "A milestone-based communication system for celebrating customer or company anniversaries such as 10th, 20th, and 50th years.",
+      "tags": [
+        "Milestone Campaigns",
+        "Loyalty"
+      ],
+      "accent": "#D9D2E8",
+      "icon": "user",
+      "order": 5,
+      "image": "/images/projects/anniversary-communication.jpg"
+    },
+    {
+      "id": "smart-popup",
+      "name": "Smart Pop-up System",
+      "category": "Smart Targeting",
+      "description": "An intelligent pop-up system that shows the right message to visitors based on timing, behavior, and intent.",
+      "details": "An intelligent pop-up system that shows the right message to visitors based on timing, behavior, and intent.",
+      "tags": [
+        "Smart Targeting",
+        "Conversion"
+      ],
+      "accent": "#C5CDD6",
+      "icon": "spark",
+      "image": "/images/projects/smart-popup.jpg",
+      "order": 6
+    }
+  ],
+  "partners": [
+    {
+      "id": "linkedin",
+      "name": "LinkedIn",
+      "label": "Marketing Partner",
+      "order": 1
+    },
+    {
+      "id": "tiktok",
+      "name": "TikTok",
+      "label": "Marketing Partner",
+      "order": 2
+    },
+    {
+      "id": "google",
+      "name": "Google",
+      "label": "Partner",
+      "order": 3
+    },
+    {
+      "id": "meta",
+      "name": "Meta",
+      "label": "Business Partner",
+      "order": 4
+    },
+    {
+      "id": "openai",
+      "name": "OpenAI",
+      "label": "Partner",
+      "order": 5
+    },
+    {
+      "id": "microsoft",
+      "name": "Microsoft",
+      "label": "for Startups",
+      "order": 6
+    }
+  ],
+  "locations": [
+    {
+      "id": "pin-1789368258914",
+      "country": "USA",
+      "company": "Marmia",
+      "x": 27.339258717151193,
+      "y": 37.64609746434232,
+      "order": 4
+    },
+    {
+      "id": "pin-1789368277861",
+      "country": "UK",
+      "company": "Myko",
+      "x": 48.41642031064932,
+      "y": 21.322801109350237,
+      "order": 4
+    },
+    {
+      "id": "pin-1789368310064",
+      "country": "China",
+      "company": "Wesdar",
+      "x": 83.29850645661405,
+      "y": 28.929774167987322,
+      "order": 5
+    },
+    {
+      "id": "pin-1789368331194",
+      "country": "Russia",
+      "company": "Akzo Nobel",
+      "x": 64.19347694203972,
+      "y": 15.30061410459588,
+      "order": 6
+    },
+    {
+      "id": "pin-1789368369337",
+      "country": "Kazakhstan",
+      "company": "Gates",
+      "x": 67.89122459002186,
+      "y": 28.612816957210775,
+      "order": 7
+    },
+    {
+      "id": "pin-1789368163002",
+      "country": "Japan",
+      "company": "Yokogawa",
+      "x": 88.84512792858726,
+      "y": 29.40520998415214,
+      "order": 8
+    },
+    {
+      "id": "pin-1789368235560",
+      "country": "USA",
+      "company": "Marolivo",
+      "x": 17.848373087330398,
+      "y": 31.940867670364504,
+      "order": 8
+    },
+    {
+      "id": "pin-1789368440262",
+      "country": "Germany",
+      "company": "Epal",
+      "x": 54.94910782208441,
+      "y": 18.153229001584787,
+      "order": 8
+    },
+    {
+      "id": "pin-1789368471914",
+      "country": "Turkey",
+      "company": "Fenerbahçe",
+      "x": 58.89337197993202,
+      "y": 32.09934627575277,
+      "order": 9
+    },
+    {
+      "id": "pin-1789368486312",
+      "country": "BAE",
+      "company": "Al Qasr",
+      "x": 71.71223049293673,
+      "y": 52.06765055467512,
+      "order": 10
+    },
+    {
+      "id": "pin-1789368527249",
+      "country": "Greece",
+      "company": "Yer",
+      "x": 54.20955829248799,
+      "y": 24.809330427892235,
+      "order": 11
+    },
+    {
+      "id": "pin-1789368575984",
+      "country": "USA",
+      "company": "Linaz",
+      "x": 31.037006365133323,
+      "y": 19.73801505546751,
+      "order": 12
     }
   ]
 }

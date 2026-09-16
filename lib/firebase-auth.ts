@@ -63,7 +63,12 @@ export async function signInWithFirebasePassword(
   let result = await signInRequest(apiKey, email, password);
   if (!result.ok) {
     await ensureEnvAdminUser(email, password);
-    result = await signInRequest(apiKey, email, password);
+    for (let attempt = 0; attempt < 3 && !result.ok; attempt += 1) {
+      if (attempt > 0) {
+        await new Promise((resolve) => setTimeout(resolve, 250 * attempt));
+      }
+      result = await signInRequest(apiKey, email, password);
+    }
   }
 
   if (!result.ok || !result.data.idToken || !result.data.email) {

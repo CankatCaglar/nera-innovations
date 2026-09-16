@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/Button";
 
 export function Hero() {
   return (
-    <section className="overflow-hidden bg-white lg:flex lg:h-[calc(100svh-84px)] lg:max-h-[860px] lg:min-h-[620px] lg:items-center">
-      <div className="container-wide grid items-center gap-8 py-8 lg:h-full lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-10 lg:py-8">
-        <div className="max-w-[720px] rise">
+    <section className="overflow-x-hidden bg-white lg:flex lg:min-h-[calc(100svh-84px)] lg:items-center">
+      <div className="container-wide grid w-full items-center gap-8 py-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-10 lg:py-10">
+        <div className="relative z-10 max-w-[720px] rise">
           <h1 className="heading-display text-[44px] text-ink sm:text-6xl xl:text-[72px]">
             Systems That Turn
             <br />
@@ -17,7 +17,7 @@ export function Hero() {
             turn visibility into sales opportunities.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
-            <Button href="#systems" arrow>
+            <Button href="#systems" arrow="down">
               Explore Systems
             </Button>
             <Button href="https://nerasocial.com" variant="secondary" arrow external>
@@ -26,7 +26,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="relative h-[280px] min-w-0 overflow-hidden sm:h-[340px] lg:h-full lg:py-2">
+        <div className="relative z-0 h-[280px] min-w-0 overflow-hidden sm:h-[340px] lg:h-[min(640px,calc(100svh-140px))] lg:py-2">
           <div className="relative h-full overflow-hidden rounded-[28px] lg:rounded-[32px]">
             <Image
               src="/images/hero-systems.jpg"

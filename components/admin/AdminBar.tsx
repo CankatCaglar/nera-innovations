@@ -14,15 +14,16 @@ export function AdminBar() {
     event: React.MouseEvent<HTMLAnchorElement>,
     href: string,
   ) {
-    if (pathname !== "/" || !scrollToHash(href)) return;
+    if (pathname !== "/" || !href.startsWith("/#")) return;
     event.preventDefault();
+    if (!scrollToHash(href)) return;
     window.history.replaceState(null, "", href);
   }
 
   return (
     <div className="bg-ink text-white">
       <div className="container-wide flex h-10 items-center justify-between gap-4 text-xs font-medium">
-        <p>Admin mode. Visitors do not see these controls. Use the page icon on a system to turn its detail page on or off.</p>
+        <p>Admin mode. On a system page, click text or images to edit.</p>
         <div className="flex items-center gap-4">
           <Link
             href="/#systems"

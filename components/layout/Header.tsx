@@ -3,15 +3,38 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { NAV } from "@/lib/constants";
-import { scrollToHash } from "@/lib/scroll";
+import { scrollToHash, syncHeaderOffset } from "@/lib/scroll";
 import { Button } from "@/components/ui/Button";
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    syncHeaderOffset();
+    const header = document.querySelector("[data-sticky-header]");
+    const observer = header ? new ResizeObserver(syncHeaderOffset) : null;
+    if (header && observer) observer.observe(header);
+    window.addEventListener("resize", syncHeaderOffset);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", syncHeaderOffset);
+    };
+  }, []);
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash) return;
+    const frame = requestAnimationFrame(() => scrollToHash(hash));
+    const timer = window.setTimeout(() => scrollToHash(hash), 80);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(timer);
+    };
+  }, [pathname]);
 
   function handleNavClick(
     event: React.MouseEvent<HTMLAnchorElement>,
@@ -19,8 +42,8 @@ export function Header() {
   ) {
     setOpen(false);
     if (pathname !== "/" || !href.startsWith("/#")) return;
-    if (!scrollToHash(href)) return;
     event.preventDefault();
+    if (!scrollToHash(href)) return;
     window.history.replaceState(null, "", href);
   }
 

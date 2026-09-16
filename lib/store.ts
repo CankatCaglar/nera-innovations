@@ -41,38 +41,41 @@ function mergeSeededHomeFields(systems: System[]) {
 
     const next = { ...system };
     if (system.id === "score" || system.id === "flowin" || system.id === "repora") {
-      next.heroTitle = seeded.heroTitle;
-      next.heroSubtitle = seeded.heroSubtitle;
-      next.tagline = seeded.tagline;
-      next.description = seeded.description;
+      next.tagline = system.tagline || seeded.tagline;
+      next.description = system.description || seeded.description;
       next.appUrl = seeded.appUrl;
-      next.ctaLabel = seeded.ctaLabel;
+      next.ctaLabel = system.ctaLabel || seeded.ctaLabel;
       next.ctaHref = seeded.ctaHref;
-      if (seeded.image) next.image = seeded.image;
     }
     if (system.id === "nera-social") {
-      next.tagline = seeded.tagline;
+      next.tagline = system.tagline || seeded.tagline;
     }
     if (typeof system.hasDetailPage !== "boolean") {
       next.hasDetailPage = seeded.hasDetailPage ?? seeded.kind !== "micro";
     }
     if (seeded.tag && !system.tag) {
       next.tag = seeded.tag;
-      next.tagline = seeded.tagline;
       next.order = seeded.order;
     }
-    if (seeded.logo) {
+    if (seeded.logo && !system.logo) {
       next.logo = seeded.logo;
     }
-    if (seeded.features?.length) {
+    if (seeded.features?.length && !system.features?.length) {
       next.features = seeded.features;
     }
-    if (seeded.faqs?.length) {
+    if (seeded.faqs?.length && !system.faqs?.length) {
       next.faqs = seeded.faqs;
     }
-    if (seeded.resourceTitle) {
+    if (seeded.resourceTitle && !system.resourceTitle) {
       next.resourceTitle = seeded.resourceTitle;
       next.resourceDescription = seeded.resourceDescription;
+    }
+    if (seeded.image && !system.image) {
+      next.image = seeded.image;
+    }
+    if (seeded.heroTitle && !system.heroTitle) {
+      next.heroTitle = seeded.heroTitle;
+      next.heroSubtitle = seeded.heroSubtitle;
     }
     return next;
   });

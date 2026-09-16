@@ -422,7 +422,7 @@ export function Systems() {
   }
 
   return (
-    <section id="systems" className="overflow-x-hidden bg-cream pt-20 pb-12">
+    <section id="systems" className="overflow-x-clip bg-cream pt-20 pb-12">
       <div className="container-wide min-w-0">
         <div className="max-w-2xl">
           <h2 className="heading-display text-4xl text-ink sm:text-5xl">

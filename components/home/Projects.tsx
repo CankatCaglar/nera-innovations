@@ -69,7 +69,7 @@ export function Projects() {
   const { projects } = useSiteContent();
 
   return (
-    <section id="projects" className="relative overflow-hidden bg-[#f7f3ee] py-20">
+    <section id="projects" className="relative overflow-x-clip bg-[#f7f3ee] py-20">
       <div className="container-wide relative grid items-start gap-10 lg:grid-cols-[0.72fr_1.28fr]">
         <div className="relative max-w-sm pt-4 lg:min-h-[560px]">
           <p className="eyebrow">Nera Lab</p>
