@@ -20,7 +20,7 @@ import {
 } from "@/lib/system-defaults";
 import { Icon } from "@/lib/icons";
 import { Minus, Plus, RotateCcw, Trash2 } from "lucide-react";
-import type { System, SystemFeature } from "@/lib/types";
+import type { System, SystemFaq, SystemFeature } from "@/lib/types";
 
 export default function SystemDetailPage({
   params,
@@ -283,7 +283,10 @@ function Hero({ system }: { system: System }) {
                 width={system.slug === "flowin" ? 883 : 980}
                 height={system.slug === "flowin" ? 587 : 720}
                 sizes="(min-width: 1024px) 46vw, 90vw"
-                unoptimized={system.slug === "flowin"}
+                unoptimized={
+                  system.slug === "flowin" ||
+                  Boolean(system.image?.startsWith("http"))
+                }
                 className={
                   framed
                     ? "relative z-10 max-h-[min(560px,62svh)] w-full bg-white object-contain"
@@ -354,6 +357,7 @@ function FeatureShot({
             width={1920}
             height={1080}
             sizes="(min-width: 1280px) 58vw, (min-width: 1024px) 54vw, 100vw"
+            unoptimized={src.startsWith("http")}
             className="block h-auto w-full"
             style={{ width: "100%", height: "auto", aspectRatio: "auto" }}
           />
@@ -399,7 +403,7 @@ function Features({ system }: { system: System }) {
       ...current,
       features: current.features.map((feature, featureIndex) =>
         featureIndex === index
-          ? { ...feature, points: [...(feature.points ?? []), "New point"] }
+          ? { ...feature, points: [...(feature.points ?? []), ""] }
           : feature,
       ),
     }));
@@ -421,7 +425,7 @@ function Features({ system }: { system: System }) {
       ...current,
       features: [
         ...current.features,
-        { title: "New section title", body: "Describe this part of the product." },
+        { title: "", body: "" },
       ],
     }));
   }
@@ -441,14 +445,7 @@ function Features({ system }: { system: System }) {
           const original = seeded?.features[index];
           const changed = isAdmin && isFeatureChanged(feature, original);
           return (
-            <div
-              key={`${system.id}-feature-${index}`}
-              className={`relative grid items-center gap-10 lg:gap-12 xl:gap-16 ${
-                reverse
-                  ? "lg:grid-cols-[minmax(0,1.22fr)_minmax(0,0.78fr)] lg:[&>*:first-child]:order-2"
-                  : "lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]"
-              }`}
-            >
+            <div key={`${system.id}-feature-${index}`} className="relative">
               {isAdmin ? (
                 <div className="absolute -top-3 right-0 z-10 flex gap-2">
                   {original && changed ? (
@@ -472,6 +469,13 @@ function Features({ system }: { system: System }) {
                   </button>
                 </div>
               ) : null}
+              <div
+                className={`grid items-center gap-10 lg:gap-12 xl:gap-16 ${
+                  reverse
+                    ? "lg:grid-cols-[minmax(0,1.22fr)_minmax(0,0.78fr)] lg:[&>*:first-child]:order-2"
+                    : "lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]"
+                }`}
+              >
               <div>
                 <h2 className="heading-display max-w-lg text-4xl text-ink sm:text-5xl">
                   <EditableText
@@ -552,16 +556,18 @@ function Features({ system }: { system: System }) {
                   </ul>
                 ) : null}
               </div>
-              <FeatureShot
-                src={feature.image ?? system.image}
-                icon={system.icon}
-                bleed={reverse ? "left" : "right"}
-              >
-                <ReplaceImage
-                  enabled={isAdmin}
-                  slug={`${system.slug}-feature-${index}`}
-                  onUploaded={(image) => updateFeature(index, { image })}
-                />
+              <div className="min-w-0">
+                <FeatureShot
+                  src={feature.image ?? system.image}
+                  icon={system.icon}
+                  bleed={reverse ? "left" : "right"}
+                >
+                  <ReplaceImage
+                    enabled={isAdmin}
+                    slug={`${system.slug}-feature-${index}`}
+                    onUploaded={(image) => updateFeature(index, { image })}
+                  />
+                </FeatureShot>
                 <RestoreOriginal
                   show={Boolean(
                     isAdmin && original && (feature.image ?? "") !== (original.image ?? ""),
@@ -569,7 +575,8 @@ function Features({ system }: { system: System }) {
                   label="Restore original image"
                   onRestore={() => void updateFeature(index, { image: original!.image })}
                 />
-              </FeatureShot>
+              </div>
+              </div>
             </div>
           );
         })}
@@ -588,7 +595,45 @@ function Features({ system }: { system: System }) {
 }
 
 function Faqs({ system }: { system: System }) {
+  const { isAdmin } = useAdmin();
+  const patch = usePatchSystem(system.id);
+  const seeded = getSeededSystem(system.id);
   const [openFaq, setOpenFaq] = useState(0);
+
+  async function updateFaq(index: number, next: Partial<SystemFaq>) {
+    await patch((current) => ({
+      ...current,
+      faqs: current.faqs.map((faq, faqIndex) =>
+        faqIndex === index ? { ...faq, ...next } : faq,
+      ),
+    }));
+  }
+
+  async function addFaq() {
+    const nextIndex = system.faqs.length;
+    await patch((current) => ({
+      ...current,
+      faqs: [
+        ...current.faqs,
+        { question: "", answer: "" },
+      ],
+    }));
+    setOpenFaq(nextIndex);
+  }
+
+  async function removeFaq(index: number) {
+    await patch((current) => ({
+      ...current,
+      faqs: current.faqs.filter((_, faqIndex) => faqIndex !== index),
+    }));
+    setOpenFaq((current) => {
+      if (current === index) return -1;
+      if (current > index) return current - 1;
+      return current;
+    });
+  }
+
+  if (!system.faqs.length && !isAdmin) return null;
 
   return (
     <section className="bg-[#fbf8f3] py-20">
@@ -602,29 +647,99 @@ function Faqs({ system }: { system: System }) {
         <div className="space-y-3">
           {system.faqs.map((faq, index) => {
             const open = openFaq === index;
+            const original = seeded?.faqs[index];
             return (
               <div
-                key={faq.question}
+                key={`${system.id}-faq-${index}`}
                 className="rounded-[22px] border border-black/6 bg-white px-5"
               >
-                <button
-                  type="button"
-                  className="flex w-full items-center justify-between gap-4 py-4 text-left text-base font-semibold text-ink"
-                  onClick={() => setOpenFaq(open ? -1 : index)}
-                >
-                  {faq.question}
-                  {open ? (
-                    <Minus className="h-4 w-4 shrink-0 text-nera" strokeWidth={1.75} />
+                <div className="flex items-start gap-3 py-4">
+                  {isAdmin ? (
+                    <>
+                      <div className="min-w-0 flex-1">
+                        <EditableText
+                          enabled
+                          value={faq.question}
+                          placeholder="Question"
+                          displayClassName="text-base font-semibold text-ink"
+                          onSave={(question) => updateFaq(index, { question })}
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        aria-label={open ? "Collapse answer" : "Expand answer"}
+                        onClick={() => setOpenFaq(open ? -1 : index)}
+                        className="mt-1 shrink-0 text-nera"
+                      >
+                        {open ? (
+                          <Minus className="h-4 w-4" strokeWidth={1.75} />
+                        ) : (
+                          <Plus className="h-4 w-4" strokeWidth={1.75} />
+                        )}
+                      </button>
+                      <button
+                        type="button"
+                        aria-label="Remove question"
+                        onClick={() => void removeFaq(index)}
+                        className="mt-1 shrink-0 text-soft hover:text-nera"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" strokeWidth={1.75} />
+                      </button>
+                    </>
                   ) : (
-                    <Plus className="h-4 w-4 shrink-0 text-nera" strokeWidth={1.75} />
+                    <button
+                      type="button"
+                      className="flex min-w-0 flex-1 items-center justify-between gap-4 text-left text-base font-semibold text-ink"
+                      onClick={() => setOpenFaq(open ? -1 : index)}
+                    >
+                      <span>{faq.question}</span>
+                      {open ? (
+                        <Minus className="h-4 w-4 shrink-0 text-nera" strokeWidth={1.75} />
+                      ) : (
+                        <Plus className="h-4 w-4 shrink-0 text-nera" strokeWidth={1.75} />
+                      )}
+                    </button>
                   )}
-                </button>
+                </div>
                 {open ? (
-                  <p className="pb-5 text-sm leading-7 text-muted">{faq.answer}</p>
+                  <div className="pb-5">
+                    <p className="text-sm leading-7 text-muted">
+                      <EditableText
+                        enabled={isAdmin}
+                        multiline
+                        value={faq.answer}
+                        placeholder="Answer"
+                        displayClassName="text-sm leading-7 text-muted"
+                        onSave={(answer) => updateFaq(index, { answer })}
+                      />
+                    </p>
+                    <RestoreOriginal
+                      show={Boolean(
+                        isAdmin &&
+                          original &&
+                          (faq.question !== original.question || faq.answer !== original.answer),
+                      )}
+                      onRestore={() =>
+                        void updateFaq(index, {
+                          question: original!.question,
+                          answer: original!.answer,
+                        })
+                      }
+                    />
+                  </div>
                 ) : null}
               </div>
             );
           })}
+          {isAdmin ? (
+            <button
+              type="button"
+              onClick={() => void addFaq()}
+              className="rounded-full border border-dashed border-nera/40 px-5 py-3 text-sm font-semibold text-nera hover:bg-sand"
+            >
+              + Add question
+            </button>
+          ) : null}
         </div>
       </div>
     </section>

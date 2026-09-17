@@ -22,8 +22,9 @@ Do not use `NEXT_PUBLIC_` keys. Set only:
 - `FIREBASE_PROJECT_ID`
 - `FIREBASE_CLIENT_EMAIL`
 - `FIREBASE_PRIVATE_KEY` (one line, newlines as `\n`)
+- `FIREBASE_STORAGE_BUCKET` (optional if it matches `{FIREBASE_PROJECT_ID}.firebasestorage.app`)
 
-Enable Authentication → Email/Password and Cloud Firestore in the same project.
+Enable Authentication → Email/Password, Cloud Firestore, and Storage in the same project.
 
 ## Forms
 

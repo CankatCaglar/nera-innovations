@@ -28,15 +28,23 @@ export function EditableText({
   const [saving, setSaving] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const areaRef = useRef<HTMLTextAreaElement>(null);
+  const isPlaceholderValue = value.trim() === "" || value.trim() === placeholder.trim();
+
+  function startEditing() {
+    setDraft(isPlaceholderValue ? "" : value);
+    setEditing(true);
+  }
 
   useEffect(() => {
-    setDraft(value);
-  }, [value]);
+    if (editing) return;
+    setDraft(isPlaceholderValue ? "" : value);
+  }, [value, placeholder, editing, isPlaceholderValue]);
 
   useEffect(() => {
     if (!editing) return;
-    if (multiline) areaRef.current?.focus();
-    else inputRef.current?.select();
+    const field = multiline ? areaRef.current : inputRef.current;
+    field?.focus();
+    field?.select();
   }, [editing, multiline]);
 
   async function commit() {
@@ -70,16 +78,18 @@ export function EditableText({
     return (
       <button
         type="button"
-        onClick={() => setEditing(true)}
+        onClick={startEditing}
         title="Click to edit"
         className={`block w-full rounded-xl text-left transition-shadow hover:ring-2 hover:ring-nera/25 hover:ring-offset-2 hover:ring-offset-transparent ${displayClassName} ${
           saving ? "opacity-60" : ""
         }`}
       >
-        {value.trim() ? (
-          renderDisplay ? renderDisplay(value) : value
-        ) : (
+        {isPlaceholderValue ? (
           <span className="text-soft">{placeholder}</span>
+        ) : renderDisplay ? (
+          renderDisplay(value)
+        ) : (
+          value
         )}
       </button>
     );

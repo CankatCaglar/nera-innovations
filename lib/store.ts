@@ -38,7 +38,13 @@ function mergeSeededProjects(projects: Project[]) {
 
 function toOptimizedAsset(url?: string) {
   if (!url) return url;
-  if (url.includes("/uploads/") || url.endsWith("favicon.png") || url.endsWith("apple-icon.png")) {
+  if (
+    url.startsWith("http://") ||
+    url.startsWith("https://") ||
+    url.includes("/uploads/") ||
+    url.endsWith("favicon.png") ||
+    url.endsWith("apple-icon.png")
+  ) {
     return url;
   }
   if (url.includes("score-brand-dna")) return "/images/systems/score-branddna.webp";
@@ -101,9 +107,6 @@ function mergeSeededHomeFields(systems: System[]) {
     }
     next.image = toOptimizedAsset(next.image);
     next.logo = toOptimizedAsset(next.logo);
-    if (next.id === "flowin" || next.slug === "flowin") {
-      next.image = "/images/systems/flowin.webp";
-    }
     return next;
   });
 }

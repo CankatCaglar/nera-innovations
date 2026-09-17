@@ -29,7 +29,15 @@ export function ReplaceImage({
       body.set("file", file);
       body.set("slug", slug);
       const response = await fetch("/api/upload", { method: "POST", body });
-      const data = (await response.json()) as { url?: string; error?: string };
+      const text = await response.text();
+      let data: { url?: string; error?: string } = {};
+      try {
+        data = text ? (JSON.parse(text) as { url?: string; error?: string }) : {};
+      } catch {
+        throw new Error(
+          "Upload failed. On the live site, Firebase Storage must be enabled.",
+        );
+      }
       if (!response.ok || !data.url) {
         throw new Error(data.error || "Upload failed");
       }

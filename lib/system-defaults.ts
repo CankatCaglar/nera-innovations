@@ -1,5 +1,5 @@
 import { seedSystems } from "./seed";
-import type { System, SystemFeature } from "./types";
+import type { System, SystemFaq, SystemFeature } from "./types";
 
 export function getSeededSystem(id: string) {
   return seedSystems.find((item) => item.id === id) ?? null;
@@ -32,12 +32,19 @@ export function isFeatureChanged(feature: SystemFeature, seeded?: SystemFeature)
   );
 }
 
+export function isFaqChanged(faq: SystemFaq, seeded?: SystemFaq) {
+  if (!seeded) return true;
+  return text(faq.question) !== text(seeded.question) || text(faq.answer) !== text(seeded.answer);
+}
+
 export function isDetailPageChanged(system: System, seeded: System) {
   if (isHeroChanged(system, seeded)) return true;
   if (system.features.length !== seeded.features.length) return true;
-  return system.features.some((feature, index) =>
-    isFeatureChanged(feature, seeded.features[index]),
-  );
+  if (system.features.some((feature, index) => isFeatureChanged(feature, seeded.features[index]))) {
+    return true;
+  }
+  if (system.faqs.length !== seeded.faqs.length) return true;
+  return system.faqs.some((faq, index) => isFaqChanged(faq, seeded.faqs[index]));
 }
 
 export function restoreDetailDefaults(current: System, seeded: System): System {
@@ -52,5 +59,6 @@ export function restoreDetailDefaults(current: System, seeded: System): System {
       ...feature,
       points: feature.points ? [...feature.points] : undefined,
     })),
+    faqs: seeded.faqs.map((faq) => ({ ...faq })),
   };
 }

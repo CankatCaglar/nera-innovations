@@ -304,7 +304,9 @@ function SystemCard({
               width={883}
               height={587}
               sizes="(min-width: 1024px) 22vw, 80vw"
-              unoptimized={system.id === "flowin"}
+              unoptimized={
+                system.id === "flowin" || Boolean(system.image?.startsWith("http"))
+              }
               className={
                 system.id === "score"
                   ? "h-auto w-full object-contain"
