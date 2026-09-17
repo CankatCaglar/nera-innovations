@@ -25,6 +25,9 @@ export function AdminBar() {
       <div className="container-wide flex h-10 items-center justify-between gap-4 text-xs font-medium">
         <p>Admin mode. On a system page, click text or images to edit.</p>
         <div className="flex items-center gap-4">
+          <Link href="/admin/leads" className="opacity-80 hover:opacity-100">
+            Inbox
+          </Link>
           <Link
             href="/#systems"
             onClick={(event) => handleNavClick(event, "/#systems")}

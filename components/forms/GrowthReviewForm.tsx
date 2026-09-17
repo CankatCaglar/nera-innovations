@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { sendLead } from "@/lib/send-lead";
 
 const fieldClass =
   "w-full rounded-2xl border border-black/6 bg-white px-4 py-3.5 text-sm outline-none placeholder:text-soft focus:border-nera/50";
@@ -16,6 +17,7 @@ export function GrowthReviewForm() {
   });
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   function update(field: keyof typeof values, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
@@ -25,17 +27,21 @@ export function GrowthReviewForm() {
     event.preventDefault();
     if (!consent) return;
     setStatus("sending");
+    setErrorMessage("");
     try {
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "growth-review", ...values }),
+      await sendLead({
+        type: "growth-review",
+        fullName: values.fullName,
+        email: values.email,
+        website: values.website,
+        phone: values.phone,
+        message: values.message,
       });
-      if (!response.ok) throw new Error("Failed");
       setStatus("done");
       setValues({ fullName: "", email: "", website: "", phone: "", message: "" });
       setConsent(false);
-    } catch {
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
       setStatus("error");
     }
   }
@@ -112,7 +118,9 @@ export function GrowthReviewForm() {
         I agree to be contacted by the Nera team regarding my request.
       </label>
       {status === "error" ? (
-        <p className="text-sm text-red-600">Something went wrong. Please try again.</p>
+        <p className="text-sm text-red-600">
+          {errorMessage || "Something went wrong. Please try again."}
+        </p>
       ) : null}
       <Button type="submit" className="w-full" arrow>
         {status === "sending" ? "Sending..." : "Submit Request"}

@@ -2,7 +2,7 @@
 
 import { type MouseEvent, useEffect, useRef } from "react";
 import type { MapLocation } from "@/lib/types";
-import { placeMapLabels, projectLonLat } from "@/lib/map";
+import { placeMapLabels } from "@/lib/map";
 
 export function WorldMap({
   locations,
@@ -107,19 +107,5 @@ export function WorldMap({
         </div>
       </div>
     </div>
-  );
-}
-
-export function ContactMap() {
-  const tallinn = projectLonLat(24.75, 59.44);
-  const izmir = projectLonLat(27.14, 38.42);
-
-  return (
-    <WorldMap
-      locations={[
-        { id: "tallinn", country: "Tallinn", company: "Closer to Europe", ...tallinn, order: 1 },
-        { id: "izmir", country: "Izmir", company: "Closer to brands", ...izmir, order: 2 },
-      ]}
-    />
   );
 }

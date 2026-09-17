@@ -69,6 +69,17 @@ export type MapLocation = {
 
 export type LeadType = "contact" | "growth-review" | "resource";
 
+export type LeadPayload = {
+  type: string;
+  fullName: string;
+  email: string;
+  phone?: string;
+  website?: string;
+  subject?: string;
+  message?: string;
+  systemSlug?: string;
+};
+
 export type Lead = {
   id: string;
   type: LeadType;

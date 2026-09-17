@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { SiteShell } from "@/components/layout/SiteShell";
-import { ContactMap } from "@/components/ui/WorldMap";
 import { LeadForm } from "@/components/forms/LeadForm";
+import { HashLink } from "@/components/ui/HashLink";
 import { SITE } from "@/lib/constants";
 import { Icon } from "@/lib/icons";
 
@@ -13,23 +14,47 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <SiteShell>
-      <section className="bg-white py-16 lg:py-20">
-        <div className="container-wide grid items-center gap-12 lg:grid-cols-[1fr_1fr]">
-          <div>
+      <section className="relative flex min-h-[calc(100svh-84px)] w-full items-center overflow-hidden bg-white">
+        <Image
+          src="/images/contact-hero.webp"
+          alt=""
+          fill
+          unoptimized
+          sizes="(max-width: 1023px) 0px, 100vw"
+          className="hidden object-cover object-center lg:block"
+          priority
+        />
+        <div className="container-wide relative w-full min-w-0 py-16 lg:py-0">
+          <div className="max-w-xl">
             <p className="eyebrow">Contact</p>
-            <h1 className="heading-display mt-4 max-w-xl text-5xl text-ink sm:text-6xl">
+            <h1 className="heading-display mt-4 text-[40px] text-ink sm:text-6xl lg:text-7xl">
               We grow your brand from Tallinn and <span className="text-gold">Izmir</span>.
             </h1>
-            <p className="mt-6 max-w-lg text-base leading-8 text-muted">
-              Meet the team behind the ads, growth systems and digital
-              marketing strategies we build for ambitious brands.
+            <p className="mt-6 text-base leading-8 text-muted lg:text-lg">
+              Meet our team developing technology in technoparks in Tallinn and
+              Izmir, growth systems, and digital strategies for ambitious brands
+              worldwide.
             </p>
+            <HashLink
+              href="#get-in-touch"
+              className="mt-10 inline-flex items-center gap-3"
+              aria-label="Scroll to get in touch"
+            >
+              <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white text-ink">
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <path d="M6 10l6 6 6-6" />
+                </svg>
+              </span>
+              <span>
+                <span className="block text-sm font-semibold text-ink">Get in touch</span>
+                <span className="block text-xs text-muted">Scroll to explore</span>
+              </span>
+            </HashLink>
           </div>
-          <ContactMap />
         </div>
       </section>
 
-      <section className="bg-cream py-16">
+      <section id="get-in-touch" className="bg-cream py-16">
         <div className="container-wide grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="rounded-[32px] bg-white p-8">
             <h2 className="text-2xl font-semibold tracking-tight">Get in touch</h2>
@@ -69,8 +94,8 @@ export default function ContactPage() {
               </li>
             </ul>
             <p className="mt-10 text-sm leading-7 text-muted">
-              A single growth team between Europe and Turkey, working in one
-              language, toward one result.
+              A technology-driven growth team based in two technoparks, building
+              technology and growth systems for brands worldwide.
             </p>
           </div>
         </div>

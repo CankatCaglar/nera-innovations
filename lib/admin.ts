@@ -105,10 +105,14 @@ export async function loadLeads(): Promise<Lead[]> {
       fullName: data.fullName,
       email: data.email,
       phone: data.phone,
+      website: data.website,
       subject: data.subject,
       message: data.message,
       systemSlug: data.systemSlug,
-      createdAt: data.createdAt?.toDate?.()?.toISOString?.() ?? new Date().toISOString(),
+      createdAt:
+        typeof data.createdAt === "string"
+          ? data.createdAt
+          : data.createdAt?.toDate?.()?.toISOString?.() ?? new Date().toISOString(),
     };
   });
 }

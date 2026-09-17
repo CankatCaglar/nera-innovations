@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { sendLead } from "@/lib/send-lead";
 import type { LeadType } from "@/lib/types";
 
 type Field = "fullName" | "email" | "phone" | "subject" | "message";
@@ -33,21 +34,26 @@ export function LeadForm({
 }: LeadFormProps) {
   const [values, setValues] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("sending");
+    setErrorMessage("");
     try {
-      const payload = { type, systemSlug, ...values };
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+      await sendLead({
+        type,
+        systemSlug,
+        fullName: values.fullName ?? "",
+        email: values.email ?? "",
+        phone: values.phone,
+        subject: values.subject,
+        message: values.message,
       });
-      if (!response.ok) throw new Error("Failed");
       setStatus("done");
       setValues({});
-    } catch {
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
       setStatus("error");
     }
   }
@@ -66,11 +72,13 @@ export function LeadForm({
       {fields.map((field) => {
         const shared = {
           required: true,
+          "aria-required": true,
+          name: field,
           value: values[field] ?? "",
           onChange: (
             event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
           ) => setValues((current) => ({ ...current, [field]: event.target.value })),
-          placeholder: labels[field],
+          placeholder: `${labels[field]}*`,
           className:
             "w-full rounded-2xl border border-black/6 bg-white px-4 py-3.5 text-sm outline-none placeholder:text-soft focus:border-nera/50",
         };
@@ -95,7 +103,9 @@ export function LeadForm({
         );
       })}
       {status === "error" ? (
-        <p className="text-sm text-red-600">Something went wrong. Please try again.</p>
+        <p className="text-sm text-red-600">
+          {errorMessage || "Something went wrong. Please try again."}
+        </p>
       ) : null}
       <Button type="submit" className="w-full" arrow>
         {status === "sending" ? "Sending..." : submitLabel}

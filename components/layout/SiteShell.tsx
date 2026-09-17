@@ -18,7 +18,7 @@ export function SiteShell({
         <AdminBar />
         <Header />
       </div>
-      <main className="flex-1">{children}</main>
+      <main className="min-w-0 flex-1">{children}</main>
       <CtaBanner showButton={showCtaButton} />
       <Footer />
       <WhatsAppButton />
