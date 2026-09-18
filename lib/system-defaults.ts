@@ -15,7 +15,8 @@ export function isHeroChanged(system: System, seeded: System) {
     text(system.heroTitle) !== text(seeded.heroTitle) ||
     text(system.heroSubtitle) !== text(seeded.heroSubtitle) ||
     text(system.image) !== text(seeded.image) ||
-    text(system.ctaLabel) !== text(seeded.ctaLabel)
+    text(system.ctaLabel) !== text(seeded.ctaLabel) ||
+    text(system.ctaHref) !== text(seeded.ctaHref)
   );
 }
 
@@ -55,6 +56,7 @@ export function restoreDetailDefaults(current: System, seeded: System): System {
     heroSubtitle: seeded.heroSubtitle,
     image: seeded.image,
     ctaLabel: seeded.ctaLabel,
+    ctaHref: seeded.ctaHref,
     features: seeded.features.map((feature) => ({
       ...feature,
       points: feature.points ? [...feature.points] : undefined,

@@ -68,7 +68,9 @@ function mergeSeededHomeFields(systems: System[]) {
       next.description = system.description || seeded.description;
       next.appUrl = seeded.appUrl;
       next.ctaLabel = system.ctaLabel || seeded.ctaLabel;
-      next.ctaHref = seeded.ctaHref;
+      if (typeof system.ctaHref !== "string") {
+        next.ctaHref = seeded.ctaHref;
+      }
     }
     if (system.id === "nera-social") {
       next.tagline = system.tagline || seeded.tagline;

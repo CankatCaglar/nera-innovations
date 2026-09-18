@@ -162,11 +162,27 @@ function HeroTitleDisplay({ title }: { title: string }) {
   );
 }
 
+function normalizeCtaHref(value: string) {
+  const next = value.trim();
+  if (!next) return "";
+  if (
+    next.startsWith("/") ||
+    next.startsWith("#") ||
+    next.startsWith("http://") ||
+    next.startsWith("https://") ||
+    next.startsWith("mailto:") ||
+    next.startsWith("tel:")
+  ) {
+    return next;
+  }
+  return `https://${next}`;
+}
+
 function systemCta(system: System) {
-  const href = system.ctaHref ?? system.appUrl;
+  const href = (system.ctaHref?.trim() || system.appUrl || "").trim();
   const external = href.startsWith("http");
   const label =
-    system.ctaLabel ??
+    system.ctaLabel?.trim() ||
     (system.slug === "score" ? "Try for Free" : "Try the application");
   return { href, external, label };
 }
@@ -195,6 +211,7 @@ function Hero({ system }: { system: System }) {
                     heroSubtitle: seeded.heroSubtitle,
                     image: seeded.image,
                     ctaLabel: seeded.ctaLabel,
+                    ctaHref: seeded.ctaHref,
                   })
                 }
               />
@@ -241,11 +258,17 @@ function Hero({ system }: { system: System }) {
           />
           <div className="mt-8">
             {isAdmin ? (
-              <div className="flex flex-wrap items-center gap-3">
-                <Button href={cta.href} arrow external={cta.external}>
-                  {cta.label}
-                </Button>
-                <div className="min-w-40 max-w-56">
+              <div className="flex flex-wrap items-start gap-3">
+                {cta.href ? (
+                  <Button href={cta.href} arrow external={cta.external}>
+                    {cta.label}
+                  </Button>
+                ) : (
+                  <Button variant="secondary" arrow>
+                    {cta.label}
+                  </Button>
+                )}
+                <div className="min-w-52 max-w-sm">
                   <EditableText
                     enabled
                     value={cta.label}
@@ -253,17 +276,35 @@ function Hero({ system }: { system: System }) {
                     displayClassName="text-xs font-medium text-soft"
                     onSave={(ctaLabel) => patch({ ctaLabel })}
                   />
+                  <div className="mt-1">
+                    <EditableText
+                      enabled
+                      value={system.ctaHref ?? system.appUrl ?? ""}
+                      placeholder="Button URL"
+                      displayClassName="text-xs font-medium text-soft break-all"
+                      onSave={(ctaHref) => patch({ ctaHref: normalizeCtaHref(ctaHref) })}
+                    />
+                  </div>
                   <RestoreOriginal
-                    show={Boolean(seeded && (system.ctaLabel ?? "") !== (seeded.ctaLabel ?? ""))}
-                    onRestore={() => void patch({ ctaLabel: seeded!.ctaLabel })}
+                    show={Boolean(
+                      seeded &&
+                        ((system.ctaLabel ?? "") !== (seeded.ctaLabel ?? "") ||
+                          (system.ctaHref ?? "") !== (seeded.ctaHref ?? "")),
+                    )}
+                    onRestore={() =>
+                      void patch({
+                        ctaLabel: seeded!.ctaLabel,
+                        ctaHref: seeded!.ctaHref,
+                      })
+                    }
                   />
                 </div>
               </div>
-            ) : (
+            ) : cta.href ? (
               <Button href={cta.href} arrow external={cta.external}>
                 {cta.label}
               </Button>
-            )}
+            ) : null}
           </div>
         </div>
 
