@@ -8,6 +8,7 @@ type EditableTextProps = {
   className?: string;
   displayClassName?: string;
   multiline?: boolean;
+  rows?: number;
   placeholder?: string;
   enabled: boolean;
   renderDisplay?: (value: string) => ReactNode;
@@ -19,6 +20,7 @@ export function EditableText({
   className = "",
   displayClassName = "",
   multiline = false,
+  rows = 4,
   placeholder = "Add text",
   enabled,
   renderDisplay,
@@ -102,7 +104,7 @@ export function EditableText({
       <textarea
         ref={areaRef}
         value={draft}
-        rows={4}
+        rows={rows}
         placeholder={placeholder}
         className={`${fieldClass} resize-none`}
         onChange={(event) => setDraft(event.target.value)}

@@ -76,7 +76,7 @@ function mergeSeededHomeFields(systems: System[]) {
     if (typeof system.hasDetailPage !== "boolean") {
       next.hasDetailPage = seeded.hasDetailPage ?? seeded.kind !== "micro";
     }
-    if (seeded.tag && !system.tag) {
+    if (seeded.tag && typeof system.tag !== "string") {
       next.tag = seeded.tag;
       next.order = seeded.order;
     }

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useAdmin } from "@/components/admin/AdminProvider";
+import { EditableText } from "@/components/admin/EditableText";
 import { ReplaceImage } from "@/components/admin/ReplaceImage";
 import {
   featuredSystems,
@@ -393,12 +394,36 @@ function SystemCard({
             {system.name}
           </h3>
         </div>
-        {system.tag ? (
-          <p className="mt-4 min-h-5 text-sm font-medium text-gold">{system.tag}</p>
-        ) : (
-          <div className="mt-4 min-h-5" aria-hidden />
-        )}
-        <p className="mt-2 text-sm leading-6 text-muted">{system.tagline}</p>
+        <div className="mt-4 min-h-5">
+          {isAdmin ? (
+            <EditableText
+              enabled
+              value={system.tag ?? ""}
+              placeholder="Add tag"
+              displayClassName="text-sm font-medium text-gold"
+              className="text-sm font-medium text-gold"
+              onSave={(tag) => patch({ tag })}
+            />
+          ) : system.tag ? (
+            <p className="text-sm font-medium text-gold">{system.tag}</p>
+          ) : null}
+        </div>
+        <div className="mt-2">
+          {isAdmin ? (
+            <EditableText
+              enabled
+              multiline
+              rows={3}
+              value={system.tagline}
+              placeholder="Add tagline"
+              displayClassName="text-sm leading-6 text-muted"
+              className="text-sm leading-6 text-muted"
+              onSave={(tagline) => patch({ tagline })}
+            />
+          ) : (
+            <p className="text-sm leading-6 text-muted">{system.tagline}</p>
+          )}
+        </div>
         <div className="mt-auto pt-6">
           {href ? (
             isAdmin ? (
