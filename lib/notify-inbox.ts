@@ -3,6 +3,18 @@ import { Resend } from "resend";
 import { SITE } from "@/lib/constants";
 import type { LeadPayload } from "@/lib/types";
 
+function firstEnv(...keys: string[]) {
+  for (const key of keys) {
+    const value = process.env[key]?.trim();
+    if (value) return value;
+  }
+  return "";
+}
+
+function inboxAddress() {
+  return firstEnv("LEAD_TO_EMAIL") || SITE.email;
+}
+
 export function leadEmailSubject(lead: LeadPayload) {
   if (lead.type === "growth-review") return "Nera Innovations: Growth Review request";
   if (lead.type === "resource") {
@@ -51,20 +63,26 @@ function leadEmailHtml(lead: LeadPayload) {
 }
 
 async function sendWithGmail(lead: LeadPayload) {
-  const user = process.env.GMAIL_USER?.trim();
-  const pass = process.env.GMAIL_APP_PASSWORD?.trim();
+  const user = firstEnv("GMAIL_USER", "SMTP_USER", "MAIL_USER");
+  const pass = firstEnv(
+    "GMAIL_APP_PASSWORD",
+    "GMAIL_PASSWORD",
+    "GMAIL_PASS",
+    "SMTP_PASS",
+    "MAIL_PASS",
+  ).replace(/\s+/g, "");
   if (!user || !pass) return false;
 
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
+    host: firstEnv("SMTP_HOST") || "smtp.gmail.com",
+    port: Number(firstEnv("SMTP_PORT") || "465"),
+    secure: firstEnv("SMTP_PORT") !== "587",
     auth: { user, pass },
   });
 
   await transporter.sendMail({
     from: `Nera Innovations <${user}>`,
-    to: SITE.email,
+    to: inboxAddress(),
     replyTo: lead.email,
     subject: leadEmailSubject(lead),
     text: leadEmailText(lead),
@@ -74,14 +92,14 @@ async function sendWithGmail(lead: LeadPayload) {
 }
 
 async function sendWithResend(lead: LeadPayload) {
-  const key = process.env.RESEND_API_KEY;
+  const key = firstEnv("RESEND_API_KEY");
   if (!key) return false;
 
   const resend = new Resend(key);
-  const from = process.env.LEAD_FROM_EMAIL || `Nera Innovations <${SITE.email}>`;
+  const from = firstEnv("LEAD_FROM_EMAIL") || `Nera Innovations <${SITE.email}>`;
   const { error } = await resend.emails.send({
     from,
-    to: SITE.email,
+    to: inboxAddress(),
     replyTo: lead.email,
     subject: leadEmailSubject(lead),
     text: leadEmailText(lead),
@@ -91,8 +109,32 @@ async function sendWithResend(lead: LeadPayload) {
   return true;
 }
 
+async function sendWithFormSubmit(lead: LeadPayload) {
+  const to = inboxAddress();
+  const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(to)}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      name: lead.fullName,
+      email: lead.email,
+      _replyto: lead.email,
+      _subject: leadEmailSubject(lead),
+      message: leadEmailText(lead),
+    }),
+  });
+  if (!response.ok) return false;
+  const data = (await response.json().catch(() => null)) as { success?: string | boolean } | null;
+  return data?.success === true || data?.success === "true";
+}
+
 export async function notifyInbox(lead: LeadPayload) {
   if (await sendWithGmail(lead)) return;
   if (await sendWithResend(lead)) return;
-  throw new Error("No mail transport is configured.");
+  if (await sendWithFormSubmit(lead)) return;
+  throw new Error(
+    "No mail transport is configured. Set GMAIL_USER and GMAIL_APP_PASSWORD on the host.",
+  );
 }

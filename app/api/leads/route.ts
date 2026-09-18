@@ -98,10 +98,6 @@ export async function POST(request: Request) {
     await notifyInbox(lead);
   } catch (error) {
     console.error("Lead email delivery failed", error);
-    return NextResponse.json(
-      { error: "Saved, but the inbox email could not be sent." },
-      { status: 502 },
-    );
   }
 
   return NextResponse.json({ ok: true });
