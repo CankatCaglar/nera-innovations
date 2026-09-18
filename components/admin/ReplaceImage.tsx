@@ -8,11 +8,17 @@ export function ReplaceImage({
   slug,
   onUploaded,
   className = "",
+  compact = false,
+  alwaysVisible = false,
+  label = "Replace image",
 }: {
   enabled: boolean;
   slug: string;
   onUploaded: (url: string) => Promise<void> | void;
   className?: string;
+  compact?: boolean;
+  alwaysVisible?: boolean;
+  label?: string;
 }) {
   const input = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
@@ -53,13 +59,27 @@ export function ReplaceImage({
     <>
       <button
         type="button"
-        onClick={() => input.current?.click()}
+        onClick={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          input.current?.click();
+        }}
         disabled={busy}
-        className={`absolute inset-0 z-20 flex items-center justify-center rounded-[inherit] bg-ink/0 text-sm font-semibold text-white opacity-0 transition-all hover:bg-ink/45 hover:opacity-100 ${className}`}
+        className={`absolute inset-0 z-20 flex items-center justify-center rounded-[inherit] text-sm font-semibold text-white transition-all ${
+          alwaysVisible
+            ? "bg-ink/5 opacity-100 hover:bg-ink/40"
+            : "bg-ink/0 opacity-0 hover:bg-ink/45 hover:opacity-100"
+        } ${className}`}
       >
-        <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-ink shadow-sm">
-          <ImagePlus className="h-4 w-4 text-nera" strokeWidth={1.75} />
-          {busy ? "Uploading..." : "Replace image"}
+        <span
+          className={
+            compact
+              ? "inline-flex items-center justify-center text-nera"
+              : "inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-ink shadow-sm"
+          }
+        >
+          <ImagePlus className={compact ? "h-3.5 w-3.5" : "h-4 w-4 text-nera"} strokeWidth={1.75} />
+          {compact ? <span className="sr-only">{busy ? "Uploading..." : label}</span> : busy ? "Uploading..." : label}
         </span>
       </button>
       <input

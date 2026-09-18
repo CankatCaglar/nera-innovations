@@ -9,7 +9,7 @@ import { EditableText } from "@/components/admin/EditableText";
 import { ReplaceImage } from "@/components/admin/ReplaceImage";
 import { RestoreOriginal } from "@/components/admin/RestoreOriginal";
 import { useAdmin } from "@/components/admin/AdminProvider";
-import { getSystemBySlug, hasSystemDetailPage, systemDisplayImage, useSiteContent } from "@/lib/content";
+import { getSystemBySlug, hasSystemDetailPage, isUploadedAsset, systemDisplayImage, useSiteContent } from "@/lib/content";
 import { usePatchSystem } from "@/lib/use-patch-system";
 import {
   getSeededSystem,
@@ -175,7 +175,8 @@ function Hero({ system }: { system: System }) {
   const { isAdmin } = useAdmin();
   const patch = usePatchSystem(system.id);
   const seeded = getSeededSystem(system.id);
-  const framed = system.slug !== "score" && system.slug !== "flowin";
+  const uploaded = isUploadedAsset(system.image);
+  const framed = !uploaded && system.slug !== "score" && system.slug !== "flowin";
   const cta = systemCta(system);
 
   return (
@@ -308,10 +309,12 @@ function Hero({ system }: { system: System }) {
               />
             </div>
           ) : (
-            <div className="relative flex min-h-[280px] items-center justify-center rounded-[36px] bg-white shadow-[0_28px_70px_rgba(148,93,60,0.16)]">
+            <div className="relative flex min-h-[280px] items-center justify-center">
               <Icon name={system.icon} className="h-16 w-16 text-nera" />
               <ReplaceImage
                 enabled={isAdmin}
+                alwaysVisible={isAdmin}
+                label="Add image"
                 slug={system.slug}
                 onUploaded={(image) => patch({ image })}
               />
@@ -339,17 +342,26 @@ function FeatureShot({
   bleed: "left" | "right";
   children?: ReactNode;
 }) {
+  const uploaded = isUploadedAsset(src);
   return (
     <div
       className={`relative min-w-0 ${
         bleed === "left" ? "lg:-ml-4 xl:-ml-8" : "lg:-mr-4 xl:-mr-8"
       }`}
     >
+      {uploaded ? null : (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -inset-10 -z-10 rounded-[56px] bg-[radial-gradient(ellipse_at_center,rgba(221,160,109,0.22),transparent_68%)]"
+        />
+      )}
       <div
-        aria-hidden
-        className="pointer-events-none absolute -inset-10 -z-10 rounded-[56px] bg-[radial-gradient(ellipse_at_center,rgba(221,160,109,0.22),transparent_68%)]"
-      />
-      <div className="relative overflow-hidden rounded-[28px] bg-white shadow-[0_28px_72px_rgba(70,42,18,0.14)] ring-1 ring-black/5 sm:rounded-[36px] lg:rounded-[20px]">
+        className={
+          uploaded
+            ? "relative"
+            : "relative overflow-hidden rounded-[28px] bg-white shadow-[0_28px_72px_rgba(70,42,18,0.14)] ring-1 ring-black/5 sm:rounded-[36px] lg:rounded-[20px]"
+        }
+      >
         {src ? (
           <Image
             src={src}
@@ -358,11 +370,11 @@ function FeatureShot({
             height={1080}
             sizes="(min-width: 1280px) 58vw, (min-width: 1024px) 54vw, 100vw"
             unoptimized={src.startsWith("http")}
-            className="block h-auto w-full"
+            className="block h-auto w-full bg-transparent"
             style={{ width: "100%", height: "auto", aspectRatio: "auto" }}
           />
         ) : (
-          <div className="flex min-h-[280px] items-center justify-center bg-[#fbf8f3] sm:min-h-[340px]">
+          <div className="flex min-h-[280px] items-center justify-center sm:min-h-[340px]">
             <Icon name={icon} className="h-14 w-14 text-nera/70" />
           </div>
         )}

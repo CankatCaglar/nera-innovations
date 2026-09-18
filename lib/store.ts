@@ -80,7 +80,7 @@ function mergeSeededHomeFields(systems: System[]) {
       next.tag = seeded.tag;
       next.order = seeded.order;
     }
-    if (seeded.logo && !system.logo) {
+    if (seeded.logo && typeof system.logo !== "string") {
       next.logo = seeded.logo;
     }
     if (seeded.features?.length && !system.features?.length) {

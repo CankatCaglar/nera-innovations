@@ -36,3 +36,13 @@ export function systemHref(system: System) {
 export function systemDisplayImage(system: System) {
   return system.image;
 }
+
+export function isUploadedAsset(url?: string) {
+  if (!url) return false;
+  return (
+    url.includes("/uploads/") ||
+    url.includes("site-uploads/") ||
+    url.includes("firebasestorage.googleapis.com") ||
+    url.includes("storage.googleapis.com")
+  );
+}

@@ -395,7 +395,7 @@
       "heroTitle": "Repora Social Media Performance Dashboard",
       "heroSubtitle": "Repora helps brands track social media performance across platforms, measure content impact, and turn data into clear, actionable insights.",
       "appUrl": "https://repora.nerainnovations.com",
-      "featured": true,
+      "featured": false,
       "order": 4,
       "icon": "report",
       "image": "/images/systems/repora.webp",
@@ -527,7 +527,8 @@
       ],
       "resourceTitle": "Lead quality checklist",
       "resourceDescription": "The five fields that usually tell you if a lead is real.",
-      "hasDetailPage": false
+      "hasDetailPage": false,
+      "logo": ""
     },
     {
       "id": "nera-realtime",
@@ -606,7 +607,7 @@
       "heroSubtitle": "Explore a new advertising channel with a team ready to lead the way. Nera helps your brand get started with ChatGPT ads through tailored strategy, campaign setup, creative development, and performance tracking.",
       "appUrl": "",
       "tag": "",
-      "featured": false,
+      "featured": true,
       "hasDetailPage": true,
       "order": 10,
       "icon": "spark",
@@ -615,17 +616,37 @@
         {
           "title": "Advertising Is Changing",
           "body": "People are discovering products and making decisions in ChatGPT. Take an early step with Nera and bring your brand into this new advertising channel.Describe this part of the product.",
-          "points": []
+          "points": [],
+          "image": "https://firebasestorage.googleapis.com/v0/b/nera-innovations.firebasestorage.app/o/site-uploads%2Fnerai-feature-0-1789711816758.png?alt=media&token=e6220091-fa86-4b1a-9624-02ba6386a13e"
         },
         {
           "title": "Be Part of the AI Conversation",
-          "body": "Your next customer could be explaining what they need in ChatGPT right now. Show your brand through relevant ads as they ask questions, compare options, and decide what fits."
+          "body": "Your next customer could be explaining what they need in ChatGPT right now. Show your brand through relevant ads as they ask questions, compare options, and decide what fits.",
+          "image": "https://firebasestorage.googleapis.com/v0/b/nera-innovations.firebasestorage.app/o/site-uploads%2Fnerai-feature-1-1789711637430.png?alt=media&token=a82c066d-b7b1-4bca-bc47-194272871101"
         }
       ],
-      "faqs": [],
+      "faqs": [
+        {
+          "question": "How can we start advertising on ChatGPT?",
+          "answer": "Contact Nera. We’ll discuss your goals, check your eligibility, and help set up your account and first campaign."
+        },
+        {
+          "question": "How much does your service cost?",
+          "answer": "Get in touch for a tailored quote. We’ll recommend a scope based on your needs and clearly separate our management fee from your advertising budget."
+        },
+        {
+          "question": "Are ChatGPT ads right for our business?",
+          "answer": "We’ll review your products or services, target customers, and goals to help you decide whether this channel is a suitable fit."
+        },
+        {
+          "question": "Do we need to manage the campaigns ourselves?",
+          "answer": "No. Nera handles campaign setup, ad content, budget management, and ongoing improvements. You approve the plan, and we keep you informed with clear reports."
+        }
+      ],
       "resourceTitle": "NerAI brief",
       "resourceDescription": "ChatGPT Advertising with Nera Innovations",
-      "ctaLabel": "Learn More"
+      "ctaLabel": "Learn More",
+      "image": "https://firebasestorage.googleapis.com/v0/b/nera-innovations.firebasestorage.app/o/site-uploads%2Fnerai-1789711607678.png?alt=media&token=b39602f3-2ae8-4ec4-8bbe-38e677eced14"
     }
   ]
 }

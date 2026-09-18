@@ -4,8 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useAdmin } from "@/components/admin/AdminProvider";
-import { featuredSystems, hasSystemDetailPage, microSystems, systemDisplayImage, systemHref, useSiteContent } from "@/lib/content";
+import { ReplaceImage } from "@/components/admin/ReplaceImage";
+import {
+  featuredSystems,
+  hasSystemDetailPage,
+  isUploadedAsset,
+  microSystems,
+  systemDisplayImage,
+  systemHref,
+  useSiteContent,
+} from "@/lib/content";
 import { Icon } from "@/lib/icons";
+import { usePatchSystem } from "@/lib/use-patch-system";
 import type { System } from "@/lib/types";
 
 function SystemLink({
@@ -31,6 +41,68 @@ function SystemLink({
     >
       {children}
     </Link>
+  );
+}
+
+function SystemLogo({
+  system,
+  isAdmin,
+}: {
+  system: System;
+  isAdmin: boolean;
+}) {
+  const patch = usePatchSystem(system.id);
+  const contain =
+    !system.logo ||
+    isUploadedAsset(system.logo) ||
+    system.id === "repora" ||
+    system.id === "nera-social";
+
+  return (
+    <span className="relative h-11 w-11 shrink-0">
+      <span
+        className={`relative block h-11 w-11 overflow-hidden rounded-2xl border bg-transparent ${
+          !system.logo && isAdmin ? "border-dashed border-nera/45" : "border-black/6"
+        }`}
+      >
+        {system.logo ? (
+          <Image
+            src={system.logo}
+            alt=""
+            fill
+            sizes="44px"
+            unoptimized={system.logo.startsWith("http")}
+            className={contain ? "object-contain p-1" : "object-cover"}
+          />
+        ) : isAdmin ? null : (
+          <span className="flex h-full w-full items-center justify-center text-sm font-semibold text-nera">
+            {system.name.trim().charAt(0) || "N"}
+          </span>
+        )}
+        <ReplaceImage
+          enabled={isAdmin}
+          compact
+          alwaysVisible={!system.logo}
+          label={system.logo ? "Replace icon" : "Add icon"}
+          slug={`${system.slug}-logo`}
+          onUploaded={(logo) => patch({ logo })}
+        />
+      </span>
+      {isAdmin && system.logo ? (
+        <button
+          type="button"
+          aria-label={`Remove ${system.name} icon`}
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            void patch({ logo: "" });
+          }}
+          className="absolute -top-1.5 -right-1.5 z-30 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white text-nera shadow-sm"
+        >
+          <Icon name="trash" className="h-3 w-3" />
+        </button>
+      ) : null}
+    </span>
   );
 }
 
@@ -61,6 +133,104 @@ function DetailPageToggle({
     >
       <Icon name={enabled ? "page" : "page-off"} className={compact ? "h-3.5 w-3.5" : "h-4 w-4"} />
     </button>
+  );
+}
+
+function MicroSystemChip({
+  system,
+  isAdmin,
+  featuredCount,
+  onToggle,
+  onToggleDetailPage,
+  onDelete,
+}: {
+  system: System;
+  isAdmin: boolean;
+  featuredCount: number;
+  onToggle: (system: System) => void;
+  onToggleDetailPage: (system: System) => void;
+  onDelete: (system: System) => void;
+}) {
+  const patch = usePatchSystem(system.id);
+  const href = systemHref(system);
+  const pillClass =
+    "inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-black/6 bg-white px-4 py-2.5 text-sm font-medium text-ink shadow-sm transition-colors";
+  const mark = system.logo ? (
+    <Image
+      src={system.logo}
+      alt=""
+      width={16}
+      height={16}
+      unoptimized={system.logo.startsWith("http")}
+      className="h-4 w-4 rounded-sm object-contain"
+    />
+  ) : (
+    <Icon name={system.icon} className="h-4 w-4 text-nera" />
+  );
+
+  return (
+    <div className={`relative shrink-0 snap-start ${isAdmin ? "pt-4" : ""}`}>
+      {isAdmin ? (
+        <>
+          <button
+            type="button"
+            aria-label={`Delete ${system.name}`}
+            onClick={() => onDelete(system)}
+            className="absolute top-0 left-1 z-10 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white text-nera shadow-sm"
+          >
+            <Icon name="trash" className="h-3.5 w-3.5" />
+          </button>
+          <div className="absolute top-0 right-1 z-10 flex gap-1">
+            <span className="relative h-6 w-6 overflow-hidden rounded-full bg-white shadow-sm">
+              <ReplaceImage
+                enabled
+                compact
+                alwaysVisible
+                label={`Add icon for ${system.name}`}
+                slug={`${system.slug}-logo`}
+                onUploaded={(logo) => patch({ logo })}
+              />
+            </span>
+            {system.logo ? (
+              <button
+                type="button"
+                aria-label={`Remove ${system.name} icon`}
+                onClick={() => void patch({ logo: "" })}
+                className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white text-nera shadow-sm"
+              >
+                <Icon name="trash" className="h-3.5 w-3.5" />
+              </button>
+            ) : null}
+            <DetailPageToggle system={system} onToggle={onToggleDetailPage} />
+            <button
+              type="button"
+              aria-label="Add to home"
+              disabled={featuredCount >= 4}
+              onClick={() => onToggle(system)}
+              className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white text-nera shadow-sm disabled:opacity-40"
+            >
+              <Icon name="plus" className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        </>
+      ) : null}
+      {href ? (
+        <Link
+          href={href}
+          target={system.kind === "external" ? "_blank" : undefined}
+          rel={system.kind === "external" ? "noreferrer" : undefined}
+          className={`${pillClass} hover:border-nera/40 hover:text-nera`}
+        >
+          {mark}
+          {system.name}
+        </Link>
+      ) : (
+        <span className={`${pillClass} cursor-default`}>
+          {mark}
+          {system.name}
+        </span>
+      )}
+    </div>
   );
 }
 
@@ -145,58 +315,17 @@ function MicroSystemsRail({
             overflowing ? "" : "justify-center"
           }`}
         >
-          {systems.map((system) => {
-            const href = systemHref(system);
-            const pillClass =
-              "inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-black/6 bg-white px-4 py-2.5 text-sm font-medium text-ink shadow-sm transition-colors";
-            return (
-              <div
-                key={system.id}
-                className={`relative shrink-0 snap-start ${isAdmin ? "pt-4" : ""}`}
-              >
-                {isAdmin ? (
-                  <>
-                    <button
-                      type="button"
-                      aria-label={`Delete ${system.name}`}
-                      onClick={() => onDelete(system)}
-                      className="absolute top-0 left-1 z-10 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white text-nera shadow-sm"
-                    >
-                      <Icon name="trash" className="h-3.5 w-3.5" />
-                    </button>
-                    <div className="absolute top-0 right-1 z-10 flex gap-1">
-                      <DetailPageToggle system={system} onToggle={onToggleDetailPage} />
-                      <button
-                        type="button"
-                        aria-label="Add to home"
-                        disabled={featuredCount >= 4}
-                        onClick={() => onToggle(system)}
-                        className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white text-nera shadow-sm disabled:opacity-40"
-                      >
-                        <Icon name="plus" className="h-3.5 w-3.5" />
-                      </button>
-                    </div>
-                  </>
-                ) : null}
-                {href ? (
-                  <Link
-                    href={href}
-                    target={system.kind === "external" ? "_blank" : undefined}
-                    rel={system.kind === "external" ? "noreferrer" : undefined}
-                    className={`${pillClass} hover:border-nera/40 hover:text-nera`}
-                  >
-                    <Icon name={system.icon} className="h-4 w-4 text-nera" />
-                    {system.name}
-                  </Link>
-                ) : (
-                  <span className={`${pillClass} cursor-default`}>
-                    <Icon name={system.icon} className="h-4 w-4 text-nera" />
-                    {system.name}
-                  </span>
-                )}
-              </div>
-            );
-          })}
+          {systems.map((system) => (
+            <MicroSystemChip
+              key={system.id}
+              system={system}
+              isAdmin={isAdmin}
+              featuredCount={featuredCount}
+              onToggle={onToggle}
+              onToggleDetailPage={onToggleDetailPage}
+              onDelete={onDelete}
+            />
+          ))}
         </div>
         <button
           type="button"
@@ -247,81 +376,98 @@ function SystemCard({
   onToggleDetailPage: (system: System) => void;
   onDelete: (system: System) => void;
 }) {
+  const patch = usePatchSystem(system.id);
   const href = systemHref(system);
   const canFeature = system.featured || featuredCount < 4;
+  const src = systemDisplayImage(system) ?? system.image ?? "";
+  const hasImage = Boolean(src) || system.id === "flowin";
+  const uploaded = isUploadedAsset(src);
+  const freeImage = uploaded || system.id === "score";
 
-  return (
-    <article className="card group relative overflow-hidden rounded-[28px] p-6 sm:p-7">
-      <SystemLink
-        system={system}
-        className={`grid gap-5 sm:grid-cols-[minmax(0,1.05fr)_minmax(180px,1fr)] sm:items-center ${
-          href ? "transition-transform hover:-translate-y-0.5" : ""
-        }`}
-      >
-        <div className="flex min-w-0 flex-col">
-          <div className="flex items-center gap-3">
-            <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-2xl border border-black/6 bg-white">
-              {system.logo ? (
-                <Image
-                  src={system.logo}
-                  alt=""
-                  fill
-                  sizes="44px"
-                  className={
-                    system.id === "repora" || system.id === "nera-social"
-                      ? "object-contain p-1"
-                      : "object-cover"
-                  }
-                />
-              ) : null}
-            </span>
-            <h3 className="text-[28px] leading-none font-semibold tracking-tight text-ink">
-              {system.name}
-            </h3>
-          </div>
-          {system.tag ? (
-            <p className="mt-5 text-sm font-medium text-gold">{system.tag}</p>
-          ) : null}
-          <p className="mt-2 flex-1 text-sm leading-6 text-muted">{system.tagline}</p>
+  const body = (
+    <div className="grid h-full flex-1 gap-5 sm:grid-cols-[minmax(0,1.05fr)_minmax(180px,1fr)] sm:items-stretch">
+      <div className="flex h-full min-h-0 min-w-0 flex-col">
+        <div className="flex items-start gap-3">
+          <SystemLogo system={system} isAdmin={isAdmin} />
+          <h3 className="min-w-0 flex-1 pt-1.5 text-[26px] leading-[1.15] font-semibold tracking-tight text-ink sm:text-[28px]">
+            {system.name}
+          </h3>
+        </div>
+        {system.tag ? (
+          <p className="mt-4 min-h-5 text-sm font-medium text-gold">{system.tag}</p>
+        ) : (
+          <div className="mt-4 min-h-5" aria-hidden />
+        )}
+        <p className="mt-2 text-sm leading-6 text-muted">{system.tagline}</p>
+        <div className="mt-auto pt-6">
           {href ? (
-            <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink group-hover:border-nera group-hover:text-nera">
-              {system.kind === "external" ? "Visit" : "View product"}
-              <Icon name="arrow" className="h-4 w-4" />
-            </span>
+            isAdmin ? (
+              <SystemLink
+                system={system}
+                className="inline-flex w-fit items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink hover:border-nera hover:text-nera"
+              >
+                {system.kind === "external" ? "Visit" : "View product"}
+                <Icon name="arrow" className="h-4 w-4" />
+              </SystemLink>
+            ) : (
+              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink group-hover:border-nera group-hover:text-nera">
+                {system.kind === "external" ? "Visit" : "View product"}
+                <Icon name="arrow" className="h-4 w-4" />
+              </span>
+            )
           ) : null}
         </div>
-        {system.image || system.id === "flowin" ? (
-          <div
-            className={
-              system.id === "score"
-                ? "relative min-w-0"
-                : "relative min-w-0 overflow-hidden rounded-[20px]"
-            }
-          >
+      </div>
+      <div className="relative flex min-h-[200px] min-w-0 items-center justify-center">
+        {hasImage ? (
+          <div className={freeImage ? "relative w-full" : "relative w-full overflow-hidden rounded-[20px]"}>
             <Image
-              src={systemDisplayImage(system) ?? system.image ?? ""}
+              src={src}
               alt=""
               width={883}
               height={587}
               sizes="(min-width: 1024px) 22vw, 80vw"
-              unoptimized={
-                system.id === "flowin" || Boolean(system.image?.startsWith("http"))
-              }
+              unoptimized={system.id === "flowin" || src.startsWith("http")}
               className={
                 system.id === "score"
                   ? "h-auto w-full object-contain"
-                  : "block h-auto w-full rounded-[20px] object-cover"
+                  : uploaded
+                    ? "h-auto max-h-[240px] w-full bg-transparent object-contain"
+                    : "block h-auto w-full rounded-[20px] object-cover"
               }
             />
           </div>
         ) : (
-          <span className="inline-flex h-40 items-center justify-center rounded-[22px] bg-sand text-nera">
+          <span className="inline-flex min-h-[180px] items-center justify-center text-nera">
             <Icon name={system.icon} className="h-10 w-10" />
           </span>
         )}
-      </SystemLink>
+        <ReplaceImage
+          enabled={isAdmin}
+          alwaysVisible={!hasImage}
+          label={hasImage ? "Replace image" : "Add image"}
+          slug={`${system.slug}-card`}
+          onUploaded={(image) => patch({ image })}
+        />
+      </div>
+    </div>
+  );
+
+  return (
+    <article
+      className={`card group relative flex h-full flex-col overflow-hidden rounded-[28px] p-6 sm:p-7 ${
+        href ? "transition-transform hover:-translate-y-0.5" : ""
+      }`}
+    >
+      {isAdmin || !href ? (
+        body
+      ) : (
+        <SystemLink system={system} className="block h-full flex-1">
+          {body}
+        </SystemLink>
+      )}
       {isAdmin ? (
-        <div className="absolute bottom-4 right-4 z-10 flex gap-2">
+        <div className="absolute right-4 bottom-4 z-30 flex gap-2">
           <DetailPageToggle
             system={system}
             onToggle={onToggleDetailPage}
@@ -446,7 +592,7 @@ export function Systems() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-5 lg:grid-cols-2">
+        <div className="mt-10 grid items-stretch gap-5 lg:grid-cols-2">
           {featured.map((system) => (
             <SystemCard
               key={system.id}
